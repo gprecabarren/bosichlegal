@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { LogOut } from "lucide-react";
+import { isAdminAuthenticated } from "@/lib/auth";
 import { getSiteContent } from "@/lib/content";
+import { listMembers } from "@/lib/members";
 import { AdminForm } from "./AdminForm";
+import { DeleteMemberButton, MemberEditForm, NewMemberForm } from "./MemberForms";
+import { logoutAction } from "./actions";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -8,17 +14,59 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminPage() {
+  if (!(await isAdminAuthenticated())) {
+    redirect("/admin/login");
+  }
+
   const content = await getSiteContent();
+  const members = await listMembers(content, true);
+  const supabaseReady = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 
   return (
     <section className="admin-page">
       <div className="admin-heading">
-        <p className="eyebrow">Panel privado</p>
-        <h1>Administrar Bosich Legal</h1>
-        <p>Edita los campos principales del sitio, SEO, contacto, redes sociales, servicios y sobre nosotros.</p>
+        <div>
+          <p className="eyebrow">Panel privado</p>
+          <h1>Administrar Bosich Legal</h1>
+          <p>Edita campos principales y administra los miembros del equipo legal.</p>
+        </div>
+        <form action={logoutAction}>
+          <button className="logout-button" type="submit">
+            <LogOut size={16} />
+            Salir
+          </button>
+        </form>
       </div>
+      <section className="admin-members">
+        <div className="section-heading compact">
+          <div>
+            <p className="eyebrow">Equipo legal</p>
+            <h2>Miembros</h2>
+          </div>
+        </div>
+        {!supabaseReady ? (
+          <div className="admin-warning">
+            Supabase todavía no está conectado. El sitio muestra los miembros base, pero el CRUD con fotos se activa cuando se configuren las variables del proyecto Bosich Legal.
+          </div>
+        ) : (
+          <NewMemberForm />
+        )}
+        <div className="member-list">
+          {members.map((member) => (
+            <article className="member-admin-card" key={member.id}>
+              {supabaseReady ? <MemberEditForm member={member} /> : (
+                <div className="member-form">
+                  <h3>{member.name}</h3>
+                  <p className="role">{member.role}</p>
+                  <p>{member.focus}</p>
+                </div>
+              )}
+              {!member.id.startsWith("fallback-") ? <DeleteMemberButton memberId={member.id} /> : null}
+            </article>
+          ))}
+        </div>
+      </section>
       <AdminForm content={content} />
     </section>
   );
 }
-

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
+import { listMembers } from "@/lib/members";
 
 export const metadata: Metadata = {
   title: "Sobre nosotros",
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const content = await getSiteContent();
+  const members = await listMembers(content);
 
   return (
     <>
@@ -31,8 +33,11 @@ export default async function AboutPage() {
           <h2>Áreas y especialidades</h2>
         </div>
         <div className="team-grid">
-          {content.about.team.map((member) => (
+          {members.map((member) => (
             <article className="team-card" key={`${member.name}-${member.role}`}>
+              {member.photo_url ? (
+                <img className="team-photo" src={member.photo_url} alt={member.name} />
+              ) : null}
               <h3>{member.name}</h3>
               <p className="role">{member.role}</p>
               <p>{member.focus}</p>
@@ -44,4 +49,3 @@ export default async function AboutPage() {
     </>
   );
 }
-

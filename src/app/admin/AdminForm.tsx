@@ -15,14 +15,6 @@ export function AdminForm({ content }: { content: SiteContent }) {
   return (
     <form className="admin-form" action={action}>
       <section>
-        <h2>Acceso</h2>
-        <label>
-          Clave admin
-          <input name="password" type="password" required placeholder="ADMIN_PASSWORD" />
-        </label>
-      </section>
-
-      <section>
         <h2>SEO</h2>
         <label>
           Título SEO
@@ -130,4 +122,3 @@ export function AdminForm({ content }: { content: SiteContent }) {
     </form>
   );
 }
-

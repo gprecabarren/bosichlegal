@@ -1,6 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { clearSession, requireAdmin } from "@/lib/auth";
 import { getSiteContent, saveSiteContent } from "@/lib/content";
 import type { SiteContent } from "@/types/site";
 
@@ -22,10 +24,7 @@ function parseServices(raw: FormDataEntryValue | null): SiteContent["services"][
 }
 
 export async function saveAdminContent(_: unknown, formData: FormData) {
-  const password = String(formData.get("password") || "");
-  if (!process.env.ADMIN_PASSWORD || password !== process.env.ADMIN_PASSWORD) {
-    return { ok: false, message: "Clave admin incorrecta o ADMIN_PASSWORD no configurado." };
-  }
+  await requireAdmin();
 
   const current = await getSiteContent();
   const whatsapp = String(formData.get("whatsapp") || current.contact.whatsapp).replace(/\D/g, "");
@@ -84,3 +83,7 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
   return { ok: true, message: "Contenido guardado correctamente." };
 }
 
+export async function logoutAction() {
+  await clearSession();
+  redirect("/admin/login");
+}
