@@ -1,0 +1,183 @@
+{
+  "brand": {
+    "name": "Bosich Legal",
+    "tagline": "Estudio jurídico",
+    "logo": "/assets/logo.jpg"
+  },
+  "contact": {
+    "phone": "+56 9 7911 6808",
+    "whatsapp": "56979116808",
+    "email": "nicolas@bosichlegal.cl",
+    "hours": ["Lunes a viernes: 9:00 - 19:00 horas", "Sábado: 9:00 - 14:00 horas"],
+    "addresses": [
+      "Badajoz 100, Oficina 1014, Las Condes, Santiago.",
+      "Angol 436, Oficina 1004, Concepción.",
+      "Cumbres Valdivianas T-350, Valdivia."
+    ],
+    "social": {
+      "instagram": "",
+      "linkedin": "",
+      "email": "mailto:nicolas@bosichlegal.cl",
+      "whatsapp": "https://wa.me/56979116808"
+    }
+  },
+  "seo": {
+    "title": "Bosich Legal | Abogados en Concepción, Santiago y Valdivia",
+    "description": "Estudio jurídico con servicios legales en Concepción, Santiago y Valdivia. Asesoría en derecho civil, penal, corporativo, ambiental, administrativo y litigios complejos.",
+    "keywords": [
+      "abogados Concepción",
+      "abogado Concepción",
+      "servicios jurídicos",
+      "estudio jurídico Concepción",
+      "abogados Santiago",
+      "abogados Valdivia",
+      "derecho civil",
+      "derecho penal",
+      "derecho corporativo",
+      "derecho ambiental"
+    ]
+  },
+  "home": {
+    "heroTitle": "Servicios jurídicos estratégicos para asuntos complejos",
+    "heroSubtitle": "Asesoría y representación legal para personas, empresas e instituciones, con presencia en Concepción, Santiago y Valdivia.",
+    "heroImage": "/assets/hero-justice.png",
+    "introTitle": "Defensa, prevención y estrategia jurídica",
+    "introText": "Bosich Legal combina estudio técnico, litigación especializada y acompañamiento cercano para entregar soluciones jurídicas claras, oportunas y sostenibles."
+  },
+  "about": {
+    "title": "Sobre nosotros",
+    "heroImage": "/assets/about-banner.png",
+    "paragraphs": [
+      "Nuestro estudio jurídico está integrado por un equipo de abogados con sólida formación académica y una trayectoria profesional sostenida desde el año 2012, caracterizada por el rigor técnico, la dedicación estratégica y el compromiso permanente con los intereses de nuestros clientes.",
+      "Entendemos el derecho no solo como un sistema normativo, sino como una herramienta de planificación, prevención y resolución eficiente de conflictos, orientada a generar soluciones concretas frente a escenarios jurídicos complejos y de alta exigencia.",
+      "Brindamos asesoría y representación tanto a personas naturales como a empresas, desarrollando una práctica integral que abarca el derecho privado, público, penal e internacional.",
+      "Trabajamos con un enfoque preventivo y contencioso, según las necesidades de cada cliente, priorizando la excelencia técnica, la claridad en la comunicación y la búsqueda de resultados eficaces, oportunos y jurídicamente fundamentados."
+    ],
+    "team": [
+      {
+        "name": "Fundador Bosich Legal",
+        "role": "Abogado Universidad Andrés Bello",
+        "focus": "Derecho privado, derecho público y derecho penal."
+      },
+      {
+        "name": "Área Penal y Comercial",
+        "role": "Abogado Universidad Andrés Bello",
+        "focus": "Derecho penal y derecho comercial."
+      },
+      {
+        "name": "Área Inmobiliaria y Registral",
+        "role": "Universidad de las Américas",
+        "focus": "Derecho inmobiliario y registral."
+      },
+      {
+        "name": "Área Pública y Laboral",
+        "role": "Abogado Universidad Andrés Bello",
+        "focus": "Derecho público y derecho laboral."
+      },
+      {
+        "name": "Área Tributaria y Penal",
+        "role": "Abogado Universidad del Desarrollo",
+        "focus": "Derecho penal y derecho tributario."
+      },
+      {
+        "name": "Área Ambiental, Civil y Penal",
+        "role": "Abogado Universidad Andrés Bello",
+        "focus": "Derecho ambiental, civil y penal."
+      },
+      {
+        "name": "Área Familia y Laboral",
+        "role": "Abogada Universidad Andrés Bello",
+        "focus": "Derecho de familia y derecho laboral."
+      },
+      {
+        "name": "Área Derechos Humanos",
+        "role": "Abogada Universidad Andrés Bello",
+        "focus": "Derechos humanos y derecho internacional."
+      },
+      {
+        "name": "Área Laboral y Extranjería",
+        "role": "Abogada Universidad Andrés Bello",
+        "focus": "Derecho laboral, contrato de seguro y ley de extranjería."
+      },
+      {
+        "name": "Área Familia y Civil",
+        "role": "Abogada Universidad Andrés Bello",
+        "focus": "Derecho de familia y derecho civil."
+      },
+      {
+        "name": "Área Accidentes y Fraude Bancario",
+        "role": "Licenciado en Derecho UCSC",
+        "focus": "Accidentes de tránsito y fraude bancario."
+      },
+      {
+        "name": "Área Consumidor y Corporativo",
+        "role": "Abogada UCSC",
+        "focus": "Derecho del consumidor y derecho corporativo."
+      }
+    ]
+  },
+  "services": {
+    "title": "Servicios",
+    "heroImage": "/assets/services-banner.png",
+    "items": [
+      {
+        "title": "Derecho civil de alta complejidad",
+        "details": ["Responsabilidad civil", "Estatutos especiales de responsabilidad civil", "Contratos de alta complejidad", "Acuerdos extrajudiciales", "Arbitrajes"]
+      },
+      {
+        "title": "Derechos humanos y derecho internacional",
+        "details": ["Sistema internacional e interamericano de derechos humanos", "Acciones constitucionales", "Informes en derecho"]
+      },
+      {
+        "title": "Derecho penal de alta complejidad",
+        "details": ["Homicidios, hurtos y lesiones", "Delitos económicos", "Delitos informáticos", "Querellas y defensas"]
+      },
+      {
+        "title": "Derecho público y administrativo sancionador",
+        "details": ["Defensa en sumarios administrativos", "Reclamos y recursos ante la Contraloría General de la República", "Responsabilidad del Estado"]
+      },
+      {
+        "title": "Protección al derecho de propiedad",
+        "details": ["Querellas posesorias y acciones de dominio", "Estudios de título de alta complejidad", "Asesoría en compra y venta de propiedades", "Saneamiento de la pequeña propiedad raíz"]
+      },
+      {
+        "title": "Derecho corporativo y empresa",
+        "details": ["Fusiones y adquisiciones de empresas", "Gobierno corporativo", "Joint ventures", "Private equity", "Mercado de capitales"]
+      },
+      {
+        "title": "Derecho concursal",
+        "details": ["Quiebra de personas y empresas", "Renegociación de personas", "Reorganización de empresas", "Impugnación de créditos"]
+      },
+      {
+        "title": "Derecho ambiental",
+        "details": ["Evaluación de impacto ambiental", "Defensa ante la SMA", "Litigación ante tribunales ambientales"]
+      }
+    ]
+  },
+  "locations": {
+    "title": "Ubicación",
+    "items": [
+      {
+        "city": "Santiago",
+        "address": "Badajoz 100, Oficina 1014, Las Condes, Santiago.",
+        "mapQuery": "Badajoz 100 Oficina 1014 Las Condes Santiago Chile"
+      },
+      {
+        "city": "Concepción",
+        "address": "Angol 436, Oficina 1004, Concepción.",
+        "mapQuery": "Angol 436 Oficina 1004 Concepción Chile"
+      },
+      {
+        "city": "Valdivia",
+        "address": "Cumbres Valdivianas T-350, Valdivia.",
+        "mapQuery": "Cumbres Valdivianas T-350 Valdivia Chile"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Agenda una consulta con Bosich Legal",
+    "text": "Cuéntanos brevemente tu caso y coordinaremos una respuesta jurídica clara y oportuna.",
+    "button": "Contactar por WhatsApp"
+  }
+}
+
