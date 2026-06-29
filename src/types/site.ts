@@ -37,6 +37,7 @@ export type SiteContent = {
       name: string;
       role: string;
       focus: string;
+      photo_url?: string | null;
     }>;
   };
   services: {
@@ -61,4 +62,3 @@ export type SiteContent = {
     button: string;
   };
 };
-

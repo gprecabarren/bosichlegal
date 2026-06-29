@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness, Building2, Scale } from "lucide-react";
 import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
+import { ServiceIcon } from "@/components/ServiceIcon";
 import { getSiteContent } from "@/lib/content";
 
 export default async function HomePage() {
@@ -50,6 +51,7 @@ export default async function HomePage() {
         <div className="service-grid">
           {featured.map((service) => (
             <article className="service-card" key={service.title}>
+              <div className="service-card-icon"><ServiceIcon title={service.title} /></div>
               <h3>{service.title}</h3>
               <ul>
                 {service.details.slice(0, 3).map((detail) => (
@@ -61,7 +63,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="image-band" style={{ backgroundImage: `url(${content.services.heroImage})` }}>
+      <section className="statement-band">
         <div>
           <p className="eyebrow">Estrategia legal</p>
           <h2>Rigor técnico, comunicación clara y defensa activa.</h2>
@@ -72,4 +74,3 @@ export default async function HomePage() {
     </>
   );
 }
-

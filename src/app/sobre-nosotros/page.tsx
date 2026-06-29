@@ -37,8 +37,9 @@ export default async function AboutPage() {
             <article className="team-card" key={`${member.name}-${member.role}`}>
               {member.photo_url ? (
                 <img className="team-photo" src={member.photo_url} alt={member.name} />
-              ) : null}
-              <h3>{member.name}</h3>
+              ) : (
+                <h3>{member.name}</h3>
+              )}
               <p className="role">{member.role}</p>
               <p>{member.focus}</p>
             </article>

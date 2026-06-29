@@ -18,101 +18,115 @@
       "instagram": "",
       "linkedin": "",
       "email": "mailto:nicolas@bosichlegal.cl",
-      "whatsapp": "https://wa.me/56979116808"
+      "whatsapp": "https://wa.me/56979116808?text=Hola%20Bosich%20Legal%2C%20quisiera%20coordinar%20una%20consulta."
     }
   },
   "seo": {
     "title": "Bosich Legal | Abogados en Concepción, Santiago y Valdivia",
-    "description": "Estudio jurídico con servicios legales en Concepción, Santiago y Valdivia. Asesoría en derecho civil, penal, corporativo, ambiental, administrativo y litigios complejos.",
+    "description": "Estudio jurídico con servicios legales en Concepción, Santiago y Valdivia. Asesoría en derecho civil, penal, corporativo, ambiental, administrativo y litigios.",
     "keywords": [
       "abogados Concepción",
-      "abogado Concepción",
+      "abogado penal Concepción",
       "servicios jurídicos",
       "estudio jurídico Concepción",
       "abogados Santiago",
       "abogados Valdivia",
       "derecho civil",
       "derecho penal",
+      "delitos económicos",
+      "delitos informáticos",
       "derecho corporativo",
       "derecho ambiental"
     ]
   },
   "home": {
-    "heroTitle": "Servicios jurídicos estratégicos para asuntos complejos",
-    "heroSubtitle": "Asesoría y representación legal para personas, empresas e instituciones, con presencia en Concepción, Santiago y Valdivia.",
+    "heroTitle": "Servicios jurídicos estratégicos para personas y empresas",
+    "heroSubtitle": "Asesoría, representación judicial y defensa técnica en materias civiles, penales, corporativas, administrativas y ambientales.",
     "heroImage": "/assets/hero-justice.png",
     "introTitle": "Defensa, prevención y estrategia jurídica",
-    "introText": "Bosich Legal combina estudio técnico, litigación especializada y acompañamiento cercano para entregar soluciones jurídicas claras, oportunas y sostenibles."
+    "introText": "Bosich Legal combina análisis técnico, litigación y acompañamiento cercano para entregar soluciones jurídicas claras, oportunas y sostenibles."
   },
   "about": {
     "title": "Sobre nosotros",
     "heroImage": "/assets/about-banner.png",
     "paragraphs": [
       "Nuestro estudio jurídico está integrado por un equipo de abogados con sólida formación académica y una trayectoria profesional sostenida desde el año 2012, caracterizada por el rigor técnico, la dedicación estratégica y el compromiso permanente con los intereses de nuestros clientes.",
-      "Entendemos el derecho no solo como un sistema normativo, sino como una herramienta de planificación, prevención y resolución eficiente de conflictos, orientada a generar soluciones concretas frente a escenarios jurídicos complejos y de alta exigencia.",
+      "Entendemos el derecho como una herramienta de planificación, prevención y resolución eficiente de conflictos, orientada a generar soluciones concretas frente a escenarios jurídicos exigentes.",
       "Brindamos asesoría y representación tanto a personas naturales como a empresas, desarrollando una práctica integral que abarca el derecho privado, público, penal e internacional.",
       "Trabajamos con un enfoque preventivo y contencioso, según las necesidades de cada cliente, priorizando la excelencia técnica, la claridad en la comunicación y la búsqueda de resultados eficaces, oportunos y jurídicamente fundamentados."
     ],
     "team": [
       {
-        "name": "Fundador Bosich Legal",
+        "name": "Nicolás Bosich Medel",
         "role": "Abogado Universidad Andrés Bello",
-        "focus": "Derecho privado, derecho público y derecho penal."
+        "focus": "Fundador Bosich Legal. Dedicado a materias de derecho privado, derecho público y derecho penal.",
+        "photo_url": "/assets/team/nicolas-bosich-medel.png"
       },
       {
-        "name": "Área Penal y Comercial",
+        "name": "Naim Hizmeri Blanco",
         "role": "Abogado Universidad Andrés Bello",
-        "focus": "Derecho penal y derecho comercial."
+        "focus": "Dedicado a materias de derecho penal y derecho comercial.",
+        "photo_url": "/assets/team/naim-hizmeri-blanco.png"
       },
       {
-        "name": "Área Inmobiliaria y Registral",
+        "name": "Maximiliano Díaz Sepúlveda",
         "role": "Universidad de las Américas",
-        "focus": "Derecho inmobiliario y registral."
+        "focus": "Dedicado a materias de derecho inmobiliario y registral.",
+        "photo_url": "/assets/team/maximiliano-diaz-sepulveda.png"
       },
       {
-        "name": "Área Pública y Laboral",
+        "name": "Matías Chamorro Muñoz",
         "role": "Abogado Universidad Andrés Bello",
-        "focus": "Derecho público y derecho laboral."
+        "focus": "Dedicado a materias de derecho público y derecho laboral.",
+        "photo_url": "/assets/team/matias-chamorro-munoz.png"
       },
       {
-        "name": "Área Tributaria y Penal",
+        "name": "Conrado Meza Quiroz",
         "role": "Abogado Universidad del Desarrollo",
-        "focus": "Derecho penal y derecho tributario."
+        "focus": "Dedicado a materias de derecho penal y derecho tributario.",
+        "photo_url": "/assets/team/conrado-meza-quiroz.png"
       },
       {
-        "name": "Área Ambiental, Civil y Penal",
+        "name": "Harif Gárate Rojas",
         "role": "Abogado Universidad Andrés Bello",
-        "focus": "Derecho ambiental, civil y penal."
+        "focus": "Dedicado a materias de derecho ambiental, civil y penal.",
+        "photo_url": "/assets/team/harif-garate-rojas.png"
       },
       {
-        "name": "Área Familia y Laboral",
+        "name": "Camila Sagredo Muñoz",
         "role": "Abogada Universidad Andrés Bello",
-        "focus": "Derecho de familia y derecho laboral."
+        "focus": "Dedicada a materias de derecho de familia y derecho laboral.",
+        "photo_url": "/assets/team/camila-sagredo-munoz.png"
       },
       {
-        "name": "Área Derechos Humanos",
+        "name": "Sara Hernández Cepeda",
         "role": "Abogada Universidad Andrés Bello",
-        "focus": "Derechos humanos y derecho internacional."
+        "focus": "Dedicada a materias de derechos humanos y derecho internacional.",
+        "photo_url": "/assets/team/sara-hernandez-cepeda.png"
       },
       {
-        "name": "Área Laboral y Extranjería",
+        "name": "Claudia Mansilla Muñoz",
         "role": "Abogada Universidad Andrés Bello",
-        "focus": "Derecho laboral, contrato de seguro y ley de extranjería."
+        "focus": "Dedicada a materias de derecho laboral, contrato de seguro y ley de extranjería.",
+        "photo_url": "/assets/team/claudia-mansilla-munoz.png"
       },
       {
-        "name": "Área Familia y Civil",
-        "role": "Abogada Universidad Andrés Bello",
-        "focus": "Derecho de familia y derecho civil."
-      },
-      {
-        "name": "Área Accidentes y Fraude Bancario",
+        "name": "Ricardo Sepúlveda Sepúlveda",
         "role": "Licenciado en Derecho UCSC",
-        "focus": "Accidentes de tránsito y fraude bancario."
+        "focus": "Dedicado a materias de accidentes de tránsito y fraude bancario.",
+        "photo_url": "/assets/team/ricardo-sepulveda-sepulveda.png"
       },
       {
-        "name": "Área Consumidor y Corporativo",
+        "name": "Javiera Fernández Gómez",
+        "role": "Abogada Universidad Andrés Bello",
+        "focus": "Dedicada a materias de derecho de familia y derecho civil.",
+        "photo_url": "/assets/team/javiera-fernandez-gomez.png"
+      },
+      {
+        "name": "Génesis Zúñiga Tapia",
         "role": "Abogada UCSC",
-        "focus": "Derecho del consumidor y derecho corporativo."
+        "focus": "Dedicada a materias de derecho del consumidor y derecho corporativo.",
+        "photo_url": "/assets/team/genesis-zuniga-tapia.png"
       }
     ]
   },
@@ -121,16 +135,16 @@
     "heroImage": "/assets/services-banner.png",
     "items": [
       {
-        "title": "Derecho civil de alta complejidad",
-        "details": ["Responsabilidad civil", "Estatutos especiales de responsabilidad civil", "Contratos de alta complejidad", "Acuerdos extrajudiciales", "Arbitrajes"]
+        "title": "Derecho civil",
+        "details": ["Responsabilidad civil contractual y extracontractual", "Contratos y cumplimiento de obligaciones", "Negociaciones y acuerdos extrajudiciales", "Arbitrajes y litigios civiles"]
       },
       {
         "title": "Derechos humanos y derecho internacional",
         "details": ["Sistema internacional e interamericano de derechos humanos", "Acciones constitucionales", "Informes en derecho"]
       },
       {
-        "title": "Derecho penal de alta complejidad",
-        "details": ["Homicidios, hurtos y lesiones", "Delitos económicos", "Delitos informáticos", "Querellas y defensas"]
+        "title": "Derecho penal",
+        "details": ["Homicidios, lesiones y cuasidelitos", "Delitos económicos e informáticos", "Presentamos querellas", "Asumimos defensas penales y representación en audiencias"]
       },
       {
         "title": "Derecho público y administrativo sancionador",
@@ -138,15 +152,15 @@
       },
       {
         "title": "Protección al derecho de propiedad",
-        "details": ["Querellas posesorias y acciones de dominio", "Estudios de título de alta complejidad", "Asesoría en compra y venta de propiedades", "Saneamiento de la pequeña propiedad raíz"]
+        "details": ["Querellas posesorias y acciones de dominio", "Estudios de título", "Asesoría en compra y venta de propiedades", "Saneamiento de la pequeña propiedad raíz"]
       },
       {
         "title": "Derecho corporativo y empresa",
-        "details": ["Fusiones y adquisiciones de empresas", "Gobierno corporativo", "Joint ventures", "Private equity", "Mercado de capitales"]
+        "details": ["Constitución y reorganización de sociedades", "Gobierno corporativo", "Contratos comerciales", "Fusiones, adquisiciones y operaciones empresariales"]
       },
       {
         "title": "Derecho concursal",
-        "details": ["Quiebra de personas y empresas", "Renegociación de personas", "Reorganización de empresas", "Impugnación de créditos"]
+        "details": ["Liquidación y reorganización de empresas", "Renegociación de personas", "Impugnación de créditos", "Representación de deudores y acreedores"]
       },
       {
         "title": "Derecho ambiental",
@@ -180,4 +194,3 @@
     "button": "Contactar por WhatsApp"
   }
 }
-

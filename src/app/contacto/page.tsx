@@ -28,7 +28,7 @@ export default async function ContactPage() {
           <a href={`mailto:${content.contact.email}`}><Mail /> {content.contact.email}</a>
           <a href={content.contact.social.whatsapp} target="_blank"><MessageCircle /> WhatsApp</a>
         </div>
-        <div className="contact-card">
+        <div className="contact-card hours-card">
           <h2>Horarios de atención</h2>
           {content.contact.hours.map((hour) => (
             <p key={hour}>{hour}</p>
@@ -39,4 +39,3 @@ export default async function ContactPage() {
     </>
   );
 }
-

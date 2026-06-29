@@ -25,9 +25,17 @@ export default async function LocationPage() {
         <div className="location-grid">
           {content.locations.items.map((location) => (
             <article className="location-card" key={location.city}>
-              <MapPin />
-              <h2>{location.city}</h2>
-              <p>{location.address}</p>
+              <iframe
+                title={`Mapa oficina ${location.city}`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(location.mapQuery)}&output=embed`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <div className="location-copy">
+                <MapPin />
+                <h2>{location.city}</h2>
+                <p>{location.address}</p>
+              </div>
               <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.mapQuery)}`} target="_blank">
                 Abrir en Google Maps
                 <ExternalLink size={16} />
@@ -40,4 +48,3 @@ export default async function LocationPage() {
     </>
   );
 }
-

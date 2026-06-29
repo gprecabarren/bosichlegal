@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
+import { ServiceIcon } from "@/components/ServiceIcon";
 import { getSiteContent } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export default async function ServicesPage() {
       <Hero
         eyebrow="Áreas de práctica"
         title="Servicios jurídicos"
-        text="Asesoría preventiva, representación judicial y estrategia legal para asuntos de alta complejidad."
+        text="Asesoría preventiva, representación judicial y estrategia legal para personas, empresas e instituciones."
         image={content.services.heroImage}
       />
       <section className="section">
@@ -28,6 +29,7 @@ export default async function ServicesPage() {
         <div className="service-grid service-grid-wide">
           {content.services.items.map((service) => (
             <article className="service-card" key={service.title}>
+              <div className="service-card-icon"><ServiceIcon title={service.title} /></div>
               <h3>{service.title}</h3>
               <ul>
                 {service.details.map((detail) => (
@@ -42,4 +44,3 @@ export default async function ServicesPage() {
     </>
   );
 }
-

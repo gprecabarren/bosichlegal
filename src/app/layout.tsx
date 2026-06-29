@@ -3,6 +3,7 @@ import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import { getSiteContent, siteUrl } from "@/lib/content";
 import { organizationSchema } from "@/lib/seo";
 import { Footer } from "@/components/Footer";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
@@ -61,6 +62,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <SiteHeader content={content} />
         <main>{children}</main>
+        <FloatingWhatsApp content={content} />
         <Footer content={content} />
         <script
           type="application/ld+json"
@@ -72,4 +74,3 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   );
 }
-

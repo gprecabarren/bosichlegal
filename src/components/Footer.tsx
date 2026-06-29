@@ -13,19 +13,19 @@ export function Footer({ content }: { content: SiteContent }) {
           <p>{content.seo.description}</p>
           <div className="footer-social">
             {social.instagram ? (
-              <a href={social.instagram} aria-label="Instagram" target="_blank">
+              <a className="social-instagram" href={social.instagram} aria-label="Instagram" target="_blank">
                 <Instagram size={18} />
               </a>
             ) : null}
             {social.linkedin ? (
-              <a href={social.linkedin} aria-label="LinkedIn" target="_blank">
+              <a className="social-linkedin" href={social.linkedin} aria-label="LinkedIn" target="_blank">
                 <Linkedin size={18} />
               </a>
             ) : null}
-            <a href={social.email} aria-label="Correo electrónico">
+            <a className="social-mail" href={social.email} aria-label="Correo electrónico">
               <Mail size={18} />
             </a>
-            <a href={social.whatsapp} aria-label="WhatsApp" target="_blank">
+            <a className="social-whatsapp" href={social.whatsapp} aria-label="WhatsApp" target="_blank">
               <MessageCircle size={18} />
             </a>
           </div>
@@ -57,4 +57,3 @@ export function Footer({ content }: { content: SiteContent }) {
     </footer>
   );
 }
-

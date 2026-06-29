@@ -11,7 +11,7 @@ export function fallbackMembers(content: SiteContent): TeamMember[] {
     name: member.name,
     role: member.role,
     focus: member.focus,
-    photo_url: null,
+    photo_url: member.photo_url || null,
     sort_order: index + 1,
     is_active: true,
   }));
@@ -85,4 +85,3 @@ export async function deleteMember(id: string) {
   const { error } = await supabase.from(membersTable).delete().eq("id", id);
   if (error) throw new Error(error.message);
 }
-
