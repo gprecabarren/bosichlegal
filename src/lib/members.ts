@@ -32,7 +32,10 @@ export async function listMembers(content?: SiteContent, includeInactive = false
   }
 
   const { data, error } = await query;
-  if (error) throw new Error(error.message);
+  if (error) {
+    if (content) return fallbackMembers(content);
+    throw new Error(error.message);
+  }
   return (data || []) as TeamMember[];
 }
 
