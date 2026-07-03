@@ -8,11 +8,13 @@ const nav = [
   { href: "/ubicacion", label: "Ubicación" },
   { href: "/sobre-nosotros", label: "Sobre nosotros" },
   { href: "/contacto", label: "Contacto" },
-  { href: "/admin", label: "Admin" },
 ];
+
+const linkedinFallback = "https://www.linkedin.com/company/bosich-legal/";
 
 export function SiteHeader({ content }: { content: SiteContent }) {
   const social = content.contact.social;
+  const linkedinUrl = social.linkedin || linkedinFallback;
 
   return (
     <header className="site-header">
@@ -36,11 +38,9 @@ export function SiteHeader({ content }: { content: SiteContent }) {
             <Instagram size={18} />
           </a>
         ) : null}
-        {social.linkedin ? (
-          <a className="social-linkedin" href={social.linkedin} aria-label="LinkedIn" target="_blank">
-            <Linkedin size={18} />
-          </a>
-        ) : null}
+        <a className="social-linkedin" href={linkedinUrl} aria-label="LinkedIn" target="_blank" rel="noreferrer">
+          <Linkedin size={18} />
+        </a>
         <a className="social-mail" href={social.email} aria-label="Correo electrónico">
           <Mail size={18} />
         </a>

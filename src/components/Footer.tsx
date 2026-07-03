@@ -2,8 +2,20 @@ import Link from "next/link";
 import { Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import type { SiteContent } from "@/types/site";
 
+const linkedinFallback = "https://www.linkedin.com/company/bosich-legal/";
+
+function phoneHref(phone: string) {
+  const compact = phone.replace(/[^\d+]/g, "");
+  return `tel:${compact.startsWith("+") ? compact : `+${compact}`}`;
+}
+
+function mapsHref(query: string) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+}
+
 export function Footer({ content }: { content: SiteContent }) {
   const social = content.contact.social;
+  const linkedinUrl = social.linkedin || linkedinFallback;
 
   return (
     <footer className="footer">
@@ -17,29 +29,29 @@ export function Footer({ content }: { content: SiteContent }) {
                 <Instagram size={18} />
               </a>
             ) : null}
-            {social.linkedin ? (
-              <a className="social-linkedin" href={social.linkedin} aria-label="LinkedIn" target="_blank">
-                <Linkedin size={18} />
-              </a>
-            ) : null}
+            <a className="social-linkedin" href={linkedinUrl} aria-label="LinkedIn" target="_blank" rel="noreferrer">
+              <Linkedin size={18} />
+            </a>
             <a className="social-mail" href={social.email} aria-label="Correo electrónico">
               <Mail size={18} />
             </a>
-            <a className="social-whatsapp" href={social.whatsapp} aria-label="WhatsApp" target="_blank">
+            <a className="social-whatsapp" href={social.whatsapp} aria-label="WhatsApp" target="_blank" rel="noreferrer">
               <MessageCircle size={18} />
             </a>
           </div>
         </div>
         <div>
           <h2>Contacto</h2>
-          <p><Phone size={16} /> {content.contact.phone}</p>
-          <p><Mail size={16} /> {content.contact.email}</p>
-          <p><MessageCircle size={16} /> WhatsApp directo</p>
+          <a href={phoneHref(content.contact.phone)}><Phone size={16} /> {content.contact.phone}</a>
+          <a href={`mailto:${content.contact.email}`}><Mail size={16} /> {content.contact.email}</a>
+          <a href={social.whatsapp} target="_blank" rel="noreferrer"><MessageCircle size={16} /> WhatsApp directo</a>
         </div>
         <div>
           <h2>Oficinas</h2>
-          {content.contact.addresses.map((address) => (
-            <p key={address}><MapPin size={16} /> {address}</p>
+          {content.locations.items.map((location) => (
+            <a key={location.address} href={mapsHref(location.mapQuery)} target="_blank" rel="noreferrer">
+              <MapPin size={16} /> {location.address}
+            </a>
           ))}
         </div>
         <div>
@@ -52,7 +64,6 @@ export function Footer({ content }: { content: SiteContent }) {
       </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Bosich Legal</span>
-        <Link href="/admin">Admin</Link>
       </div>
     </footer>
   );
