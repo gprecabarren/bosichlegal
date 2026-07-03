@@ -36,6 +36,7 @@ export async function notifyContactSubmission(submission: ContactSubmission, con
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
+      "User-Agent": "bosichlegal.cl/1.0",
     },
     body: JSON.stringify({
       from,
