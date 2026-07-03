@@ -21,14 +21,45 @@ create table if not exists public.team_members (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.contact_submissions (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null,
+  phone text,
+  subject text not null,
+  message text not null,
+  status text not null default 'new'
+    check (status in ('new', 'reviewed', 'contacted', 'archived')),
+  source_path text,
+  ip_hash text,
+  user_agent text,
+  email_sent boolean not null default false,
+  email_error text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create unique index if not exists team_members_name_role_unique_idx
   on public.team_members (name, role);
 
 create index if not exists team_members_public_order_idx
   on public.team_members (is_active, sort_order, created_at);
 
+create index if not exists contact_submissions_created_at_idx
+  on public.contact_submissions (created_at desc);
+
+create index if not exists contact_submissions_status_created_idx
+  on public.contact_submissions (status, created_at desc);
+
+create index if not exists contact_submissions_ip_created_idx
+  on public.contact_submissions (ip_hash, created_at desc);
+
+create index if not exists contact_submissions_email_created_idx
+  on public.contact_submissions (email, created_at desc);
+
 alter table public.site_content enable row level security;
 alter table public.team_members enable row level security;
+alter table public.contact_submissions enable row level security;
 
 -- No public table policies are created on purpose.
 -- The Next.js server uses SUPABASE_SERVICE_ROLE_KEY only on the server side.

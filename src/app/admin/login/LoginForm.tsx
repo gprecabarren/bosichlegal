@@ -8,14 +8,30 @@ export function LoginForm() {
   const [state, action, pending] = useActionState(loginAction, null);
 
   return (
-    <form className="login-form" action={action}>
-      <label>
+    <form className="login-form" action={action} autoComplete="on">
+      <label htmlFor="admin-username">
         Usuario
-        <input name="username" autoComplete="username" required />
+        <input
+          id="admin-username"
+          name="username"
+          type="text"
+          autoComplete="username"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
+          inputMode="text"
+          required
+        />
       </label>
-      <label>
+      <label htmlFor="admin-password">
         Clave
-        <input name="password" type="password" autoComplete="current-password" required />
+        <input
+          id="admin-password"
+          name="password"
+          type="password"
+          autoComplete="current-password"
+          required
+        />
       </label>
       <button className="button" type="submit" disabled={pending}>
         <LogIn size={18} />
@@ -25,4 +41,3 @@ export function LoginForm() {
     </form>
   );
 }
-

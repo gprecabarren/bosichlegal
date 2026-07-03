@@ -20,6 +20,7 @@ Esto crea:
 
 - Tabla `site_content`.
 - Tabla `team_members`.
+- Tabla `contact_submissions`.
 - Bucket público `team-member-photos`.
 - RLS activado en tablas.
 - Datos iniciales de integrantes con fotos locales.
@@ -34,15 +35,37 @@ SUPABASE_SERVICE_ROLE_KEY=TU_SERVICE_ROLE_KEY
 SUPABASE_CONTENT_TABLE=site_content
 SUPABASE_MEMBERS_TABLE=team_members
 SUPABASE_MEMBERS_BUCKET=team-member-photos
+SUPABASE_CONTACT_SUBMISSIONS_TABLE=contact_submissions
 ```
 
 La `SUPABASE_SERVICE_ROLE_KEY` debe quedar solo en Vercel y nunca en GitHub.
 
-## 4. Verificar
+## 4. Formulario de contacto
+
+El formulario guarda casos en `contact_submissions` y los muestra en `/admin`.
+Para recibir avisos por correo, configurar un proveedor transaccional como Resend:
+
+```env
+RESEND_API_KEY=
+CONTACT_NOTIFY_EMAIL=nicolas@bosichlegal.cl
+CONTACT_FROM_EMAIL=Bosich Legal <contacto@bosichlegal.cl>
+```
+
+Para captcha real con Cloudflare Turnstile:
+
+```env
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
+CONTACT_IP_SALT=generate-a-long-random-secret
+```
+
+Sin Turnstile configurado, el formulario mantiene honeypot, tiempo mínimo y rate limit por IP/email.
+
+## 5. Verificar
 
 1. Redesplegar en Vercel.
 2. Entrar a `/admin`.
 3. Iniciar sesión.
 4. Crear, editar, ordenar, activar/desactivar o borrar integrantes.
 5. Probar carga de foto.
-
+6. Enviar un caso desde `/contacto` y revisarlo en `/admin`.

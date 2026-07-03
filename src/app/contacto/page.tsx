@@ -3,6 +3,7 @@ import { Mail, MessageCircle, Phone } from "lucide-react";
 import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
+import { ContactCaseForm } from "./ContactCaseForm";
 
 export const metadata: Metadata = {
   title: "Contacto",
@@ -20,8 +21,10 @@ export default async function ContactPage() {
         title="Contacto"
         text="Cuéntanos qué necesitas y coordinaremos la mejor forma de ayudarte."
         image={content.home.heroImage}
+        compact
       />
       <section className="section contact-layout">
+        <ContactCaseForm />
         <div className="contact-card">
           <h2>Información de contacto</h2>
           <a href={`tel:${content.contact.phone.replaceAll(" ", "")}`}><Phone /> {content.contact.phone}</a>

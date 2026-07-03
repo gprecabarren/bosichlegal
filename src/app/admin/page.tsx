@@ -3,8 +3,10 @@ import { redirect } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { isAdminAuthenticated } from "@/lib/auth";
 import { getSiteContent } from "@/lib/content";
+import { listContactSubmissions } from "@/lib/contact-submissions";
 import { listMembers } from "@/lib/members";
 import { AdminForm } from "./AdminForm";
+import { AdminContacts } from "./AdminContacts";
 import { DeleteMemberButton, MemberEditForm, NewMemberForm } from "./MemberForms";
 import { logoutAction } from "./actions";
 
@@ -20,6 +22,7 @@ export default async function AdminPage() {
 
   const content = await getSiteContent();
   const members = await listMembers(content, true);
+  const contactSubmissions = await listContactSubmissions();
   const supabaseReady = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 
   return (
@@ -66,6 +69,7 @@ export default async function AdminPage() {
           ))}
         </div>
       </section>
+      <AdminContacts submissions={contactSubmissions} />
       <AdminForm content={content} />
     </section>
   );
