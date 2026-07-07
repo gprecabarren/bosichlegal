@@ -51,6 +51,16 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
       title: String(formData.get("seoTitle") || current.seo.title),
       description: String(formData.get("seoDescription") || current.seo.description),
       keywords: lines(formData.get("keywords")),
+      googleSiteVerification: String(formData.get("googleSiteVerification") || "").trim(),
+    },
+    integrations: {
+      ...current.integrations,
+      searchConsoleProperty: String(formData.get("searchConsoleProperty") || "").trim(),
+      contactNotifyEmail: String(formData.get("contactNotifyEmail") || "").trim(),
+      contactFromEmail: String(formData.get("contactFromEmail") || "").trim(),
+      turnstileSiteKey: String(formData.get("turnstileSiteKey") || "").trim(),
+      corporateEmailProvider: String(formData.get("corporateEmailProvider") || "").trim(),
+      corporateEmailNotes: String(formData.get("corporateEmailNotes") || "").trim(),
     },
     home: {
       ...current.home,

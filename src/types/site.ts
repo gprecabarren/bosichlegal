@@ -21,6 +21,15 @@ export type SiteContent = {
     title: string;
     description: string;
     keywords: string[];
+    googleSiteVerification?: string;
+  };
+  integrations?: {
+    searchConsoleProperty?: string;
+    contactNotifyEmail?: string;
+    contactFromEmail?: string;
+    turnstileSiteKey?: string;
+    corporateEmailProvider?: string;
+    corporateEmailNotes?: string;
   };
   home: {
     heroTitle: string;

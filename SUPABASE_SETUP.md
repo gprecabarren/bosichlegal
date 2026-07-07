@@ -65,7 +65,31 @@ CONTACT_IP_SALT=generate-a-long-random-secret
 
 Sin Turnstile configurado, el formulario mantiene honeypot, tiempo mínimo y rate limit por IP/email.
 
-## 5. Noticias
+## 5. Google Search Console
+
+En `/admin`, pestaña `Contenido del sitio`, sección `SEO`, pegar solo el valor del atributo `content` del meta tag:
+
+```html
+<meta name="google-site-verification" content="ESTE_VALOR" />
+```
+
+El sitio lo publicará automáticamente como meta tag global. También existe `sitemap.xml` en:
+
+```text
+https://bosichlegal.cl/sitemap.xml
+```
+
+## 6. Correos corporativos y alertas
+
+En `/admin`, sección `Configuración técnica`, dejar configurado:
+
+- Correo que recibe solicitudes de contacto.
+- Remitente de notificaciones.
+- Notas DNS/correos corporativos.
+
+Para que los correos salgan realmente, Vercel debe tener `RESEND_API_KEY` y el dominio debe estar verificado en Resend con sus registros DNS.
+
+## 7. Noticias
 
 La sección `/noticias` muestra solo publicaciones con estado `Publicado`.
 Desde `/admin`, el administrador puede:
@@ -77,7 +101,7 @@ Desde `/admin`, el administrador puede:
 
 El contenido HTML se sanea en servidor antes de guardarse.
 
-## 6. Verificar
+## 8. Verificar
 
 1. Redesplegar en Vercel.
 2. Entrar a `/admin`.

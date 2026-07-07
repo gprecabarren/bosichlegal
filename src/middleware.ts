@@ -3,18 +3,31 @@ import { NextRequest, NextResponse } from "next/server";
 const canonicalHost = "bosichlegal.cl";
 const vercelHost = "bosichlegal.vercel.app";
 
+function withSecurityHeaders(response: NextResponse, pathname: string) {
+  response.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  if (pathname.startsWith("/admin")) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
+  return response;
+}
+
 export function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.toLowerCase().split(":")[0];
+  const pathname = request.nextUrl.pathname;
 
   if (host === vercelHost) {
     const url = request.nextUrl.clone();
     url.protocol = "https";
     url.hostname = canonicalHost;
     url.port = "";
-    return NextResponse.redirect(url, 308);
+    return withSecurityHeaders(NextResponse.redirect(url, 308), pathname);
   }
 
-  return NextResponse.next();
+  return withSecurityHeaders(NextResponse.next(), pathname);
 }
 
 export const config = {

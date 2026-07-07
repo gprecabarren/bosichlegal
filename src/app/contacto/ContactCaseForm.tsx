@@ -16,10 +16,10 @@ const subjects = [
   "Otra materia",
 ];
 
-export function ContactCaseForm() {
+export function ContactCaseForm({ turnstileSiteKey }: { turnstileSiteKey?: string }) {
   const [state, action, pending] = useActionState(submitContactCase, null);
   const startedAt = useMemo(() => Date.now(), []);
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const siteKey = turnstileSiteKey || process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
   return (
     <form className="contact-form" action={action}>
@@ -78,10 +78,10 @@ export function ContactCaseForm() {
         Autorizo a Bosich Legal a contactarme por este caso. Este formulario no constituye patrocinio ni representación legal hasta que exista una aceptación expresa del estudio.
       </label>
 
-      {turnstileSiteKey ? (
+      {siteKey ? (
         <>
           <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
-          <div className="cf-turnstile" data-sitekey={turnstileSiteKey} />
+          <div className="cf-turnstile" data-sitekey={siteKey} />
         </>
       ) : null}
 

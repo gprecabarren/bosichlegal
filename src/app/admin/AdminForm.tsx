@@ -28,6 +28,71 @@ export function AdminForm({ content }: { content: SiteContent }) {
           Keywords, una por línea
           <textarea name="keywords" defaultValue={content.seo.keywords.join("\n")} rows={8} />
         </label>
+        <label>
+          Token Google Search Console
+          <input
+            name="googleSiteVerification"
+            defaultValue={content.seo.googleSiteVerification || ""}
+            placeholder="Solo el valor del content, no el meta completo"
+          />
+        </label>
+      </section>
+
+      <section>
+        <h2>Configuración técnica</h2>
+        <p className="admin-help">
+          Estos campos preparan Search Console, correos corporativos y Turnstile. Las claves privadas se configuran en Vercel, no aquí.
+        </p>
+        <label>
+          Propiedad de Search Console
+          <input
+            name="searchConsoleProperty"
+            defaultValue={content.integrations?.searchConsoleProperty || "https://bosichlegal.cl/"}
+            placeholder="https://bosichlegal.cl/"
+          />
+        </label>
+        <label>
+          Correo que recibe solicitudes de contacto
+          <input
+            name="contactNotifyEmail"
+            type="email"
+            defaultValue={content.integrations?.contactNotifyEmail || content.contact.email}
+            placeholder="nicolas@bosichlegal.cl"
+          />
+        </label>
+        <label>
+          Remitente de notificaciones
+          <input
+            name="contactFromEmail"
+            defaultValue={content.integrations?.contactFromEmail || "Bosich Legal <contacto@bosichlegal.cl>"}
+            placeholder="Bosich Legal <contacto@bosichlegal.cl>"
+          />
+        </label>
+        <label>
+          Cloudflare Turnstile site key pública
+          <input
+            name="turnstileSiteKey"
+            defaultValue={content.integrations?.turnstileSiteKey || ""}
+            placeholder="0x4AAAA..."
+          />
+        </label>
+        <label>
+          Proveedor de correo corporativo
+          <input
+            name="corporateEmailProvider"
+            defaultValue={content.integrations?.corporateEmailProvider || ""}
+            placeholder="GoDaddy, cPanel, Google Workspace, Zoho..."
+          />
+        </label>
+        <label>
+          Notas DNS/correos corporativos
+          <textarea
+            name="corporateEmailNotes"
+            defaultValue={content.integrations?.corporateEmailNotes || ""}
+            rows={4}
+            placeholder="MX actual, SPF, DKIM, DMARC o pasos pendientes."
+          />
+        </label>
       </section>
 
       <section>

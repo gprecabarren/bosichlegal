@@ -31,6 +31,9 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: content.seo.description,
     keywords: content.seo.keywords,
+    verification: content.seo.googleSiteVerification
+      ? { google: content.seo.googleSiteVerification }
+      : undefined,
     alternates: { canonical: "/" },
     openGraph: {
       type: "website",

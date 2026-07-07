@@ -516,6 +516,7 @@ p {
   background: #fff;
   color: var(--ink);
   font: inherit;
+  font-weight: 400;
 }
 
 .contact-form textarea {
@@ -595,6 +596,26 @@ p {
   color: rgba(255, 255, 255, 0.72);
 }
 
+.footer .footer-social {
+  margin-top: 18px;
+}
+
+.footer .footer-social a {
+  display: inline-grid;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+.footer .footer-social svg {
+  width: 20px;
+  height: 20px;
+}
+
 .footer-bottom {
   display: flex;
   justify-content: space-between;
@@ -645,12 +666,14 @@ p {
 }
 
 .admin-form input,
+.admin-form select,
 .admin-form textarea {
   width: 100%;
   border: 1px solid #d8d1c5;
   padding: 12px;
   color: var(--ink);
   font: inherit;
+  font-weight: 400;
 }
 
 .admin-form textarea {
@@ -775,6 +798,7 @@ p {
   padding: 12px;
   color: var(--ink);
   font: inherit;
+  font-weight: 400;
 }
 
 .admin-members {
@@ -843,6 +867,7 @@ p {
   padding: 12px;
   color: var(--ink);
   font: inherit;
+  font-weight: 400;
 }
 
 .rich-editor {

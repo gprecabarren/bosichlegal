@@ -28,8 +28,8 @@ export async function notifyContactSubmission(submission: ContactSubmission, con
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return { skipped: true, error: "RESEND_API_KEY no configurada" };
 
-  const to = process.env.CONTACT_NOTIFY_EMAIL || content.contact.email;
-  const from = process.env.CONTACT_FROM_EMAIL || "Bosich Legal <contacto@bosichlegal.cl>";
+  const to = content.integrations?.contactNotifyEmail || process.env.CONTACT_NOTIFY_EMAIL || content.contact.email;
+  const from = content.integrations?.contactFromEmail || process.env.CONTACT_FROM_EMAIL || "Bosich Legal <contacto@bosichlegal.cl>";
 
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",

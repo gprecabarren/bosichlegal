@@ -24,7 +24,7 @@ export default async function ContactPage() {
         compact
       />
       <section className="section contact-layout">
-        <ContactCaseForm />
+        <ContactCaseForm turnstileSiteKey={content.integrations?.turnstileSiteKey} />
         <div className="contact-card">
           <h2>Información de contacto</h2>
           <a href={`tel:${content.contact.phone.replaceAll(" ", "")}`}><Phone /> {content.contact.phone}</a>
