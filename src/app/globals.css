@@ -859,6 +859,13 @@ p {
   font-weight: 700;
 }
 
+.news-admin-form .field-label {
+  display: grid;
+  gap: 6px;
+  color: #333942;
+  font-weight: 700;
+}
+
 .news-admin-form input,
 .news-admin-form select,
 .news-admin-form textarea {
@@ -893,7 +900,7 @@ p {
   background: #fff;
   color: var(--ink);
   font: inherit;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .editor-toolbar button {

@@ -82,8 +82,49 @@ alter table public.team_members enable row level security;
 alter table public.contact_submissions enable row level security;
 alter table public.news_posts enable row level security;
 
--- No public table policies are created on purpose.
+drop policy if exists "No public access" on public.site_content;
+create policy "No public access"
+  on public.site_content
+  for all
+  to anon, authenticated
+  using (false)
+  with check (false);
+
+drop policy if exists "No public access" on public.team_members;
+create policy "No public access"
+  on public.team_members
+  for all
+  to anon, authenticated
+  using (false)
+  with check (false);
+
+drop policy if exists "No public access" on public.contact_submissions;
+create policy "No public access"
+  on public.contact_submissions
+  for all
+  to anon, authenticated
+  using (false)
+  with check (false);
+
+drop policy if exists "No public access" on public.news_posts;
+create policy "No public access"
+  on public.news_posts
+  for all
+  to anon, authenticated
+  using (false)
+  with check (false);
+
+do $$
+begin
+  if to_regprocedure('public.rls_auto_enable()') is not null then
+    revoke execute on function public.rls_auto_enable() from public;
+    revoke execute on function public.rls_auto_enable() from anon;
+    revoke execute on function public.rls_auto_enable() from authenticated;
+  end if;
+end $$;
+
 -- The Next.js server uses SUPABASE_SERVICE_ROLE_KEY only on the server side.
+-- Public REST access is explicitly denied by RLS policies.
 
 insert into public.site_content (id, content)
 values ('main', '{}'::jsonb)

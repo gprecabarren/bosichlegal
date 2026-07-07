@@ -10,7 +10,7 @@ type ActionState = { ok: boolean; message: string } | null;
 
 function RichTextEditor({ name, defaultValue = "" }: { name: string; defaultValue?: string }) {
   const editorRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const initialHtml = defaultValue || "<p></p>";
 
   function sync() {
@@ -55,7 +55,7 @@ function RichTextEditor({ name, defaultValue = "" }: { name: string; defaultValu
 
   return (
     <div className="rich-editor">
-      <textarea ref={inputRef} className="sr-only" name={name} defaultValue={initialHtml} tabIndex={-1} />
+      <input ref={inputRef} type="hidden" name={name} defaultValue={initialHtml} />
       <div className="editor-toolbar" aria-label="Herramientas de edición">
         <select aria-label="Formato" onChange={(event) => command("formatBlock", event.target.value)} defaultValue="p">
           <option value="p">Párrafo</option>
@@ -82,6 +82,10 @@ function RichTextEditor({ name, defaultValue = "" }: { name: string; defaultValu
         ref={editorRef}
         className="editor-surface"
         contentEditable
+        role="textbox"
+        tabIndex={0}
+        aria-label="Contenido de la noticia"
+        spellCheck
         suppressContentEditableWarning
         onInput={sync}
         onBlur={sync}
@@ -129,10 +133,10 @@ function NewsForm({ post }: { post?: NewsPost }) {
           <option value="published">Publicado</option>
         </select>
       </label>
-      <label>
-        Contenido
+      <div className="field-label">
+        <span>Contenido</span>
         <RichTextEditor name="content_html" defaultValue={post?.content_html || "<p>Escribe la noticia aquí.</p>"} />
-      </label>
+      </div>
       <div className="admin-actions">
         <SubmitButton label={post ? "Actualizar noticia" : "Crear noticia"} />
         {state?.message ? <p className={state.ok ? "admin-success" : "admin-error"}>{state.message}</p> : null}
