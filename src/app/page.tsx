@@ -4,9 +4,10 @@ import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { getSiteContent } from "@/lib/content";
+import { listNewsPosts } from "@/lib/news";
 
 export default async function HomePage() {
-  const content = await getSiteContent();
+  const [content, latestNews] = await Promise.all([getSiteContent(), listNewsPosts({ limit: 3 })]);
   const featured = content.services.items.slice(0, 4);
 
   return (
@@ -69,6 +70,32 @@ export default async function HomePage() {
           <h2>Rigor técnico, comunicación clara y defensa activa.</h2>
         </div>
       </section>
+
+      {latestNews.length > 0 ? (
+        <section className="section">
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">Noticias</p>
+              <h2>Actualidad jurídica</h2>
+            </div>
+            <Link href="/noticias">Ver noticias <ArrowRight size={16} /></Link>
+          </div>
+          <div className="news-grid news-grid-compact">
+            {latestNews.map((post) => (
+              <article className="news-card" key={post.id}>
+                {post.cover_image_url ? <img src={post.cover_image_url} alt={post.title} /> : null}
+                <div>
+                  <h3>{post.title}</h3>
+                  <p>{post.excerpt}</p>
+                  <Link href={`/noticias/${post.slug}`}>
+                    Leer noticia <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <ContactCta content={content} />
     </>

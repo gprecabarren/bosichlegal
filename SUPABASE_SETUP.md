@@ -21,7 +21,9 @@ Esto crea:
 - Tabla `site_content`.
 - Tabla `team_members`.
 - Tabla `contact_submissions`.
+- Tabla `news_posts`.
 - Bucket público `team-member-photos`.
+- Bucket público `news-images`.
 - RLS activado en tablas.
 - Datos iniciales de integrantes con fotos locales.
 
@@ -36,6 +38,8 @@ SUPABASE_CONTENT_TABLE=site_content
 SUPABASE_MEMBERS_TABLE=team_members
 SUPABASE_MEMBERS_BUCKET=team-member-photos
 SUPABASE_CONTACT_SUBMISSIONS_TABLE=contact_submissions
+SUPABASE_NEWS_POSTS_TABLE=news_posts
+SUPABASE_NEWS_IMAGES_BUCKET=news-images
 ```
 
 La `SUPABASE_SERVICE_ROLE_KEY` debe quedar solo en Vercel y nunca en GitHub.
@@ -61,7 +65,19 @@ CONTACT_IP_SALT=generate-a-long-random-secret
 
 Sin Turnstile configurado, el formulario mantiene honeypot, tiempo mínimo y rate limit por IP/email.
 
-## 5. Verificar
+## 5. Noticias
+
+La sección `/noticias` muestra solo publicaciones con estado `Publicado`.
+Desde `/admin`, el administrador puede:
+
+- Crear noticias como borrador o publicadas.
+- Editar título, slug, bajada, imagen destacada y contenido.
+- Usar formato básico: H1, H2, H3, negrita, cursiva, subrayado, listas, citas, enlaces e imágenes por URL.
+- Eliminar publicaciones.
+
+El contenido HTML se sanea en servidor antes de guardarse.
+
+## 6. Verificar
 
 1. Redesplegar en Vercel.
 2. Entrar a `/admin`.
@@ -69,3 +85,4 @@ Sin Turnstile configurado, el formulario mantiene honeypot, tiempo mínimo y rat
 4. Crear, editar, ordenar, activar/desactivar o borrar integrantes.
 5. Probar carga de foto.
 6. Enviar un caso desde `/contacto` y revisarlo en `/admin`.
+7. Crear una noticia, publicarla y revisarla en `/noticias`.

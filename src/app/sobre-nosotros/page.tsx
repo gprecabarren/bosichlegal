@@ -20,7 +20,7 @@ export default async function AboutPage() {
         eyebrow="Trayectoria desde 2012"
         title={content.about.title}
         text="Un equipo jurídico con enfoque técnico, preventivo y contencioso."
-        image={content.home.heroImage}
+        image="/assets/about-banner-clean.png"
         compact
       />
       <section className="section content-flow">

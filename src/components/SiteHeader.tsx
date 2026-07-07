@@ -5,6 +5,7 @@ import type { SiteContent } from "@/types/site";
 const nav = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
+  { href: "/noticias", label: "Noticias" },
   { href: "/ubicacion", label: "Ubicación" },
   { href: "/sobre-nosotros", label: "Sobre nosotros" },
   { href: "/contacto", label: "Contacto" },
@@ -34,7 +35,7 @@ export function SiteHeader({ content }: { content: SiteContent }) {
       </nav>
       <div className="social-links" aria-label="Redes sociales y contacto">
         {social.instagram ? (
-          <a className="social-instagram" href={social.instagram} aria-label="Instagram" target="_blank">
+          <a className="social-instagram" href={social.instagram} aria-label="Instagram" target="_blank" rel="noreferrer">
             <Instagram size={18} />
           </a>
         ) : null}
@@ -44,7 +45,7 @@ export function SiteHeader({ content }: { content: SiteContent }) {
         <a className="social-mail" href={social.email} aria-label="Correo electrónico">
           <Mail size={18} />
         </a>
-        <a className="social-whatsapp" href={social.whatsapp} aria-label="WhatsApp" target="_blank">
+        <a className="social-whatsapp" href={social.whatsapp} aria-label="WhatsApp" target="_blank" rel="noreferrer">
           <MessageCircle size={18} />
         </a>
         <a className="social-admin" href="/admin" aria-label="Panel de administración">

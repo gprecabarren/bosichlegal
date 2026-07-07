@@ -39,6 +39,20 @@ create table if not exists public.contact_submissions (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.news_posts (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  slug text not null unique,
+  excerpt text,
+  content_html text not null,
+  cover_image_url text,
+  status text not null default 'draft'
+    check (status in ('draft', 'published')),
+  published_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create unique index if not exists team_members_name_role_unique_idx
   on public.team_members (name, role);
 
@@ -57,9 +71,16 @@ create index if not exists contact_submissions_ip_created_idx
 create index if not exists contact_submissions_email_created_idx
   on public.contact_submissions (email, created_at desc);
 
+create index if not exists news_posts_status_published_idx
+  on public.news_posts (status, published_at desc, created_at desc);
+
+create index if not exists news_posts_slug_idx
+  on public.news_posts (slug);
+
 alter table public.site_content enable row level security;
 alter table public.team_members enable row level security;
 alter table public.contact_submissions enable row level security;
+alter table public.news_posts enable row level security;
 
 -- No public table policies are created on purpose.
 -- The Next.js server uses SUPABASE_SERVICE_ROLE_KEY only on the server side.
@@ -74,6 +95,19 @@ values (
   'team-member-photos',
   true,
   4194304,
+  array['image/png', 'image/jpeg', 'image/webp']
+)
+on conflict (id) do update
+set public = excluded.public,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'news-images',
+  'news-images',
+  true,
+  5242880,
   array['image/png', 'image/jpeg', 'image/webp']
 )
 on conflict (id) do update

@@ -5,8 +5,10 @@ import { isAdminAuthenticated } from "@/lib/auth";
 import { getSiteContent } from "@/lib/content";
 import { listContactSubmissions } from "@/lib/contact-submissions";
 import { listMembers } from "@/lib/members";
+import { listNewsPosts } from "@/lib/news";
 import { AdminForm } from "./AdminForm";
 import { AdminContacts } from "./AdminContacts";
+import { AdminNews } from "./AdminNews";
 import { DeleteMemberButton, MemberEditForm, NewMemberForm } from "./MemberForms";
 import { logoutAction } from "./actions";
 
@@ -23,6 +25,7 @@ export default async function AdminPage() {
   const content = await getSiteContent();
   const members = await listMembers(content, true);
   const contactSubmissions = await listContactSubmissions();
+  const newsPosts = await listNewsPosts({ includeDrafts: true });
   const supabaseReady = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
 
   return (
@@ -69,6 +72,7 @@ export default async function AdminPage() {
           ))}
         </div>
       </section>
+      <AdminNews posts={newsPosts} supabaseReady={supabaseReady} />
       <AdminContacts submissions={contactSubmissions} />
       <AdminForm content={content} />
     </section>
