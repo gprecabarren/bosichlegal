@@ -1,9 +1,9 @@
 "use client";
 
 import { useActionState } from "react";
-import { Trash2, Upload } from "lucide-react";
+import { ArrowDown, ArrowUp, GripVertical, Trash2, Upload } from "lucide-react";
 import type { TeamMember } from "@/types/member";
-import { createMemberAction, deleteMemberAction, updateMemberAction } from "./member-actions";
+import { createMemberAction, deleteMemberAction, moveMemberAction, updateMemberAction } from "./member-actions";
 
 function StatusMessage({ state }: { state: { ok: boolean; message: string } | null }) {
   return state?.message ? <p className={state.ok ? "admin-success" : "admin-error"}>{state.message}</p> : null;
@@ -27,10 +27,6 @@ export function NewMemberForm() {
         Especialidad
         <textarea name="focus" rows={3} required />
       </label>
-      <label>
-        Orden
-        <input name="sort_order" type="number" defaultValue={100} min={1} />
-      </label>
       <label className="checkbox-label">
         <input name="is_active" type="checkbox" defaultChecked />
         Visible en el sitio
@@ -48,12 +44,33 @@ export function NewMemberForm() {
   );
 }
 
-export function MemberEditForm({ member }: { member: TeamMember }) {
+export function MemberOrderControls({ position, total }: { position: number; total: number }) {
+  return (
+    <div className="member-order-controls" aria-label="Orden del miembro">
+      <span className="member-position">
+        <GripVertical size={16} />
+        {position} de {total}
+      </span>
+      <button formAction={moveMemberAction} name="direction" value="up" type="submit" disabled={position <= 1} title="Subir miembro">
+        <ArrowUp size={16} />
+        Subir
+      </button>
+      <button formAction={moveMemberAction} name="direction" value="down" type="submit" disabled={position >= total} title="Bajar miembro">
+        <ArrowDown size={16} />
+        Bajar
+      </button>
+    </div>
+  );
+}
+
+export function MemberEditForm({ member, position, total }: { member: TeamMember; position: number; total: number }) {
   const [state, action, pending] = useActionState(updateMemberAction, null);
 
   return (
     <form className="member-form" action={action}>
       <input name="id" type="hidden" value={member.id} />
+      <input name="sort_order" type="hidden" value={member.sort_order} />
+      <MemberOrderControls position={position} total={total} />
       <div className="member-photo">
         {member.photo_url ? <img src={member.photo_url} alt={member.name} /> : <span>Sin foto</span>}
       </div>
@@ -68,10 +85,6 @@ export function MemberEditForm({ member }: { member: TeamMember }) {
       <label>
         Especialidad
         <textarea name="focus" defaultValue={member.focus} rows={3} required />
-      </label>
-      <label>
-        Orden
-        <input name="sort_order" type="number" defaultValue={member.sort_order} min={1} />
       </label>
       <label className="checkbox-label">
         <input name="is_active" type="checkbox" defaultChecked={member.is_active} />
