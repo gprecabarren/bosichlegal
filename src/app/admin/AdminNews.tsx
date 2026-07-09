@@ -1,22 +1,56 @@
 "use client";
 
-import { useActionState, useRef } from "react";
+import { useActionState, useEffect, useRef } from "react";
 import { ImagePlus, Italic, LinkIcon, List, ListOrdered, Quote, Trash2, Type, Underline } from "lucide-react";
-import type { NewsPost } from "@/types/news";
+import type { NewsActionState, NewsFormValues, NewsPost } from "@/types/news";
 import { createNewsAction, deleteNewsAction, updateNewsAction } from "./news-actions";
 import { SubmitButton } from "./SubmitButton";
 
-type ActionState = { ok: boolean; message: string } | null;
+const editorPlaceholder = "Escribe la noticia aquí.";
 
-function RichTextEditor({ name, defaultValue = "" }: { name: string; defaultValue?: string }) {
+function htmlText(html: string) {
+  if (typeof document === "undefined") {
+    return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  }
+
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.textContent?.replace(/\s+/g, " ").trim() || "";
+}
+
+function normalizeInitialHtml(value: string) {
+  const trimmed = value.trim();
+  return htmlText(trimmed) === editorPlaceholder ? "" : trimmed;
+}
+
+function RichTextEditor({
+  name,
+  defaultValue = "",
+  placeholder = editorPlaceholder,
+}: {
+  name: string;
+  defaultValue?: string;
+  placeholder?: string;
+}) {
   const editorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const initialHtml = defaultValue || "<p></p>";
+  const initialHtml = normalizeInitialHtml(defaultValue);
+
+  function isEmpty(editor: HTMLDivElement) {
+    return !editor.textContent?.trim() && editor.querySelectorAll("img").length === 0;
+  }
+
+  function refreshEmptyState() {
+    const editor = editorRef.current;
+    if (!editor) return;
+    editor.dataset.empty = isEmpty(editor) ? "true" : "false";
+  }
 
   function sync() {
     if (inputRef.current) {
       inputRef.current.value = editorRef.current?.innerHTML || "";
     }
+    refreshEmptyState();
   }
 
   function command(action: string, value?: string) {
@@ -42,6 +76,7 @@ function RichTextEditor({ name, defaultValue = "" }: { name: string; defaultValu
     command("fontSize", value);
     const editor = editorRef.current;
     if (!editor) return;
+
     editor.querySelectorAll("font[size]").forEach((font) => {
       const size = font.getAttribute("size");
       const span = document.createElement("span");
@@ -52,6 +87,13 @@ function RichTextEditor({ name, defaultValue = "" }: { name: string; defaultValu
     });
     sync();
   }
+
+  useEffect(() => {
+    const editor = editorRef.current;
+    if (!editor) return;
+    editor.innerHTML = initialHtml;
+    sync();
+  }, [initialHtml]);
 
   return (
     <div className="rich-editor">
@@ -85,36 +127,60 @@ function RichTextEditor({ name, defaultValue = "" }: { name: string; defaultValu
         role="textbox"
         tabIndex={0}
         aria-label="Contenido de la noticia"
+        data-empty={initialHtml ? "false" : "true"}
+        data-placeholder={placeholder}
         spellCheck
         suppressContentEditableWarning
+        onFocus={() => {
+          const editor = editorRef.current;
+          if (editor && htmlText(editor.innerHTML) === placeholder) {
+            editor.innerHTML = "";
+          }
+          sync();
+        }}
         onInput={sync}
         onBlur={sync}
-        dangerouslySetInnerHTML={{ __html: initialHtml }}
       />
     </div>
   );
 }
 
+function valuesForForm(state: NewsActionState, post?: NewsPost): NewsFormValues {
+  if (state?.values) return state.values;
+
+  return {
+    id: post?.id || "",
+    title: post?.title || "",
+    slug: post?.slug || "",
+    excerpt: post?.excerpt || "",
+    content_html: post?.content_html || "",
+    cover_image_url: post?.cover_image_url || "",
+    status: post?.status || "draft",
+  };
+}
+
 function NewsForm({ post }: { post?: NewsPost }) {
   const action = post ? updateNewsAction : createNewsAction;
-  const [state, formAction] = useActionState<ActionState, FormData>(action, null);
+  const [state, formAction] = useActionState<NewsActionState, FormData>(action, null);
+  const values = valuesForForm(state, post);
+  const formKey = `${post?.id || "new"}-${state?.resetKey || "initial"}`;
 
   return (
-    <form className="news-admin-form" action={formAction} encType="multipart/form-data">
+    <form key={formKey} className="news-admin-form" action={formAction}>
       {post ? <input type="hidden" name="id" value={post.id} /> : null}
       <div className="form-grid">
         <label>
           Título
-          <input name="title" defaultValue={post?.title || ""} required />
+          <input name="title" defaultValue={values.title} required />
         </label>
         <label>
           Slug
-          <input name="slug" defaultValue={post?.slug || ""} placeholder="se-genera-automático" />
+          <input name="slug" defaultValue={values.slug} placeholder="se-genera-automático" />
         </label>
       </div>
       <label>
         Bajada o resumen
-        <textarea name="excerpt" defaultValue={post?.excerpt || ""} rows={3} />
+        <textarea name="excerpt" defaultValue={values.excerpt} rows={3} />
       </label>
       <div className="form-grid">
         <label>
@@ -123,19 +189,19 @@ function NewsForm({ post }: { post?: NewsPost }) {
         </label>
         <label>
           URL imagen actual
-          <input name="cover_image_url" defaultValue={post?.cover_image_url || ""} placeholder="https://..." />
+          <input name="cover_image_url" defaultValue={values.cover_image_url} placeholder="https://..." />
         </label>
       </div>
       <label>
         Estado
-        <select name="status" defaultValue={post?.status || "draft"}>
+        <select name="status" defaultValue={values.status}>
           <option value="draft">Borrador</option>
           <option value="published">Publicado</option>
         </select>
       </label>
       <div className="field-label">
         <span>Contenido</span>
-        <RichTextEditor name="content_html" defaultValue={post?.content_html || "<p>Escribe la noticia aquí.</p>"} />
+        <RichTextEditor name="content_html" defaultValue={values.content_html} />
       </div>
       <div className="admin-actions">
         <SubmitButton label={post ? "Actualizar noticia" : "Crear noticia"} />

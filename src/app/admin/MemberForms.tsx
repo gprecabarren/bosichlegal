@@ -3,7 +3,7 @@
 import { useActionState } from "react";
 import { ArrowDown, ArrowUp, GripVertical, Trash2, Upload } from "lucide-react";
 import type { TeamMember } from "@/types/member";
-import { createMemberAction, deleteMemberAction, moveMemberAction, updateMemberAction } from "./member-actions";
+import { createMemberAction, deleteMemberAction, moveMemberDownAction, moveMemberUpAction, updateMemberAction } from "./member-actions";
 
 function StatusMessage({ state }: { state: { ok: boolean; message: string } | null }) {
   return state?.message ? <p className={state.ok ? "admin-success" : "admin-error"}>{state.message}</p> : null;
@@ -51,11 +51,11 @@ export function MemberOrderControls({ position, total }: { position: number; tot
         <GripVertical size={16} />
         {position} de {total}
       </span>
-      <button formAction={moveMemberAction} name="direction" value="up" type="submit" disabled={position <= 1} title="Subir miembro">
+      <button formAction={moveMemberUpAction} type="submit" disabled={position <= 1} title="Subir miembro">
         <ArrowUp size={16} />
         Subir
       </button>
-      <button formAction={moveMemberAction} name="direction" value="down" type="submit" disabled={position >= total} title="Bajar miembro">
+      <button formAction={moveMemberDownAction} type="submit" disabled={position >= total} title="Bajar miembro">
         <ArrowDown size={16} />
         Bajar
       </button>

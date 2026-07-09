@@ -12,3 +12,20 @@ export type NewsPost = {
   created_at?: string;
   updated_at?: string;
 };
+
+export type NewsFormValues = {
+  id?: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content_html: string;
+  cover_image_url: string;
+  status: NewsStatus;
+};
+
+export type NewsActionState = {
+  ok: boolean;
+  message: string;
+  values: NewsFormValues;
+  resetKey: string;
+} | null;

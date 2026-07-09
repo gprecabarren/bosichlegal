@@ -53,11 +53,10 @@ export async function deleteMemberAction(formData: FormData) {
   revalidateMemberViews();
 }
 
-export async function moveMemberAction(formData: FormData) {
+async function moveMember(formData: FormData, direction: "up" | "down") {
   await requireAdmin();
 
   const id = String(formData.get("id") || "");
-  const direction = String(formData.get("direction") || "");
   const members = await listMembers(undefined, true);
   const currentIndex = members.findIndex((member) => member.id === id);
   const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
@@ -80,4 +79,12 @@ export async function moveMemberAction(formData: FormData) {
   );
 
   revalidateMemberViews();
+}
+
+export async function moveMemberUpAction(formData: FormData) {
+  await moveMember(formData, "up");
+}
+
+export async function moveMemberDownAction(formData: FormData) {
+  await moveMember(formData, "down");
 }
