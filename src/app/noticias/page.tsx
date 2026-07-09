@@ -27,7 +27,7 @@ export default async function NewsPage() {
         eyebrow="Actualidad jurídica"
         title="Noticias"
         text="Publicaciones, comentarios legales y novedades relevantes para personas y empresas."
-        image="/assets/services-banner-clean.png"
+        image="/assets/site/services-hero.png"
         compact
       />
       <section className="section news-index">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness, Building2, Scale } from "lucide-react";
 import { ContactCta } from "@/components/ContactCta";
-import { Hero } from "@/components/Hero";
+import { HomeHero } from "@/components/HomeHero";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { getSiteContent } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
@@ -12,23 +12,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero
-        eyebrow="Abogados en Concepción, Santiago y Valdivia"
-        title={content.home.heroTitle}
-        text={content.home.heroSubtitle}
-        image={content.home.heroImage}
-        actions={
-          <>
-            <a className="button" href={content.contact.social.whatsapp} target="_blank">
-              Hablar por WhatsApp
-              <ArrowRight size={18} />
-            </a>
-            <Link className="button button-secondary" href="/servicios">
-              Ver servicios
-            </Link>
-          </>
-        }
-      />
+      <HomeHero content={content} />
 
       <section className="section intro-grid">
         <div>
@@ -97,7 +81,7 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <ContactCta content={content} />
+      <ContactCta content={content} featured />
     </>
   );
 }

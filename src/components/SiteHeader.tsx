@@ -20,11 +20,7 @@ export function SiteHeader({ content }: { content: SiteContent }) {
   return (
     <header className="site-header">
       <Link className="brand" href="/" aria-label="Bosich Legal inicio">
-        <img src={content.brand.logo} alt="Bosich Legal" />
-        <span>
-          <strong>{content.brand.name}</strong>
-          <small>{content.brand.tagline}</small>
-        </span>
+        <img src="/assets/brand/logo-web.svg" alt={`${content.brand.name} ${content.brand.tagline}`} />
       </Link>
       <nav aria-label="Navegación principal">
         {nav.map((item) => (

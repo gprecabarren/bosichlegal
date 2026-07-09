@@ -20,13 +20,16 @@ export default async function AboutPage() {
         eyebrow="Trayectoria desde 2012"
         title={content.about.title}
         text="Un equipo jurídico con enfoque técnico, preventivo y contencioso."
-        image="/assets/about-banner-clean.png"
+        image="/assets/site/about-hero.png"
         compact
       />
-      <section className="section content-flow">
-        {content.about.paragraphs.map((paragraph) => (
-          <p key={paragraph}>{paragraph}</p>
-        ))}
+      <section className="section about-story">
+        <img src="/assets/site/about-statue.png" alt="Figura de la justicia" />
+        <div className="content-flow">
+          {content.about.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
+        </div>
       </section>
       <section className="section section-muted">
         <div className="section-heading">

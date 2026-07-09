@@ -21,7 +21,7 @@ export function Footer({ content }: { content: SiteContent }) {
     <footer className="footer">
       <div className="footer-grid">
         <div>
-          <img className="footer-logo" src={content.brand.logo} alt="Bosich Legal" />
+          <img className="footer-logo" src="/assets/brand/logo-mark.jpg" alt="Bosich Legal" />
           <p>{content.seo.description}</p>
           <div className="footer-social">
             {social.instagram ? (

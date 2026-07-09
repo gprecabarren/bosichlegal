@@ -9,8 +9,8 @@ export function organizationSchema(content: SiteContent) {
     "@type": ["LegalService", "Attorney"],
     name: content.brand.name,
     url: baseUrl,
-    logo: `${baseUrl}${content.brand.logo}`,
-    image: `${baseUrl}${content.home.heroImage}`,
+    logo: `${baseUrl}/assets/brand/logo-mark.jpg`,
+    image: `${baseUrl}/assets/site/home-hero.png`,
     description: content.seo.description,
     telephone: content.contact.phone,
     email: content.contact.email,
@@ -48,4 +48,3 @@ export function organizationSchema(content: SiteContent) {
     })),
   };
 }
-

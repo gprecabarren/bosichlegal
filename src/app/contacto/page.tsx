@@ -20,7 +20,7 @@ export default async function ContactPage() {
         eyebrow="Hablemos de tu caso"
         title="Contacto"
         text="Cuéntanos qué necesitas y coordinaremos la mejor forma de ayudarte."
-        image={content.home.heroImage}
+        image="/assets/site/contact-hero.png"
         compact
       />
       <section className="section contact-layout">

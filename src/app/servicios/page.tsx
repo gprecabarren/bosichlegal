@@ -19,7 +19,7 @@ export default async function ServicesPage() {
         eyebrow="Áreas de práctica"
         title="Servicios jurídicos"
         text="Asesoría preventiva, representación judicial y estrategia legal para personas, empresas e instituciones."
-        image="/assets/services-banner-clean.png"
+        image="/assets/site/services-hero.png"
         compact
       />
       <section className="section">

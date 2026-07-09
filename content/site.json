@@ -2,7 +2,7 @@
   "brand": {
     "name": "Bosich Legal",
     "tagline": "Estudio jurídico",
-    "logo": "/assets/logo.jpg"
+    "logo": "/assets/brand/logo-mark.jpg"
   },
   "contact": {
     "phone": "+56 9 7911 6808",
@@ -42,13 +42,13 @@
   "home": {
     "heroTitle": "Servicios jurídicos estratégicos para personas y empresas",
     "heroSubtitle": "Asesoría, representación judicial y defensa técnica en materias civiles, penales, corporativas, administrativas y ambientales.",
-    "heroImage": "/assets/hero-justice.png",
+    "heroImage": "/assets/site/home-hero.png",
     "introTitle": "Defensa, prevención y estrategia jurídica",
     "introText": "Bosich Legal combina análisis técnico, litigación y acompañamiento cercano para entregar soluciones jurídicas claras, oportunas y sostenibles."
   },
   "about": {
     "title": "Sobre nosotros",
-    "heroImage": "/assets/about-banner.png",
+    "heroImage": "/assets/site/about-hero.png",
     "paragraphs": [
       "Nuestro estudio jurídico está integrado por un equipo de abogados con sólida formación académica y una trayectoria profesional sostenida desde el año 2012, caracterizada por el rigor técnico, la dedicación estratégica y el compromiso permanente con los intereses de nuestros clientes.",
       "Entendemos el derecho como una herramienta de planificación, prevención y resolución eficiente de conflictos, orientada a generar soluciones concretas frente a escenarios jurídicos exigentes.",
@@ -132,7 +132,7 @@
   },
   "services": {
     "title": "Servicios",
-    "heroImage": "/assets/services-banner.png",
+    "heroImage": "/assets/site/services-hero.png",
     "items": [
       {
         "title": "Derecho civil",

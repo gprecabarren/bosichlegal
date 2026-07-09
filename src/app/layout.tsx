@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Source_Sans_3 } from "next/font/google";
+import localFont from "next/font/local";
 import { getSiteContent, siteUrl } from "@/lib/content";
 import { organizationSchema } from "@/lib/seo";
 import { Footer } from "@/components/Footer";
@@ -7,14 +7,20 @@ import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { SiteHeader } from "@/components/SiteHeader";
 import "./globals.css";
 
-const serif = Playfair_Display({
-  subsets: ["latin"],
+const serif = localFont({
+  src: [
+    { path: "./fonts/EBGaramond-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/EBGaramond-Bold.ttf", weight: "700", style: "normal" },
+  ],
   variable: "--font-serif",
   display: "swap",
 });
 
-const sans = Source_Sans_3({
-  subsets: ["latin"],
+const sans = localFont({
+  src: [
+    { path: "./fonts/CabinetGrotesk-Regular.otf", weight: "400", style: "normal" },
+    { path: "./fonts/CabinetGrotesk-Bold.otf", weight: "700", style: "normal" },
+  ],
   variable: "--font-sans",
   display: "swap",
 });
@@ -35,6 +41,13 @@ export async function generateMetadata(): Promise<Metadata> {
       ? { google: content.seo.googleSiteVerification }
       : undefined,
     alternates: { canonical: "/" },
+    icons: {
+      icon: [
+        { url: "/favicon.png", type: "image/png" },
+        { url: "/assets/brand/logo-mark.jpg", type: "image/jpeg" },
+      ],
+      apple: [{ url: "/apple-icon.png", type: "image/png" }],
+    },
     openGraph: {
       type: "website",
       locale: "es_CL",
@@ -42,7 +55,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: content.brand.name,
       title: content.seo.title,
       description: content.seo.description,
-      images: [{ url: content.home.heroImage, width: 720, height: 706 }],
+      images: [{ url: "/assets/site/home-hero.png", width: 1920, height: 624 }],
     },
     robots: {
       index: true,

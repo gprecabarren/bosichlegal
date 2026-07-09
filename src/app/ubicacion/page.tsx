@@ -19,7 +19,8 @@ export default async function LocationPage() {
         eyebrow="Presencia en Chile"
         title="Ubicación"
         text="Atención jurídica en Concepción, Santiago y Valdivia."
-        image={content.home.heroImage}
+        image="/assets/site/location-hero.png"
+        compact
       />
       <section className="section">
         <div className="location-grid">
