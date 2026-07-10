@@ -1419,8 +1419,13 @@ p {
   }
 
   .site-header nav {
-    gap: 16px;
-    font-size: 0.92rem;
+    flex-wrap: wrap;
+    gap: 7px 14px;
+    overflow-x: visible;
+    padding-bottom: 0;
+    font-size: 0.88rem;
+    line-height: 1.25;
+    white-space: normal;
   }
 
   .site-header nav a {
