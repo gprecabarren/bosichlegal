@@ -6,6 +6,7 @@ import { getSiteContent } from "@/lib/content";
 import { listContactSubmissions } from "@/lib/contact-submissions";
 import { listMembers } from "@/lib/members";
 import { listNewsPosts } from "@/lib/news";
+import { hasSupabaseAdminConfig } from "@/lib/supabase";
 import { AdminContacts } from "./AdminContacts";
 import { AdminForm } from "./AdminForm";
 import { AdminNews } from "./AdminNews";
@@ -27,7 +28,7 @@ export default async function AdminPage() {
   const members = await listMembers(content, true);
   const contactSubmissions = await listContactSubmissions();
   const newsPosts = await listNewsPosts({ includeDrafts: true });
-  const supabaseReady = Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+  const supabaseReady = hasSupabaseAdminConfig();
 
   const membersPanel = (
     <section className="admin-members">

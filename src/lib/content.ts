@@ -3,6 +3,7 @@ import "server-only";
 import { createClient } from "@supabase/supabase-js";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { getSupabaseServerKey } from "@/lib/supabase";
 import type { SiteContent } from "@/types/site";
 
 const contentPath = path.join(process.cwd(), "content", "site.json");
@@ -15,7 +16,7 @@ async function readLocalContent() {
 
 function supabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const key = getSupabaseServerKey();
   return url && key ? { url, key } : null;
 }
 
@@ -70,4 +71,3 @@ export async function saveSiteContent(content: SiteContent) {
 export function siteUrl() {
   return process.env.SITE_URL || "https://bosichlegal.cl";
 }
-
