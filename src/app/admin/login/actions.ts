@@ -12,6 +12,5 @@ export async function loginAction(_: unknown, formData: FormData) {
   }
 
   await createSession(username);
-  redirect("/admin");
+  redirect("/admin/crear-blog");
 }
-

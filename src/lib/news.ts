@@ -53,6 +53,11 @@ function sanitizeUrl(value: string) {
   return "";
 }
 
+function sanitizeImageUrl(value: string) {
+  const trimmed = value.trim();
+  return trimmed.startsWith("/") || trimmed.startsWith("https://") || trimmed.startsWith("http://") ? trimmed : "";
+}
+
 function sanitizeStyle(value: string) {
   const declarations = value
     .split(";")
@@ -81,13 +86,29 @@ function sanitizeAttributes(tag: string, rawAttributes: string) {
     }
 
     if (tag === "img" && name === "src") {
-      const src = sanitizeUrl(value);
+      const src = sanitizeImageUrl(value);
       if (src) attributes.push(`src="${escapeAttribute(src)}"`);
       continue;
     }
 
     if (tag === "img" && name === "alt") {
       attributes.push(`alt="${escapeAttribute(value).slice(0, 160)}"`);
+      continue;
+    }
+
+    if (name === "class" && tag === "figure") {
+      const safeClasses = value
+        .split(/\s+/)
+        .filter((item) => ["news-image-align-left", "news-image-align-center", "news-image-align-right"].includes(item));
+      if (safeClasses.length) attributes.push(`class="${safeClasses.join(" ")}"`);
+      continue;
+    }
+
+    if (name === "class" && tag === "img") {
+      const safeClasses = value
+        .split(/\s+/)
+        .filter((item) => ["news-image-size-small", "news-image-size-medium", "news-image-size-large", "news-image-size-full"].includes(item));
+      if (safeClasses.length) attributes.push(`class="${safeClasses.join(" ")}"`);
       continue;
     }
 
@@ -195,10 +216,15 @@ export async function uploadNewsImage(file: File) {
   const supabase = getSupabaseAdmin();
   if (!supabase) throw new Error("Supabase no está configurado.");
   if (!file || file.size === 0) return null;
-  if (!file.type.startsWith("image/")) throw new Error("La imagen debe ser un archivo de imagen.");
-  if (file.size > 5 * 1024 * 1024) throw new Error("La imagen no puede superar 5 MB.");
+  const extensions: Record<string, string> = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+  };
+  if (!extensions[file.type]) throw new Error("La imagen debe ser JPG, PNG o WebP.");
+  if (file.size > 4 * 1024 * 1024) throw new Error("La imagen no puede superar 4 MB.");
 
-  const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const extension = extensions[file.type];
   const path = `${randomUUID()}.${extension}`;
   const bytes = await file.arrayBuffer();
   const { error } = await supabase.storage.from(newsImagesBucket).upload(path, bytes, {

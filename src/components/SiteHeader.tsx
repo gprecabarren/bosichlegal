@@ -44,7 +44,7 @@ export function SiteHeader({ content }: { content: SiteContent }) {
         <a className="social-whatsapp" href={social.whatsapp} aria-label="WhatsApp" target="_blank" rel="noreferrer">
           <MessageCircle size={18} />
         </a>
-        <a className="social-admin" href="/admin" aria-label="Panel de administración">
+        <a className="social-admin" href="/admin/crear-blog" aria-label="Panel de administración">
           <LockKeyhole size={17} />
         </a>
       </div>

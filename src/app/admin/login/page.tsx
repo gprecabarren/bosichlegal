@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function LoginPage() {
   if (await isAdminAuthenticated()) {
-    redirect("/admin");
+    redirect("/admin/crear-blog");
   }
 
   return (
@@ -24,4 +24,3 @@ export default async function LoginPage() {
     </section>
   );
 }
-
