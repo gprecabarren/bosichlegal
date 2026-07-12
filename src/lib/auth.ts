@@ -55,13 +55,15 @@ export async function createSession(username: string) {
 
 export async function clearSession() {
   const cookieStore = await cookies();
-  cookieStore.set(cookieName, "", {
+  const expiredCookie = {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "lax" as const,
     secure: process.env.NODE_ENV === "production",
-    path: "/",
     maxAge: 0,
-  });
+  };
+  cookieStore.set(cookieName, "", { ...expiredCookie, path: "/" });
+  // Clean up sessions issued before uploads were moved under /api/admin.
+  cookieStore.set(cookieName, "", { ...expiredCookie, path: "/admin" });
 }
 
 export async function isAdminAuthenticated() {
