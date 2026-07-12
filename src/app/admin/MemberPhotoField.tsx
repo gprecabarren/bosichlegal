@@ -96,7 +96,7 @@ export function MemberPhotoField({ label }: MemberPhotoFieldProps) {
         accept="image/jpeg,image/png,image/webp"
         onChange={onSelect}
       />
-      <p className="admin-help">JPG, PNG o WebP. MÃ¡ximo 4 MB. La foto se guardarÃ¡ cuadrada y optimizada.</p>
+      <p className="admin-help">JPG, PNG o WebP. Máximo 4 MB. La foto se guardará cuadrada y optimizada.</p>
       {source ? (
         <div className="member-cropper">
           <div className="member-crop-preview" aria-label="Vista previa del recorte">
@@ -120,7 +120,7 @@ export function MemberPhotoField({ label }: MemberPhotoFieldProps) {
               <input type="range" min="-40" max="40" step="1" value={offsetY} onChange={(event) => setOffsetY(Number(event.target.value))} />
             </label>
             <label>
-              TamaÃ±o final
+              Tamaño final
               <select value={outputSize} onChange={(event) => setOutputSize(event.target.value)}>
                 <option value="800">800 x 800 px</option>
                 <option value="1000">1000 x 1000 px</option>
@@ -133,7 +133,7 @@ export function MemberPhotoField({ label }: MemberPhotoFieldProps) {
           </div>
         </div>
       ) : (
-        <p className="admin-help"><ImageUp size={16} /> Sube una imagen y aparecerÃ¡ la herramienta de encuadre.</p>
+        <p className="admin-help"><ImageUp size={16} /> Sube una imagen y aparecerá la herramienta de encuadre.</p>
       )}
       {message ? <p className="admin-help">{message}</p> : null}
     </div>

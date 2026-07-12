@@ -10,7 +10,7 @@ function sessionSecret() {
   const secret = process.env.ADMIN_SESSION_SECRET;
   if (secret) return secret;
   if (process.env.NODE_ENV !== "production") return "dev-only-session-secret";
-  throw new Error("ADMIN_SESSION_SECRET no estÃ¡ configurado.");
+  throw new Error("ADMIN_SESSION_SECRET no está configurado.");
 }
 
 export function hashPassword(password: string) {

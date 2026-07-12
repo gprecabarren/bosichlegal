@@ -158,7 +158,7 @@ function RichTextEditor({
     body.set("image", file);
 
     try {
-      const response = await fetch("/api/admin/news-images", { method: "POST", body });
+      const response = await fetch("/admin/api/news-images", { method: "POST", body });
       const result = (await response.json()) as { url?: string; error?: string };
       if (!response.ok || !result.url) throw new Error(result.error || "No se pudo subir la imagen.");
       insertImageNode(result.url, file.name.replace(/\.[^.]+$/, "") || "Imagen de la noticia");
@@ -329,9 +329,9 @@ function SeoFields({ values }: { values: NewsFormValues }) {
     const title = value("title");
     const excerpt = value("excerpt");
     const text = htmlText(value("content_html"));
-    const keyword = title.split(/[|:\u2013\u2014-]/)[0]?.trim() || "abogados en ConcepciÃ³n";
+    const keyword = title.split(/[|:\u2013\u2014-]/)[0]?.trim() || "abogados en Concepción";
     const description = (excerpt || text).replace(/\s+/g, " ").trim().slice(0, 155);
-    const seoTitle = title ? `${title.slice(0, 54)} | Bosich Legal` : "Bosich Legal | Abogados en ConcepciÃ³n";
+    const seoTitle = title ? `${title.slice(0, 54)} | Bosich Legal` : "Bosich Legal | Abogados en Concepción";
     const slug = value("slug") || slugFromTitle(title);
 
     setValue("seo_title", seoTitle.slice(0, 60));
@@ -348,32 +348,32 @@ function SeoFields({ values }: { values: NewsFormValues }) {
       <summary>SEO de esta noticia</summary>
       <div className="news-seo-grid">
         <div className="news-seo-heading">
-          <p className="admin-help">Completa estos campos manualmente o genera una propuesta basada en el tÃ­tulo y el contenido.</p>
-          <button type="button" className="button button-small" onClick={autoCompleteSeo}>Generar SEO automÃ¡tico</button>
+          <p className="admin-help">Completa estos campos manualmente o genera una propuesta basada en el título y el contenido.</p>
+          <button type="button" className="button button-small" onClick={autoCompleteSeo}>Generar SEO automático</button>
         </div>
         <label>
-          TÃ­tulo SEO
+          Título SEO
           <input name="seo_title" defaultValue={values.seo_title} maxLength={60} placeholder="Hasta 60 caracteres" />
         </label>
         <label>
-          DescripciÃ³n SEO
+          Descripción SEO
           <textarea name="meta_description" defaultValue={values.meta_description} rows={3} maxLength={160} placeholder="Hasta 160 caracteres" />
         </label>
         <label>
           Palabra clave principal
-          <input name="focus_keyword" defaultValue={values.focus_keyword} maxLength={80} placeholder="Ej.: abogados penalistas en ConcepciÃ³n" />
+          <input name="focus_keyword" defaultValue={values.focus_keyword} maxLength={80} placeholder="Ej.: abogados penalistas en Concepción" />
         </label>
         <label>
-          URL canÃ³nica
+          URL canónica
           <input name="canonical_url" type="url" defaultValue={values.canonical_url} placeholder="https://bosichlegal.cl/noticias/..." />
         </label>
         <label>
-          TÃ­tulo para compartir
-          <input name="og_title" defaultValue={values.og_title} maxLength={60} placeholder="Opcional: se usa el tÃ­tulo SEO" />
+          Título para compartir
+          <input name="og_title" defaultValue={values.og_title} maxLength={60} placeholder="Opcional: se usa el título SEO" />
         </label>
         <label>
-          DescripciÃ³n para compartir
-          <textarea name="og_description" defaultValue={values.og_description} rows={3} maxLength={160} placeholder="Opcional: se usa la descripciÃ³n SEO" />
+          Descripción para compartir
+          <textarea name="og_description" defaultValue={values.og_description} rows={3} maxLength={160} placeholder="Opcional: se usa la descripción SEO" />
         </label>
         <label className="checkbox-label">
           <input name="noindex" type="checkbox" defaultChecked={values.noindex} />
