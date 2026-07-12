@@ -96,6 +96,11 @@ function sanitizeAttributes(tag: string, rawAttributes: string) {
       continue;
     }
 
+    if (tag === "img" && name === "title") {
+      attributes.push(`title="${escapeAttribute(value).slice(0, 160)}"`);
+      continue;
+    }
+
     if (name === "class" && tag === "figure") {
       const safeClasses = value
         .split(/\s+/)

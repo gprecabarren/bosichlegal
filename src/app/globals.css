@@ -1200,6 +1200,132 @@ p {
   outline-offset: 4px;
 }
 
+.editor-surface figcaption,
+.news-body figcaption {
+  margin-top: 8px;
+  color: #666d75;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.editor-image-cropper,
+.editor-image-inspector {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  border-bottom: 1px solid #e8e1d6;
+  background: #f8f6f1;
+}
+
+.editor-image-cropper {
+  grid-template-columns: minmax(0, 0.9fr) minmax(260px, 1.1fr);
+}
+
+.editor-image-crop-preview {
+  min-height: 220px;
+  overflow: hidden;
+  background: #1b2732;
+  position: relative;
+}
+
+.editor-image-crop-preview img {
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  object-fit: cover;
+  transform-origin: center;
+}
+
+.editor-image-crop-controls,
+.editor-image-inspector {
+  align-content: start;
+}
+
+.editor-image-crop-controls label,
+.editor-image-inspector label {
+  display: grid;
+  gap: 6px;
+  color: #272f38;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.editor-image-crop-controls input,
+.editor-image-crop-controls select,
+.editor-image-inspector input,
+.editor-image-inspector select {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid #d8d1c5;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 400;
+}
+
+.editor-image-crop-controls input[type="range"] {
+  padding: 0;
+  accent-color: var(--gold);
+}
+
+.editor-image-crop-heading,
+.editor-image-crop-actions,
+.editor-image-inspector-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.editor-image-crop-heading {
+  justify-content: space-between;
+}
+
+.editor-image-crop-actions {
+  padding-top: 4px;
+}
+
+.editor-image-inspector {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.editor-image-inspector .editor-image-crop-heading,
+.editor-image-inspector .editor-image-inspector-actions {
+  grid-column: 1 / -1;
+}
+
+.editor-image-inspector-actions span {
+  margin-right: 2px;
+  color: #555d66;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.editor-image-inspector-actions button,
+.icon-button {
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid #d8d1c5;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.editor-image-inspector-actions select {
+  width: auto;
+  min-width: 150px;
+  padding: 0 8px;
+}
+
+@media (max-width: 720px) {
+  .editor-image-cropper,
+  .editor-image-inspector {
+    grid-template-columns: 1fr;
+  }
+}
+
 .editor-inline-error {
   padding: 10px 14px;
   border-top: 1px solid #eadad7;

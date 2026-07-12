@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import { AlignCenter, AlignLeft, AlignRight, Bold, ImagePlus, ImageUp, Italic, LinkIcon, List, ListOrdered, Quote, Trash2, Underline } from "lucide-react";
+import { AlignCenter, AlignLeft, AlignRight, Bold, Crop, ImagePlus, ImageUp, Italic, LinkIcon, List, ListOrdered, Quote, Trash2, Underline, X } from "lucide-react";
 import type { NewsActionState, NewsFormValues, NewsPost } from "@/types/news";
 import { createNewsAction, deleteNewsAction, updateNewsAction } from "./news-actions";
 import { SubmitButton } from "./SubmitButton";
@@ -9,6 +9,35 @@ import { SubmitButton } from "./SubmitButton";
 const editorPlaceholder = "Escribe el contenido de la noticia aquí.";
 
 type BlockFormat = "p" | "h1" | "h2" | "h3" | "blockquote";
+type CropRatio = "original" | "landscape" | "square" | "portrait";
+
+type PendingImage = {
+  file: File;
+  objectUrl: string;
+};
+
+function loadEditorImage(url: string) {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error("No se pudo preparar la imagen."));
+    image.src = url;
+  });
+}
+
+function cropRatioValue(ratio: CropRatio, width: number, height: number) {
+  if (ratio === "landscape") return 16 / 9;
+  if (ratio === "square") return 1;
+  if (ratio === "portrait") return 4 / 5;
+  return width / height;
+}
+
+function cropRatioLabel(ratio: CropRatio) {
+  if (ratio === "landscape") return "16:9 horizontal";
+  if (ratio === "square") return "1:1 cuadrado";
+  if (ratio === "portrait") return "4:5 vertical";
+  return "Proporción original";
+}
 
 function slugFromTitle(value: string) {
   return value
@@ -50,6 +79,15 @@ function RichTextEditor({
   const initialHtml = normalizeInitialHtml(defaultValue);
   const [uploadError, setUploadError] = useState("");
   const [blockFormat, setBlockFormat] = useState<BlockFormat>("p");
+  const [pendingImage, setPendingImage] = useState<PendingImage | null>(null);
+  const [cropRatio, setCropRatio] = useState<CropRatio>("original");
+  const [cropZoom, setCropZoom] = useState(1);
+  const [cropOffsetX, setCropOffsetX] = useState(0);
+  const [cropOffsetY, setCropOffsetY] = useState(0);
+  const [activeImage, setActiveImage] = useState<HTMLImageElement | null>(null);
+  const [imageAlt, setImageAlt] = useState("");
+  const [imageTitle, setImageTitle] = useState("");
+  const [imageCaption, setImageCaption] = useState("");
 
   function isEmpty(editor: HTMLDivElement) {
     return !editor.textContent?.trim() && editor.querySelectorAll("img").length === 0;
@@ -109,10 +147,23 @@ function RichTextEditor({
   function selectedImage() {
     const editor = editorRef.current;
     if (!editor) return null;
+    if (activeImage?.isConnected && editor.contains(activeImage)) return activeImage;
     return editor.querySelector<HTMLImageElement>("img[data-editor-selected='true']") || editor.querySelector<HTMLImageElement>("img:last-of-type");
   }
 
-  function insertImageNode(url: string, alt: string) {
+  function selectImage(image: HTMLImageElement) {
+    const editor = editorRef.current;
+    if (!editor) return;
+    editor.querySelectorAll<HTMLImageElement>("img[data-editor-selected]").forEach((item) => delete item.dataset.editorSelected);
+    image.dataset.editorSelected = "true";
+    const figure = image.closest("figure");
+    setActiveImage(image);
+    setImageAlt(image.alt || "");
+    setImageTitle(image.title || "");
+    setImageCaption(figure?.querySelector("figcaption")?.textContent || "");
+  }
+
+  function insertImageNode(url: string, alt: string, title = "", caption = "") {
     const editor = editorRef.current;
     if (!editor) return;
 
@@ -121,11 +172,15 @@ function RichTextEditor({
     const image = document.createElement("img");
     image.src = url;
     image.alt = alt;
+    if (title.trim()) image.title = title.trim();
     image.className = "news-image-size-large";
-    image.dataset.editorSelected = "true";
     figure.appendChild(image);
+    if (caption.trim()) {
+      const figcaption = document.createElement("figcaption");
+      figcaption.textContent = caption.trim();
+      figure.appendChild(figcaption);
+    }
 
-    editor.querySelectorAll<HTMLImageElement>("img[data-editor-selected]").forEach((item) => delete item.dataset.editorSelected);
     const selection = window.getSelection();
     const range = selection?.rangeCount ? selection.getRangeAt(0) : null;
     if (range && editor.contains(range.commonAncestorContainer)) {
@@ -138,6 +193,7 @@ function RichTextEditor({
     } else {
       editor.appendChild(figure);
     }
+    selectImage(image);
     sync();
   }
 
@@ -148,23 +204,101 @@ function RichTextEditor({
     insertImageNode(url, alt);
   }
 
-  async function uploadInlineImage(event: React.ChangeEvent<HTMLInputElement>) {
+  function resetPendingImage() {
+    if (pendingImage) URL.revokeObjectURL(pendingImage.objectUrl);
+    setPendingImage(null);
+    setCropRatio("original");
+    setCropZoom(1);
+    setCropOffsetX(0);
+    setCropOffsetY(0);
+  }
+
+  function queueInlineImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     event.target.value = "";
     if (!file) return;
 
-    setUploadError("");
-    const body = new FormData();
-    body.set("image", file);
+    if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
+      setUploadError("La imagen debe ser JPG, PNG o WebP.");
+      return;
+    }
+    if (file.size > 4 * 1024 * 1024) {
+      setUploadError("La imagen no puede superar 4 MB.");
+      return;
+    }
 
+    if (pendingImage) URL.revokeObjectURL(pendingImage.objectUrl);
+    setUploadError("");
+    setPendingImage({ file, objectUrl: URL.createObjectURL(file) });
+    setImageAlt(file.name.replace(/\.[^.]+$/, "").replaceAll(/[-_]+/g, " "));
+    setImageTitle("");
+    setImageCaption("");
+    setCropRatio("original");
+    setCropZoom(1);
+    setCropOffsetX(0);
+    setCropOffsetY(0);
+  }
+
+  async function croppedPendingFile() {
+    if (!pendingImage) throw new Error("Selecciona una imagen primero.");
+    const source = await loadEditorImage(pendingImage.objectUrl);
+    const targetRatio = cropRatioValue(cropRatio, source.naturalWidth, source.naturalHeight);
+    const sourceRatio = source.naturalWidth / source.naturalHeight;
+    const baseWidth = sourceRatio > targetRatio ? source.naturalHeight * targetRatio : source.naturalWidth;
+    const baseHeight = baseWidth / targetRatio;
+    const cropWidth = baseWidth / cropZoom;
+    const cropHeight = baseHeight / cropZoom;
+    const maxX = Math.max(0, source.naturalWidth - cropWidth);
+    const maxY = Math.max(0, source.naturalHeight - cropHeight);
+    const sourceX = Math.min(maxX, Math.max(0, maxX / 2 + (cropOffsetX / 100) * (maxX / 2)));
+    const sourceY = Math.min(maxY, Math.max(0, maxY / 2 + (cropOffsetY / 100) * (maxY / 2)));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(cropWidth);
+    canvas.height = Math.round(cropHeight);
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("El navegador no permite recortar esta imagen.");
+    context.drawImage(source, sourceX, sourceY, cropWidth, cropHeight, 0, 0, canvas.width, canvas.height);
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, pendingImage.file.type, 0.95));
+    if (!blob) throw new Error("No se pudo crear el recorte.");
+    return new File([blob], pendingImage.file.name, { type: blob.type || pendingImage.file.type });
+  }
+
+  async function uploadPendingImage(crop = false) {
+    if (!pendingImage) return;
     try {
+      const body = new FormData();
+      body.set("image", crop ? await croppedPendingFile() : pendingImage.file);
       const response = await fetch("/admin/api/news-images", { method: "POST", body });
       const result = (await response.json()) as { url?: string; error?: string };
       if (!response.ok || !result.url) throw new Error(result.error || "No se pudo subir la imagen.");
-      insertImageNode(result.url, file.name.replace(/\.[^.]+$/, "") || "Imagen de la noticia");
+      insertImageNode(result.url, imageAlt.trim() || "Imagen de la noticia", imageTitle, imageCaption);
+      resetPendingImage();
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : "No se pudo subir la imagen.");
     }
+  }
+
+  function updateImageDetails(next: { alt?: string; title?: string; caption?: string }) {
+    const image = selectedImage();
+    if (!image) return;
+    const figure = image.closest("figure");
+    if (!figure) return;
+    if (next.alt !== undefined) image.alt = next.alt.trim();
+    if (next.title !== undefined) {
+      if (next.title.trim()) image.title = next.title.trim();
+      else image.removeAttribute("title");
+    }
+    if (next.caption !== undefined) {
+      const existingCaption = figure.querySelector("figcaption");
+      if (next.caption.trim()) {
+        const caption = existingCaption || document.createElement("figcaption");
+        caption.textContent = next.caption.trim();
+        if (!existingCaption) figure.appendChild(caption);
+      } else {
+        existingCaption?.remove();
+      }
+    }
+    sync();
   }
 
   function setImageAlignment(value: "left" | "center" | "right") {
@@ -176,6 +310,7 @@ function RichTextEditor({
     const figure = image.closest("figure") || image.parentElement;
     figure?.classList.remove("news-image-align-left", "news-image-align-center", "news-image-align-right");
     figure?.classList.add(`news-image-align-${value}`);
+    selectImage(image);
     setUploadError("");
     sync();
   }
@@ -188,6 +323,7 @@ function RichTextEditor({
     }
     image.classList.remove("news-image-size-small", "news-image-size-medium", "news-image-size-large", "news-image-size-full");
     image.classList.add(`news-image-size-${value}`);
+    selectImage(image);
     setUploadError("");
     sync();
   }
@@ -220,6 +356,10 @@ function RichTextEditor({
     document.addEventListener("selectionchange", handleSelectionChange);
     return () => document.removeEventListener("selectionchange", handleSelectionChange);
   }, []);
+
+  useEffect(() => () => {
+    if (pendingImage) URL.revokeObjectURL(pendingImage.objectUrl);
+  }, [pendingImage]);
 
   return (
     <div className="rich-editor">
@@ -264,7 +404,58 @@ function RichTextEditor({
           <option value="full">Ancho completo</option>
         </select>
       </div>
-      <input ref={imageInputRef} className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" onChange={uploadInlineImage} />
+      <input ref={imageInputRef} className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" onChange={queueInlineImage} />
+      {pendingImage ? (
+        <section className="editor-image-cropper" aria-label="Preparar imagen para la noticia">
+          <div className="editor-image-crop-preview" style={{ aspectRatio: cropRatio === "original" ? undefined : cropRatioValue(cropRatio, 16, 9) }}>
+            <img
+              src={pendingImage.objectUrl}
+              alt="Vista previa del recorte"
+              style={{ transform: `translate(${cropOffsetX}%, ${cropOffsetY}%) scale(${cropZoom})` }}
+            />
+          </div>
+          <div className="editor-image-crop-controls">
+            <div className="editor-image-crop-heading">
+              <strong>Preparar imagen</strong>
+              <button type="button" className="icon-button" title="Cancelar imagen" aria-label="Cancelar imagen" onClick={resetPendingImage}><X size={16} /></button>
+            </div>
+            <label>
+              Proporción
+              <select value={cropRatio} onChange={(event) => setCropRatio(event.target.value as CropRatio)}>
+                {(["original", "landscape", "square", "portrait"] as CropRatio[]).map((ratio) => <option key={ratio} value={ratio}>{cropRatioLabel(ratio)}</option>)}
+              </select>
+            </label>
+            <label>
+              Zoom
+              <input type="range" min="1" max="2.4" step="0.05" value={cropZoom} onChange={(event) => setCropZoom(Number(event.target.value))} />
+            </label>
+            <label>
+              Mover horizontalmente
+              <input type="range" min="-100" max="100" step="1" value={cropOffsetX} onChange={(event) => setCropOffsetX(Number(event.target.value))} />
+            </label>
+            <label>
+              Mover verticalmente
+              <input type="range" min="-100" max="100" step="1" value={cropOffsetY} onChange={(event) => setCropOffsetY(Number(event.target.value))} />
+            </label>
+            <label>
+              Texto alternativo
+              <input value={imageAlt} maxLength={160} onChange={(event) => setImageAlt(event.target.value)} placeholder="Describe la imagen" />
+            </label>
+            <label>
+              Título de imagen
+              <input value={imageTitle} maxLength={160} onChange={(event) => setImageTitle(event.target.value)} placeholder="Opcional" />
+            </label>
+            <label>
+              Pie de foto
+              <input value={imageCaption} maxLength={240} onChange={(event) => setImageCaption(event.target.value)} placeholder="Opcional" />
+            </label>
+            <div className="editor-image-crop-actions">
+              <button className="button button-small" type="button" onClick={() => uploadPendingImage(false)}>Usar original</button>
+              <button className="button button-small" type="button" onClick={() => uploadPendingImage(true)}><Crop size={16} /> Recortar e insertar</button>
+            </div>
+          </div>
+        </section>
+      ) : null}
       <div
         ref={editorRef}
         className="editor-surface"
@@ -285,10 +476,62 @@ function RichTextEditor({
         onClick={(event) => {
           const image = event.target instanceof HTMLImageElement ? event.target : null;
           if (!image) return;
-          editorRef.current?.querySelectorAll<HTMLImageElement>("img[data-editor-selected]").forEach((item) => delete item.dataset.editorSelected);
-          image.dataset.editorSelected = "true";
+          selectImage(image);
         }}
       />
+      {activeImage?.isConnected ? (
+        <section className="editor-image-inspector" aria-label="Opciones de imagen seleccionada">
+          <div className="editor-image-crop-heading">
+            <strong>Imagen seleccionada</strong>
+            <button type="button" className="icon-button" title="Quitar imagen" aria-label="Quitar imagen" onClick={() => {
+              activeImage.closest("figure")?.remove();
+              setActiveImage(null);
+              setImageAlt("");
+              setImageTitle("");
+              setImageCaption("");
+              sync();
+            }}><Trash2 size={16} /></button>
+          </div>
+          <label>
+            Texto alternativo
+            <input value={imageAlt} maxLength={160} onChange={(event) => {
+              setImageAlt(event.target.value);
+              updateImageDetails({ alt: event.target.value });
+            }} />
+          </label>
+          <label>
+            Título de imagen
+            <input value={imageTitle} maxLength={160} onChange={(event) => {
+              setImageTitle(event.target.value);
+              updateImageDetails({ title: event.target.value });
+            }} />
+          </label>
+          <label>
+            Pie de foto
+            <input value={imageCaption} maxLength={240} onChange={(event) => {
+              setImageCaption(event.target.value);
+              updateImageDetails({ caption: event.target.value });
+            }} />
+          </label>
+          <div className="editor-image-inspector-actions">
+            <span>Alineación</span>
+            <button type="button" title="Alinear a la izquierda" aria-label="Alinear a la izquierda" onClick={() => setImageAlignment("left")}><AlignLeft size={16} /></button>
+            <button type="button" title="Centrar imagen" aria-label="Centrar imagen" onClick={() => setImageAlignment("center")}><AlignCenter size={16} /></button>
+            <button type="button" title="Alinear a la derecha" aria-label="Alinear a la derecha" onClick={() => setImageAlignment("right")}><AlignRight size={16} /></button>
+            <select aria-label="Tamaño de imagen" defaultValue="" onChange={(event) => {
+              const value = event.target.value as "small" | "medium" | "large" | "full" | "";
+              if (value) setImageSize(value);
+              event.currentTarget.value = "";
+            }}>
+              <option value="">Tamaño</option>
+              <option value="small">Pequeña</option>
+              <option value="medium">Mediana</option>
+              <option value="large">Grande</option>
+              <option value="full">Ancho completo</option>
+            </select>
+          </div>
+        </section>
+      ) : null}
       {uploadError ? <p className="editor-inline-error">{uploadError}</p> : null}
     </div>
   );
