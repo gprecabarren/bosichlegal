@@ -8,6 +8,18 @@ import { SubmitButton } from "./SubmitButton";
 
 const editorPlaceholder = "Escribe el contenido de la noticia aquí.";
 
+type BlockFormat = "p" | "h1" | "h2" | "h3" | "blockquote";
+
+function slugFromTitle(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 88);
+}
+
 function htmlText(html: string) {
   if (typeof document === "undefined") {
     return html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
@@ -37,6 +49,7 @@ function RichTextEditor({
   const imageInputRef = useRef<HTMLInputElement>(null);
   const initialHtml = normalizeInitialHtml(defaultValue);
   const [uploadError, setUploadError] = useState("");
+  const [blockFormat, setBlockFormat] = useState<BlockFormat>("p");
 
   function isEmpty(editor: HTMLDivElement) {
     return !editor.textContent?.trim() && editor.querySelectorAll("img").length === 0;
@@ -59,6 +72,32 @@ function RichTextEditor({
     editorRef.current?.focus();
     document.execCommand(action, false, value);
     sync();
+  }
+
+  function updateBlockFormat() {
+    const editor = editorRef.current;
+    const selection = window.getSelection();
+    if (!editor || !selection?.rangeCount) return;
+
+    let node: Node | null = selection.anchorNode;
+    while (node && node !== editor) {
+      if (node instanceof HTMLElement) {
+        const tag = node.tagName.toLowerCase();
+        if (["p", "h1", "h2", "h3", "blockquote"].includes(tag)) {
+          setBlockFormat(tag as BlockFormat);
+          return;
+        }
+      }
+      node = node.parentNode;
+    }
+    setBlockFormat("p");
+  }
+
+  function changeBlockFormat(value: BlockFormat) {
+    editorRef.current?.focus();
+    document.execCommand("formatBlock", false, `<${value}>`);
+    sync();
+    updateBlockFormat();
   }
 
   function createLink() {
@@ -176,11 +215,21 @@ function RichTextEditor({
     sync();
   }, [initialHtml]);
 
+  useEffect(() => {
+    const handleSelectionChange = () => updateBlockFormat();
+    document.addEventListener("selectionchange", handleSelectionChange);
+    return () => document.removeEventListener("selectionchange", handleSelectionChange);
+  }, []);
+
   return (
     <div className="rich-editor">
       <input ref={inputRef} type="hidden" name={name} defaultValue={initialHtml} />
       <div className="editor-toolbar" aria-label="Herramientas de edición">
-        <select aria-label="Formato de bloque" onChange={(event) => command("formatBlock", event.target.value)} defaultValue="p">
+        <select
+          aria-label="Formato de bloque"
+          value={blockFormat}
+          onChange={(event) => changeBlockFormat(event.target.value as BlockFormat)}
+        >
           <option value="p">Párrafo</option>
           <option value="h1">H1</option>
           <option value="h2">H2</option>
@@ -196,7 +245,7 @@ function RichTextEditor({
         <button type="button" title="Subrayado" aria-label="Subrayado" onClick={() => command("underline")}><Underline size={16} /></button>
         <button type="button" title="Lista" aria-label="Lista" onClick={() => command("insertUnorderedList")}><List size={16} /></button>
         <button type="button" title="Lista numerada" aria-label="Lista numerada" onClick={() => command("insertOrderedList")}><ListOrdered size={16} /></button>
-        <button type="button" title="Cita" aria-label="Cita" onClick={() => command("formatBlock", "blockquote")}><Quote size={16} /></button>
+        <button type="button" title="Cita" aria-label="Cita" onClick={() => changeBlockFormat("blockquote")}><Quote size={16} /></button>
         <button type="button" title="Enlace" aria-label="Enlace" onClick={createLink}><LinkIcon size={16} /></button>
         <button type="button" title="Subir imagen" aria-label="Subir imagen" onClick={() => imageInputRef.current?.click()}><ImageUp size={16} /></button>
         <button type="button" title="Insertar imagen por URL" aria-label="Insertar imagen por URL" onClick={insertImageFromUrl}><ImagePlus size={16} /></button>
@@ -228,7 +277,11 @@ function RichTextEditor({
         spellCheck
         suppressContentEditableWarning
         onInput={sync}
-        onBlur={sync}
+        onBlur={() => {
+          sync();
+          updateBlockFormat();
+        }}
+        onKeyUp={updateBlockFormat}
         onClick={(event) => {
           const image = event.target instanceof HTMLImageElement ? event.target : null;
           if (!image) return;
@@ -251,8 +304,85 @@ function valuesForForm(state: NewsActionState, post?: NewsPost): NewsFormValues 
     excerpt: post?.excerpt || "",
     content_html: post?.content_html || "",
     cover_image_url: post?.cover_image_url || "",
+    seo_title: post?.seo_title || "",
+    meta_description: post?.meta_description || "",
+    focus_keyword: post?.focus_keyword || "",
+    canonical_url: post?.canonical_url || "",
+    og_title: post?.og_title || "",
+    og_description: post?.og_description || "",
+    noindex: post?.noindex || false,
     status: post?.status || "draft",
   };
+}
+
+function SeoFields({ values }: { values: NewsFormValues }) {
+  const [hint, setHint] = useState("");
+
+  function autoCompleteSeo(event: React.MouseEvent<HTMLButtonElement>) {
+    const form = event.currentTarget.form;
+    if (!form) return;
+    const value = (name: string) => (form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null)?.value.trim() || "";
+    const setValue = (name: string, next: string) => {
+      const field = form.elements.namedItem(name) as HTMLInputElement | HTMLTextAreaElement | null;
+      if (field && !field.value.trim()) field.value = next;
+    };
+    const title = value("title");
+    const excerpt = value("excerpt");
+    const text = htmlText(value("content_html"));
+    const keyword = title.split(/[|:\u2013\u2014-]/)[0]?.trim() || "abogados en ConcepciÃ³n";
+    const description = (excerpt || text).replace(/\s+/g, " ").trim().slice(0, 155);
+    const seoTitle = title ? `${title.slice(0, 54)} | Bosich Legal` : "Bosich Legal | Abogados en ConcepciÃ³n";
+    const slug = value("slug") || slugFromTitle(title);
+
+    setValue("seo_title", seoTitle.slice(0, 60));
+    setValue("meta_description", description);
+    setValue("focus_keyword", keyword.slice(0, 80));
+    setValue("canonical_url", slug ? `https://bosichlegal.cl/noticias/${slug}` : "");
+    setValue("og_title", seoTitle.slice(0, 60));
+    setValue("og_description", description);
+    setHint("Propuesta generada. Puedes editar cada campo antes de guardar.");
+  }
+
+  return (
+    <details className="news-seo-panel">
+      <summary>SEO de esta noticia</summary>
+      <div className="news-seo-grid">
+        <div className="news-seo-heading">
+          <p className="admin-help">Completa estos campos manualmente o genera una propuesta basada en el tÃ­tulo y el contenido.</p>
+          <button type="button" className="button button-small" onClick={autoCompleteSeo}>Generar SEO automÃ¡tico</button>
+        </div>
+        <label>
+          TÃ­tulo SEO
+          <input name="seo_title" defaultValue={values.seo_title} maxLength={60} placeholder="Hasta 60 caracteres" />
+        </label>
+        <label>
+          DescripciÃ³n SEO
+          <textarea name="meta_description" defaultValue={values.meta_description} rows={3} maxLength={160} placeholder="Hasta 160 caracteres" />
+        </label>
+        <label>
+          Palabra clave principal
+          <input name="focus_keyword" defaultValue={values.focus_keyword} maxLength={80} placeholder="Ej.: abogados penalistas en ConcepciÃ³n" />
+        </label>
+        <label>
+          URL canÃ³nica
+          <input name="canonical_url" type="url" defaultValue={values.canonical_url} placeholder="https://bosichlegal.cl/noticias/..." />
+        </label>
+        <label>
+          TÃ­tulo para compartir
+          <input name="og_title" defaultValue={values.og_title} maxLength={60} placeholder="Opcional: se usa el tÃ­tulo SEO" />
+        </label>
+        <label>
+          DescripciÃ³n para compartir
+          <textarea name="og_description" defaultValue={values.og_description} rows={3} maxLength={160} placeholder="Opcional: se usa la descripciÃ³n SEO" />
+        </label>
+        <label className="checkbox-label">
+          <input name="noindex" type="checkbox" defaultChecked={values.noindex} />
+          No indexar esta noticia en Google
+        </label>
+        {hint ? <p className="admin-success">{hint}</p> : null}
+      </div>
+    </details>
+  );
 }
 
 function NewsForm({ post }: { post?: NewsPost }) {
@@ -295,6 +425,7 @@ function NewsForm({ post }: { post?: NewsPost }) {
           <option value="published">Publicado</option>
         </select>
       </label>
+      <SeoFields values={values} />
       <div className="field-label">
         <span>Contenido</span>
         <RichTextEditor name="content_html" defaultValue={values.content_html} />

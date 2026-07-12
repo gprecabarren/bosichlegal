@@ -11,6 +11,7 @@ function withSecurityHeaders(response: NextResponse, pathname: string) {
   response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   if (pathname.startsWith("/admin")) {
     response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    response.headers.set("Cache-Control", "private, no-store, max-age=0, must-revalidate");
   }
   return response;
 }

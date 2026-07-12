@@ -46,6 +46,13 @@ create table if not exists public.news_posts (
   excerpt text,
   content_html text not null,
   cover_image_url text,
+  seo_title text,
+  meta_description text,
+  focus_keyword text,
+  canonical_url text,
+  og_title text,
+  og_description text,
+  noindex boolean not null default false,
   status text not null default 'draft'
     check (status in ('draft', 'published')),
   published_at timestamptz,
@@ -76,6 +83,9 @@ create index if not exists news_posts_status_published_idx
 
 create index if not exists news_posts_slug_idx
   on public.news_posts (slug);
+
+create index if not exists news_posts_public_seo_idx
+  on public.news_posts (status, noindex, published_at desc);
 
 alter table public.site_content enable row level security;
 alter table public.team_members enable row level security;

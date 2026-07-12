@@ -10,7 +10,7 @@ const sections = [
   { href: "/admin/crear-blog", label: "Crear noticia", icon: FilePenLine },
   { href: "/admin/miembros", label: "Miembros", icon: UsersRound },
   { href: "/admin/solicitudes-contacto", label: "Solicitudes", icon: Inbox },
-  { href: "/admin/contenido", label: "Contenido", icon: FolderCog },
+  { href: "/admin/contenido", label: "Ajustes", icon: FolderCog },
 ];
 
 export function AdminShell({ children }: AdminShellProps) {

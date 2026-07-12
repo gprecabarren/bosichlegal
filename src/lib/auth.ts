@@ -7,7 +7,10 @@ const cookieName = "bosich_admin_session";
 const oneDay = 60 * 60 * 24;
 
 function sessionSecret() {
-  return process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD_HASH || "dev-only-session-secret";
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (secret) return secret;
+  if (process.env.NODE_ENV !== "production") return "dev-only-session-secret";
+  throw new Error("ADMIN_SESSION_SECRET no estÃ¡ configurado.");
 }
 
 export function hashPassword(password: string) {
@@ -43,14 +46,22 @@ export async function createSession(username: string) {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
-    path: "/admin",
+    // The admin also uploads images through /api/admin, so the session must be
+    // available to that protected route as well.
+    path: "/",
     maxAge: oneDay,
   });
 }
 
 export async function clearSession() {
   const cookieStore = await cookies();
-  cookieStore.delete(cookieName);
+  cookieStore.set(cookieName, "", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 0,
+  });
 }
 
 export async function isAdminAuthenticated() {
@@ -76,4 +87,3 @@ export async function requireAdmin() {
     throw new Error("No autorizado");
   }
 }
-

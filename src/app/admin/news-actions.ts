@@ -20,6 +20,13 @@ function emptyNewsValues(): NewsFormValues {
     excerpt: "",
     content_html: "",
     cover_image_url: "",
+    seo_title: "",
+    meta_description: "",
+    focus_keyword: "",
+    canonical_url: "",
+    og_title: "",
+    og_description: "",
+    noindex: false,
     status: "draft",
   };
 }
@@ -32,6 +39,13 @@ function valuesFromForm(formData: FormData): NewsFormValues {
     excerpt: String(formData.get("excerpt") || ""),
     content_html: String(formData.get("content_html") || ""),
     cover_image_url: String(formData.get("cover_image_url") || ""),
+    seo_title: String(formData.get("seo_title") || ""),
+    meta_description: String(formData.get("meta_description") || ""),
+    focus_keyword: String(formData.get("focus_keyword") || ""),
+    canonical_url: String(formData.get("canonical_url") || ""),
+    og_title: String(formData.get("og_title") || ""),
+    og_description: String(formData.get("og_description") || ""),
+    noindex: formData.get("noindex") === "on",
     status: statusFromForm(formData.get("status")),
   };
 }
@@ -63,6 +77,13 @@ export async function createNewsAction(_: unknown, formData: FormData) {
       content_html: values.content_html,
       cover_image_url: await coverUrlFromForm(formData),
       status: values.status,
+      seo_title: values.seo_title,
+      meta_description: values.meta_description,
+      focus_keyword: values.focus_keyword,
+      canonical_url: values.canonical_url,
+      og_title: values.og_title,
+      og_description: values.og_description,
+      noindex: values.noindex,
     });
     revalidateNewsViews();
     return state(true, "Noticia guardada.", emptyNewsValues());
@@ -84,6 +105,13 @@ export async function updateNewsAction(_: unknown, formData: FormData) {
       content_html: values.content_html,
       cover_image_url,
       status: values.status,
+      seo_title: values.seo_title,
+      meta_description: values.meta_description,
+      focus_keyword: values.focus_keyword,
+      canonical_url: values.canonical_url,
+      og_title: values.og_title,
+      og_description: values.og_description,
+      noindex: values.noindex,
     });
     const nextValues = { ...values, cover_image_url: cover_image_url || "" };
     revalidatePath(`/noticias/${values.slug}`);

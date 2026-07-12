@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     };
   });
 
-  const newsRoutes = (await listNewsPosts()).map((post) => ({
+  const newsRoutes = (await listNewsPosts()).filter((post) => !post.noindex).map((post) => ({
     url: `${baseUrl}/noticias/${post.slug}`,
     lastModified: post.updated_at ? new Date(post.updated_at) : now,
     changeFrequency: "monthly" as const,

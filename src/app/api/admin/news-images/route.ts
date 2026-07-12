@@ -4,7 +4,9 @@ import { uploadNewsImage } from "@/lib/news";
 
 function hasSameOrigin(request: NextRequest) {
   const origin = request.headers.get("origin");
-  return !origin || origin === request.nextUrl.origin;
+  if (origin) return origin === request.nextUrl.origin;
+  const referer = request.headers.get("referer");
+  return Boolean(referer?.startsWith(`${request.nextUrl.origin}/`));
 }
 
 export async function POST(request: NextRequest) {

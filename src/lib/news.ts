@@ -244,6 +244,13 @@ export async function createNewsPost(input: {
   content_html: string;
   cover_image_url?: string | null;
   status: NewsStatus;
+  seo_title?: string;
+  meta_description?: string;
+  focus_keyword?: string;
+  canonical_url?: string;
+  og_title?: string;
+  og_description?: string;
+  noindex?: boolean;
 }) {
   const supabase = getSupabaseAdmin();
   if (!supabase) throw new Error("Supabase no está configurado.");
@@ -264,6 +271,13 @@ export async function createNewsPost(input: {
     cover_image_url: input.cover_image_url || null,
     status: input.status,
     published_at,
+    seo_title: input.seo_title?.trim() || null,
+    meta_description: input.meta_description?.trim() || null,
+    focus_keyword: input.focus_keyword?.trim() || null,
+    canonical_url: sanitizeImageUrl(input.canonical_url || "") || null,
+    og_title: input.og_title?.trim() || null,
+    og_description: input.og_description?.trim() || null,
+    noindex: Boolean(input.noindex),
   });
 
   if (error) throw new Error(error.message);
@@ -276,6 +290,13 @@ export async function updateNewsPost(id: string, input: {
   content_html: string;
   cover_image_url?: string | null;
   status: NewsStatus;
+  seo_title?: string;
+  meta_description?: string;
+  focus_keyword?: string;
+  canonical_url?: string;
+  og_title?: string;
+  og_description?: string;
+  noindex?: boolean;
 }) {
   const supabase = getSupabaseAdmin();
   if (!supabase) throw new Error("Supabase no está configurado.");
@@ -305,6 +326,13 @@ export async function updateNewsPost(id: string, input: {
       cover_image_url: input.cover_image_url || null,
       status: input.status,
       published_at,
+      seo_title: input.seo_title?.trim() || null,
+      meta_description: input.meta_description?.trim() || null,
+      focus_keyword: input.focus_keyword?.trim() || null,
+      canonical_url: sanitizeImageUrl(input.canonical_url || "") || null,
+      og_title: input.og_title?.trim() || null,
+      og_description: input.og_description?.trim() || null,
+      noindex: Boolean(input.noindex),
       updated_at: new Date().toISOString(),
     })
     .eq("id", id);

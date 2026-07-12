@@ -9,6 +9,13 @@ function servicesToText(services: SiteContent["services"]["items"]) {
   return services.map((service) => [service.title, ...service.details].join("\n")).join("\n\n");
 }
 
+function socialHandle(url: string, base: string) {
+  return url
+    .replace(/^https?:\/\/(www\.)?/i, "")
+    .replace(base, "")
+    .replace(/^\/+|\/+$/g, "");
+}
+
 export function AdminForm({ content }: { content: SiteContent }) {
   const [state, action] = useActionState(saveAdminContent, null);
 
@@ -118,6 +125,10 @@ export function AdminForm({ content }: { content: SiteContent }) {
       <section>
         <h2>Sobre nosotros</h2>
         <label>
+          Título de la sección
+          <input name="aboutTitle" defaultValue={content.about.title} />
+        </label>
+        <label>
           Párrafos, uno por línea
           <textarea name="aboutParagraphs" defaultValue={content.about.paragraphs.join("\n")} rows={10} />
         </label>
@@ -125,6 +136,10 @@ export function AdminForm({ content }: { content: SiteContent }) {
 
       <section>
         <h2>Servicios</h2>
+        <label>
+          Título de la sección
+          <input name="servicesTitle" defaultValue={content.services.title} />
+        </label>
         <p className="admin-help">Formato: título del servicio y debajo sus puntos. Separa cada servicio con una línea en blanco.</p>
         <label>
           Servicios
@@ -139,8 +154,8 @@ export function AdminForm({ content }: { content: SiteContent }) {
           <input name="phone" defaultValue={content.contact.phone} />
         </label>
         <label>
-          WhatsApp, solo números con código país
-          <input name="whatsapp" defaultValue={content.contact.whatsapp} />
+          WhatsApp
+          <span className="input-prefix"><span>wa.me/</span><input name="whatsapp" inputMode="tel" defaultValue={content.contact.whatsapp} placeholder="56912345678" /></span>
         </label>
         <label>
           Correo
@@ -148,11 +163,11 @@ export function AdminForm({ content }: { content: SiteContent }) {
         </label>
         <label>
           Instagram
-          <input name="instagram" defaultValue={content.contact.social.instagram} placeholder="https://instagram.com/..." />
+          <span className="input-prefix"><span>instagram.com/</span><input name="instagram" defaultValue={socialHandle(content.contact.social.instagram, "instagram.com/")} placeholder="usuario" /></span>
         </label>
         <label>
           LinkedIn
-          <input name="linkedin" defaultValue={content.contact.social.linkedin} placeholder="https://linkedin.com/company/..." />
+          <span className="input-prefix"><span>linkedin.com/company/</span><input name="linkedin" defaultValue={socialHandle(content.contact.social.linkedin, "linkedin.com/company/")} placeholder="bosich-legal" /></span>
         </label>
         <label>
           Direcciones, una por línea
@@ -161,6 +176,10 @@ export function AdminForm({ content }: { content: SiteContent }) {
         <label>
           Horarios, uno por línea
           <textarea name="hours" defaultValue={content.contact.hours.join("\n")} rows={4} />
+        </label>
+        <label>
+          Título de ubicaciones
+          <input name="locationsTitle" defaultValue={content.locations.title} />
         </label>
       </section>
 

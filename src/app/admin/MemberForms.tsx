@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { ArrowDown, ArrowUp, GripVertical, Trash2, Upload } from "lucide-react";
 import type { TeamMember } from "@/types/member";
 import { createMemberAction, deleteMemberAction, moveMemberDownAction, moveMemberUpAction, updateMemberAction } from "./member-actions";
+import { MemberPhotoField } from "./MemberPhotoField";
 
 function StatusMessage({ state }: { state: { ok: boolean; message: string } | null }) {
   return state?.message ? <p className={state.ok ? "admin-success" : "admin-error"}>{state.message}</p> : null;
@@ -31,10 +32,7 @@ export function NewMemberForm() {
         <input name="is_active" type="checkbox" defaultChecked />
         Visible en el sitio
       </label>
-      <label>
-        Foto
-        <input name="photo" type="file" accept="image/*" />
-      </label>
+      <MemberPhotoField label="Foto" />
       <button className="button" type="submit" disabled={pending}>
         <Upload size={18} />
         {pending ? "Creando..." : "Crear miembro"}
@@ -90,10 +88,7 @@ export function MemberEditForm({ member, position, total }: { member: TeamMember
         <input name="is_active" type="checkbox" defaultChecked={member.is_active} />
         Visible en el sitio
       </label>
-      <label>
-        Reemplazar foto
-        <input name="photo" type="file" accept="image/*" />
-      </label>
+      <MemberPhotoField label="Reemplazar foto" />
       <button className="button" type="submit" disabled={pending}>
         {pending ? "Guardando..." : "Guardar miembro"}
       </button>
