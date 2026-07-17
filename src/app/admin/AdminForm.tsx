@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import type { SiteContent } from "@/types/site";
+import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
 import { saveAdminContent } from "./actions";
 import { SubmitButton } from "./SubmitButton";
 
@@ -167,7 +168,15 @@ export function AdminForm({ content }: { content: SiteContent }) {
         </label>
         <label>
           LinkedIn
-          <span className="input-prefix"><span>linkedin.com/company/</span><input name="linkedin" defaultValue={socialHandle(content.contact.social.linkedin, "linkedin.com/company/")} placeholder="bosich-legal" /></span>
+          <input
+            name="linkedin"
+            type="url"
+            required
+            pattern="https://(www\\.)?linkedin\\.com/in/[^/]+/?"
+            defaultValue={resolveLinkedInProfileUrl(content.contact.social.linkedin)}
+            placeholder="https://www.linkedin.com/in/nombre-del-perfil/"
+          />
+          <span className="admin-help">Usa un perfil personal con formato linkedin.com/in/usuario. No se aceptan enlaces /company/.</span>
         </label>
         <label>
           Direcciones, una por línea

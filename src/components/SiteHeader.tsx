@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Instagram, Linkedin, LockKeyhole, Mail, MessageCircle } from "lucide-react";
 import type { SiteContent } from "@/types/site";
+import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
 
 const nav = [
   { href: "/", label: "Inicio" },
@@ -11,11 +12,9 @@ const nav = [
   { href: "/contacto", label: "Contacto" },
 ];
 
-const linkedinFallback = "https://www.linkedin.com/company/bosich-legal/";
-
 export function SiteHeader({ content }: { content: SiteContent }) {
   const social = content.contact.social;
-  const linkedinUrl = social.linkedin || linkedinFallback;
+  const linkedinUrl = resolveLinkedInProfileUrl(social.linkedin);
 
   return (
     <header className="site-header">

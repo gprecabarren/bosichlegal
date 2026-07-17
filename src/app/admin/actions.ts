@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { clearSession, requireAdmin } from "@/lib/auth";
 import { getSiteContent, saveSiteContent } from "@/lib/content";
+import { normalizeLinkedInProfileUrl } from "@/lib/linkedin";
 import type { SiteContent } from "@/types/site";
 
 function lines(value: FormDataEntryValue | null) {
@@ -34,6 +35,11 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
   const current = await getSiteContent();
   const whatsapp = String(formData.get("whatsapp") || current.contact.whatsapp).replace(/\D/g, "");
   const email = String(formData.get("email") || current.contact.email);
+  const linkedin = normalizeLinkedInProfileUrl(String(formData.get("linkedin") || ""));
+
+  if (!linkedin) {
+    return { ok: false, message: "Ingresa un perfil personal de LinkedIn con formato https://www.linkedin.com/in/usuario/." };
+  }
 
   const nextContent: SiteContent = {
     ...current,
@@ -46,7 +52,7 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
       hours: lines(formData.get("hours")),
       social: {
         instagram: socialUrl("instagram.com", formData.get("instagram")),
-        linkedin: socialUrl("linkedin.com/company", formData.get("linkedin")),
+        linkedin,
         email: `mailto:${email}`,
         whatsapp: `https://wa.me/${whatsapp}`,
       },

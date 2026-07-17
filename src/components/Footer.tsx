@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import type { SiteContent } from "@/types/site";
-
-const linkedinFallback = "https://www.linkedin.com/company/bosich-legal/";
+import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
 
 function phoneHref(phone: string) {
   const compact = phone.replace(/[^\d+]/g, "");
@@ -15,7 +14,7 @@ function mapsHref(query: string) {
 
 export function Footer({ content }: { content: SiteContent }) {
   const social = content.contact.social;
-  const linkedinUrl = social.linkedin || linkedinFallback;
+  const linkedinUrl = resolveLinkedInProfileUrl(social.linkedin);
 
   return (
     <footer className="footer">
