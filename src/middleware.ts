@@ -20,6 +20,7 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.toLowerCase().split(":")[0];
   const pathname = request.nextUrl.pathname;
 
+  // Keep the legacy Vercel preview URL out of search results and on the canonical domain.
   if (host === vercelHost) {
     const url = request.nextUrl.clone();
     url.protocol = "https";
