@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const canonicalHost = "bosichlegal.cl";
-const vercelHost = "bosichlegal.vercel.app";
+const canonicalHost = "www.bosichlegal.cl";
+const vercelHosts = new Set(["bosichlegal.vercel.app", "bosichlegal-two.vercel.app"]);
 
 function withSecurityHeaders(response: NextResponse, pathname: string) {
   response.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
@@ -20,8 +20,8 @@ export function middleware(request: NextRequest) {
   const host = request.headers.get("host")?.toLowerCase().split(":")[0];
   const pathname = request.nextUrl.pathname;
 
-  // Keep the legacy Vercel preview URL out of search results and on the canonical domain.
-  if (host === vercelHost) {
+  // Keep the Vercel deployment URLs out of search results and on the canonical domain.
+  if (host && vercelHosts.has(host)) {
     const url = request.nextUrl.clone();
     url.protocol = "https";
     url.hostname = canonicalHost;

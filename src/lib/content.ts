@@ -69,5 +69,5 @@ export async function saveSiteContent(content: SiteContent) {
 }
 
 export function siteUrl() {
-  return process.env.SITE_URL || "https://bosichlegal.cl";
+  return process.env.SITE_URL || "https://www.bosichlegal.cl";
 }
