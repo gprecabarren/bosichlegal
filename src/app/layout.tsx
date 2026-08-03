@@ -43,9 +43,10 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: { canonical: "/" },
     icons: {
       icon: [
-        { url: "/favicon.png", type: "image/png" },
-        { url: "/assets/brand/logo-mark.jpg", type: "image/jpeg" },
+        { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
+        { url: "/favicon.ico", type: "image/x-icon", sizes: "32x32" },
       ],
+      shortcut: ["/favicon.ico"],
       apple: [{ url: "/apple-icon.png", type: "image/png" }],
     },
     openGraph: {
