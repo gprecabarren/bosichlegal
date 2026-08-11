@@ -37,9 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: content.seo.description,
     keywords: content.seo.keywords,
-    verification: content.seo.googleSiteVerification
-      ? { google: content.seo.googleSiteVerification }
-      : undefined,
+    verification: { google: "iyThj2ILNOuK9MDViiMRJ25PQif_SIVwxajZC7WYL-Y" },
     alternates: { canonical: "/" },
     icons: {
       icon: [
