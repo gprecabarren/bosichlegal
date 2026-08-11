@@ -1,9 +1,15 @@
 "use client";
 
 import Script from "next/script";
-import { useActionState, useMemo } from "react";
+import { useActionState, useEffect, useMemo } from "react";
 import { Send } from "lucide-react";
 import { submitContactCase } from "./actions";
+
+declare global {
+  interface Window {
+    dataLayer?: Array<Record<string, unknown>>;
+  }
+}
 
 const subjects = [
   "Derecho penal",
@@ -20,6 +26,16 @@ export function ContactCaseForm({ turnstileSiteKey }: { turnstileSiteKey?: strin
   const [state, action, pending] = useActionState(submitContactCase, null);
   const startedAt = useMemo(() => Date.now(), []);
   const siteKey = turnstileSiteKey || process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+
+  useEffect(() => {
+    if (!state?.ok) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "generate_lead",
+      lead_type: "contact_form",
+    });
+  }, [state]);
 
   return (
     <form className="contact-form" action={action}>
