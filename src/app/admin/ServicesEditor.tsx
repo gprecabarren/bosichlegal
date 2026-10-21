@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { startTransition, useActionState, useState } from "react";
 import { ArrowDown, ArrowUp, Plus, Save, Trash2 } from "lucide-react";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { resolveServiceIcon, serviceIcons } from "@/lib/service-icons";
@@ -29,7 +29,11 @@ export function ServicesEditor({ services }: { services: SiteContent["services"]
     });
   }
   return (
-    <form action={action} className="admin-form service-editor" onReset={(event) => event.preventDefault()}>
+    <form className="admin-form service-editor" onSubmit={(event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      startTransition(() => action(data));
+    }}>
       <h2>Servicios jurídicos</h2>
       <section>
         <div className="form-grid">

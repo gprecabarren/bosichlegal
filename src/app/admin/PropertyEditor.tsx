@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState, useRef, useState } from "react";
+import { startTransition, useActionState, useRef, useState } from "react";
 import { ArrowDown, ArrowLeft, ArrowUp, ExternalLink, ImagePlus, RotateCcw, Save, Trash2, WandSparkles } from "lucide-react";
 import { emptyProperty, propertyStatuses, propertyTypes, regions, slugify } from "@/lib/property-fields";
 import type { Property, PropertyImage, PropertyInput } from "@/types/property";
@@ -54,7 +54,11 @@ export function PropertyEditor({ property }: { property?: Property }) {
     { key: "area_m2", label: "Superficie construida (m²)", step: "0.01" }, { key: "land_m2", label: "Superficie de terreno (m²)", step: "0.01" },
   ] as const;
   return (
-    <form action={action} className="admin-form property-editor" onReset={(event) => event.preventDefault()}>
+    <form className="admin-form property-editor" onSubmit={(event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      startTransition(() => action(data));
+    }}>
       <div className="editor-section-heading"><div><Link className="back-link" href="/admin/propiedades"><ArrowLeft size={16} />Propiedades</Link><h2>{id ? "Editar propiedad" : "Nueva propiedad"}</h2></div>
         {state?.ok && values.status !== "draft" ? <Link className="back-link" href={`/propiedades/${state.slug}`} target="_blank">Ver publicación<ExternalLink size={16} /></Link> : null}
       </div>
