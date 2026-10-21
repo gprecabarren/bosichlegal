@@ -110,3 +110,25 @@ El contenido HTML se sanea en servidor antes de guardarse.
 5. Probar carga de foto.
 6. Enviar un caso desde `/contacto` y revisarlo en `/admin`.
 7. Crear una noticia, publicarla y revisarla en `/noticias`.
+
+## 9. Propiedades y servicios
+
+Las migraciones `20261021165313_add_property_listings.sql` y
+`20261021165816_restore_official_service_copy.sql` incorporan el catálogo y los
+textos del diseño original. Se aplicaron al proyecto Bosich Legal de Nicolás.
+
+- `/admin/propiedades`: catálogo privado, alta, edición y papelera recuperable.
+- `/admin/propiedades/nueva`: título, enlace, descripción, ciudad, región, precio
+  en CLP/UF, características, galería ordenable y SEO manual o automático.
+- `/admin/servicios`: títulos de página/inicio, descripción, materias e ícono
+  oficial de cada servicio. Los datos se guardan en `site_content`.
+- `/propiedades/[slug]`: página pública de cada publicación.
+- `/propiedades/ubicacion/[region]/[ciudad]`: páginas por ubicación, creadas al
+  publicar propiedades en esa localidad e incluidas automáticamente en sitemap.
+
+La tabla `properties` tiene RLS: visitantes solo leen publicaciones públicas
+vigentes. El servidor exige la sesión del administrador para guardar, subir
+imágenes, enviar a papelera o restaurar. No se conceden escrituras públicas.
+El bucket `property-images` admite JPG, PNG y WebP de hasta 4 MB por archivo.
+Las imágenes se guardan sin recomprimir. La primera fotografía es la portada.
+Los borradores y elementos de papelera no aparecen en el catálogo ni sitemap.

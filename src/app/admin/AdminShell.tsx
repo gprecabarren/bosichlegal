@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FilePenLine, FolderCog, Inbox, LogOut, UsersRound } from "lucide-react";
+import { Building2, FilePenLine, FolderCog, Inbox, LogOut, Scale, UsersRound } from "lucide-react";
 import { logoutAction } from "./actions";
 
 type AdminShellProps = {
@@ -8,6 +8,8 @@ type AdminShellProps = {
 
 const sections = [
   { href: "/admin/crear-blog", label: "Crear noticia", icon: FilePenLine },
+  { href: "/admin/propiedades", label: "Propiedades", icon: Building2 },
+  { href: "/admin/servicios", label: "Servicios", icon: Scale },
   { href: "/admin/miembros", label: "Miembros", icon: UsersRound },
   { href: "/admin/solicitudes-contacto", label: "Solicitudes", icon: Inbox },
   { href: "/admin/contenido", label: "Ajustes", icon: FolderCog },

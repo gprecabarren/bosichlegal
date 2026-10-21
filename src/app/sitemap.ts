@@ -1,12 +1,14 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
+import { listPublicProperties } from "@/lib/properties";
+import { locationPath } from "@/lib/property-fields";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteUrl();
   const now = new Date();
 
-  const staticRoutes: MetadataRoute.Sitemap = ["", "/servicios", "/noticias", "/ubicacion", "/sobre-nosotros", "/contacto"].map((path) => {
+  const staticRoutes: MetadataRoute.Sitemap = ["", "/servicios", "/propiedades", "/noticias", "/ubicacion", "/sobre-nosotros", "/contacto"].map((path) => {
     const changeFrequency: "weekly" | "monthly" = path === "" ? "weekly" : "monthly";
     return {
       url: `${baseUrl}${path}`,
@@ -23,5 +25,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.72,
   }));
 
-  return [...staticRoutes, ...newsRoutes];
+  const properties = await listPublicProperties();
+  const propertyRoutes = properties.map((property) => ({ url: `${baseUrl}/propiedades/${property.slug}`, lastModified: new Date(property.updated_at), changeFrequency: "weekly" as const, priority: 0.75 }));
+  const locations = new Map<string, Date>();
+  for (const property of properties) {
+    for (const path of [locationPath(property.region), locationPath(property.region, property.city)]) {
+      const modified = new Date(property.updated_at);
+      if (!locations.has(path) || locations.get(path)! < modified) locations.set(path, modified);
+    }
+  }
+  const locationRoutes = [...locations].map(([path, lastModified]) => ({ url: `${baseUrl}${path}`, lastModified, changeFrequency: "weekly" as const, priority: 0.7 }));
+  return [...staticRoutes, ...newsRoutes, ...propertyRoutes, ...locationRoutes];
 }

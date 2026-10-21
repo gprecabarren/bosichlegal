@@ -4,11 +4,14 @@ import { Hero } from "@/components/Hero";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { getSiteContent } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Servicios jurídicos",
-  description: "Servicios jurídicos en derecho civil, penal, corporativo, administrativo, ambiental, concursal y propiedad para clientes en Concepción, Santiago y Valdivia.",
-  alternates: { canonical: "/servicios" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { services } = await getSiteContent();
+  return {
+    title: services.title,
+    description: services.description || "Servicios jurídicos en derecho civil, penal, corporativo, administrativo, ambiental, concursal y propiedad para clientes en Concepción, Santiago y Valdivia.",
+    alternates: { canonical: "/servicios" },
+  };
+}
 
 export default async function ServicesPage() {
   const content = await getSiteContent();
@@ -17,21 +20,22 @@ export default async function ServicesPage() {
     <>
       <Hero
         eyebrow="Áreas de práctica"
-        title="Servicios jurídicos"
-        text="Asesoría preventiva, representación judicial y estrategia legal para personas, empresas e instituciones."
-        image="/assets/site/services-hero.png"
+        title={content.services.title}
+        text={content.services.description || "Asesoría preventiva, representación judicial y estrategia legal para personas, empresas e instituciones."}
+        image={content.services.heroImage}
         compact
       />
       <section className="section">
         <div className="section-heading">
           <p className="eyebrow">Bosich Legal</p>
-          <h2>Práctica integral para personas y empresas</h2>
+          <h2>{content.services.introTitle || "Práctica integral para personas y empresas"}</h2>
         </div>
         <div className="service-grid service-grid-wide">
-          {content.services.items.map((service) => (
+          {content.services.items.map((service, index) => (
             <article className="service-card" key={service.title}>
-              <div className="service-card-icon"><ServiceIcon title={service.title} /></div>
+              <div className="service-card-icon"><ServiceIcon title={service.title} icon={service.icon} index={index} /></div>
               <h3>{service.title}</h3>
+              {service.description ? <p className="service-description">{service.description}</p> : null}
               <ul>
                 {service.details.map((detail) => (
                   <li key={detail}>{detail}</li>

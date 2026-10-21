@@ -56,6 +56,7 @@ export function Footer({ content }: { content: SiteContent }) {
         <div>
           <h2>Navegación</h2>
           <Link href="/servicios">Servicios jurídicos</Link>
+          <Link href="/propiedades">Propiedades en venta</Link>
           <Link href="/sobre-nosotros">Sobre nosotros</Link>
           <Link href="/ubicacion">Ubicación</Link>
           <Link href="/contacto">Contacto</Link>

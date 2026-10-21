@@ -1,14 +1,11 @@
 "use client";
 
 import { useActionState } from "react";
+import Link from "next/link";
 import type { SiteContent } from "@/types/site";
 import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
 import { saveAdminContent } from "./actions";
 import { SubmitButton } from "./SubmitButton";
-
-function servicesToText(services: SiteContent["services"]["items"]) {
-  return services.map((service) => [service.title, ...service.details].join("\n")).join("\n\n");
-}
 
 function socialHandle(url: string, base: string) {
   return url
@@ -137,15 +134,7 @@ export function AdminForm({ content }: { content: SiteContent }) {
 
       <section>
         <h2>Servicios</h2>
-        <label>
-          Título de la sección
-          <input name="servicesTitle" defaultValue={content.services.title} />
-        </label>
-        <p className="admin-help">Formato: título del servicio y debajo sus puntos. Separa cada servicio con una línea en blanco.</p>
-        <label>
-          Servicios
-          <textarea name="services" defaultValue={servicesToText(content.services.items)} rows={18} />
-        </label>
+        <Link className="back-link" href="/admin/servicios">Editar títulos, descripciones e íconos de servicios</Link>
       </section>
 
       <section>

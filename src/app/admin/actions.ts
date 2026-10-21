@@ -14,16 +14,6 @@ function lines(value: FormDataEntryValue | null) {
     .filter(Boolean);
 }
 
-function parseServices(raw: FormDataEntryValue | null): SiteContent["services"]["items"] {
-  return String(raw || "")
-    .split("\n\n")
-    .map((block) => {
-      const [title, ...details] = block.split("\n").map((line) => line.trim()).filter(Boolean);
-      return title ? { title, details } : null;
-    })
-    .filter(Boolean) as SiteContent["services"]["items"];
-}
-
 function socialUrl(base: string, value: FormDataEntryValue | null) {
   const handle = String(value || "").trim().replace(/^\/+|\/+$/g, "");
   return handle ? `https://${base}/${handle}` : "";
@@ -84,11 +74,6 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
       ...current.about,
       title: String(formData.get("aboutTitle") || current.about.title),
       paragraphs: lines(formData.get("aboutParagraphs")),
-    },
-    services: {
-      ...current.services,
-      title: String(formData.get("servicesTitle") || current.services.title),
-      items: parseServices(formData.get("services")),
     },
     locations: {
       ...current.locations,

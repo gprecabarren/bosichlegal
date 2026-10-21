@@ -8,7 +8,7 @@ import { listNewsPosts } from "@/lib/news";
 
 export default async function HomePage() {
   const [content, latestNews] = await Promise.all([getSiteContent(), listNewsPosts({ limit: 3 })]);
-  const featured = content.services.items.slice(0, 4);
+  const featured = content.services.items;
 
   return (
     <>
@@ -30,14 +30,15 @@ export default async function HomePage() {
       <section className="section section-muted">
         <div className="section-heading">
           <p className="eyebrow">Áreas de práctica</p>
-          <h2>Servicios jurídicos principales</h2>
+          <h2>{content.services.homeTitle || "Servicios jurídicos principales"}</h2>
           <Link href="/servicios">Ver todas las áreas <ArrowRight size={16} /></Link>
         </div>
         <div className="service-grid">
-          {featured.map((service) => (
+          {featured.map((service, index) => (
             <article className="service-card" key={service.title}>
-              <div className="service-card-icon"><ServiceIcon title={service.title} /></div>
+              <div className="service-card-icon"><ServiceIcon title={service.title} icon={service.icon} index={index} /></div>
               <h3>{service.title}</h3>
+              {service.description ? <p className="service-description">{service.description}</p> : null}
               <ul>
                 {service.details.slice(0, 3).map((detail) => (
                   <li key={detail}>{detail}</li>

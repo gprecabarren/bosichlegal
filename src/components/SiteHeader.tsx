@@ -6,6 +6,7 @@ import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
 const nav = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
+  { href: "/propiedades", label: "Propiedades" },
   { href: "/noticias", label: "Noticias" },
   { href: "/ubicacion", label: "Ubicación" },
   { href: "/sobre-nosotros", label: "Sobre nosotros" },

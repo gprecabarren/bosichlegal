@@ -135,36 +135,52 @@
     "heroImage": "/assets/site/services-hero.png",
     "items": [
       {
-        "title": "Derecho civil",
-        "details": ["Responsabilidad civil contractual y extracontractual", "Contratos y cumplimiento de obligaciones", "Negociaciones y acuerdos extrajudiciales", "Arbitrajes y litigios civiles"]
+        "title": "Derecho Civil de Alta Complejidad",
+        "icon": "civil",
+        "description": "",
+        "details": ["Responsabilidad Civil", "Estatutos especiales de responsabilidad Civil", "Contratos de Alta Complejidad", "Acuerdos extrajudiciales", "Arbitrajes"]
       },
       {
-        "title": "Derechos humanos y derecho internacional",
-        "details": ["Sistema internacional e interamericano de derechos humanos", "Acciones constitucionales", "Informes en derecho"]
+        "title": "Derechos Humanos y Derechos Internacionales",
+        "icon": "humanos",
+        "description": "",
+        "details": ["Sistema internacional e intercambio de derechos humanos", "Acciones constitucionales", "Informes en derecho"]
       },
       {
-        "title": "Derecho penal",
-        "details": ["Homicidios, lesiones y cuasidelitos", "Delitos económicos e informáticos", "Presentamos querellas", "Asumimos defensas penales y representación en audiencias"]
+        "title": "Derecho Penal de Alta Complejidad",
+        "icon": "penal",
+        "description": "",
+        "details": ["Homicidios, hurtos, lesiones", "Delitos Económicos", "Delitos Informáticos", "Querellas y Defensas"]
       },
       {
-        "title": "Derecho público y administrativo sancionador",
-        "details": ["Defensa en sumarios administrativos", "Reclamos y recursos ante la Contraloría General de la República", "Responsabilidad del Estado"]
+        "title": "Derecho Público: Administrativo Sancionador",
+        "icon": "publico",
+        "description": "",
+        "details": ["Defensa en Sumarios Administrativos", "Reclamos y recursos ante la C.G.R.", "Responsabilidad del Estado"]
       },
       {
-        "title": "Protección al derecho de propiedad",
-        "details": ["Querellas posesorias y acciones de dominio", "Estudios de título", "Asesoría en compra y venta de propiedades", "Saneamiento de la pequeña propiedad raíz"]
+        "title": "Protección al Derecho de Propiedad",
+        "icon": "propiedad",
+        "description": "",
+        "details": ["Querellas Posesorias y Acciones del Dominio", "Estudio de Título de Alta Complejidad", "Asesoría en compras y ventas de propiedades", "Saneamiento de la Pequeña Propiedad Raíz"]
       },
       {
-        "title": "Derecho corporativo y empresa",
-        "details": ["Constitución y reorganización de sociedades", "Gobierno corporativo", "Contratos comerciales", "Fusiones, adquisiciones y operaciones empresariales"]
+        "title": "Derecho Corporativo-Empresa",
+        "icon": "corporativo",
+        "description": "",
+        "details": ["Fusiones y Adquisiciones de Empresas", "Gobierno Corporativo", "Joint Venture", "Private Equity", "Mercado de Capitales"]
       },
       {
-        "title": "Derecho concursal",
-        "details": ["Liquidación y reorganización de empresas", "Renegociación de personas", "Impugnación de créditos", "Representación de deudores y acreedores"]
+        "title": "Derecho Concursal",
+        "icon": "concursal",
+        "description": "",
+        "details": ["Quiebra de personas y empresas", "Renegociación de personas", "Reorganización de empresas", "Impugnación de créditos"]
       },
       {
-        "title": "Derecho ambiental",
-        "details": ["Evaluación de impacto ambiental", "Defensa ante la SMA", "Litigación ante tribunales ambientales"]
+        "title": "Derecho Ambiental",
+        "icon": "ambiental",
+        "description": "",
+        "details": ["Evaluación de Impacto Ambiental", "Defensa ante la SMA", "Litigación ante Tribunales Ambientales"]
       }
     ]
   },

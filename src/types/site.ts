@@ -51,9 +51,14 @@ export type SiteContent = {
   };
   services: {
     title: string;
+    description?: string;
+    homeTitle?: string;
+    introTitle?: string;
     heroImage: string;
     items: Array<{
       title: string;
+      description?: string;
+      icon?: string;
       details: string[];
     }>;
   };
