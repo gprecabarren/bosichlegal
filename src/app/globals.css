@@ -2035,9 +2035,11 @@ p {
 
   .floating-whatsapp {
     right: 12px;
-    top: 58%;
+    top: auto;
+    bottom: max(16px, env(safe-area-inset-bottom));
     width: 44px;
     height: 44px;
+    transform: none;
   }
 
   .cta-band {
