@@ -29,7 +29,7 @@ export function ServicesEditor({ services }: { services: SiteContent["services"]
     });
   }
   return (
-    <form action={action} className="admin-form service-editor">
+    <form action={action} className="admin-form service-editor" onReset={(event) => event.preventDefault()}>
       <h2>Servicios jurídicos</h2>
       <section>
         <div className="form-grid">

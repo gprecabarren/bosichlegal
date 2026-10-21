@@ -54,10 +54,11 @@ export function PropertyEditor({ property }: { property?: Property }) {
     { key: "area_m2", label: "Superficie construida (m²)", step: "0.01" }, { key: "land_m2", label: "Superficie de terreno (m²)", step: "0.01" },
   ] as const;
   return (
-    <form action={action} className="admin-form property-editor">
+    <form action={action} className="admin-form property-editor" onReset={(event) => event.preventDefault()}>
       <div className="editor-section-heading"><div><Link className="back-link" href="/admin/propiedades"><ArrowLeft size={16} />Propiedades</Link><h2>{id ? "Editar propiedad" : "Nueva propiedad"}</h2></div>
         {state?.ok && values.status !== "draft" ? <Link className="back-link" href={`/propiedades/${state.slug}`} target="_blank">Ver publicación<ExternalLink size={16} /></Link> : null}
       </div>
+      {id ? <Link className="back-link" href={`/admin/propiedades/${id}/vista-previa`} target="_blank">Vista previa privada<ExternalLink size={16} /></Link> : null}
       <input type="hidden" name="id" value={id} />
       <input type="hidden" name="property" value={JSON.stringify(values)} />
       <fieldset disabled={busy} className="property-fieldset">

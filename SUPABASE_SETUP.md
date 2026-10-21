@@ -120,6 +120,8 @@ textos del diseño original. Se aplicaron al proyecto Bosich Legal de Nicolás.
 - `/admin/propiedades`: catálogo privado, alta, edición y papelera recuperable.
 - `/admin/propiedades/nueva`: título, enlace, descripción, ciudad, región, precio
   en CLP/UF, características, galería ordenable y SEO manual o automático.
+- `/admin/propiedades/[id]/vista-previa`: muestra el diseño de la publicación
+  sin hacer público un borrador. Requiere la sesión del administrador.
 - `/admin/servicios`: títulos de página/inicio, descripción, materias e ícono
   oficial de cada servicio. Los datos se guardan en `site_content`.
 - `/propiedades/[slug]`: página pública de cada publicación.
