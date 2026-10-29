@@ -6,11 +6,11 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { listServicePages } from "@/lib/service-pages";
 import { getSiteContent } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
-import { pageSeo } from "@/lib/page-seo";
+import { staticPageSeo } from "@/lib/static-page-seo";
 
 export async function generateMetadata() {
   const content = await getSiteContent();
-  return pageSeo({ title: content.seo.title, description: content.seo.description, path: "/" });
+  return staticPageSeo({ title: content.seo.title, description: content.seo.description, path: "/" });
 }
 
 export default async function HomePage() {

@@ -13,7 +13,8 @@
 
 - Inicio orientado a abogados y estudio jurídico en Concepción y Santiago, con modalidad remota explícita. Valdivia conserva su oficina y referencias existentes.
 - H1 visible debajo del banner, sin modificar ni comprimir las imágenes originales.
-- Cada área conserva su intención específica: derechos humanos en Chile, consultoría de protección de datos, derecho digital y software. No se duplicaron páginas por ciudad sin contenido propio.
+- Cada área conserva su intención específica: derechos humanos en Chile, consultoría de protección de datos, derecho digital y software. No se duplicaron páginas por ciudad sin contenido propio. Al cierre, el cliente autorizó indexar Software; se activó desde el administrador.
+- Ajustes incluye interruptores para las siete páginas públicas principales; las fichas de servicios y noticias mantienen controles individuales. Noindex excluye del sitemap, pero no es privacidad ni eliminación instantánea en Google.
 - Metadatos propios para páginas, noticias y propiedades; canonical de noticias normalizado a www, tarjetas sociales y control de filtros del catálogo.
 - Organización y oficinas con identificadores estables, direcciones y ciudades; los servicios referencian al estudio en vez de declarar un segundo negocio incompleto.
 - JSON-LD escapado y comprobaciones automatizadas. El sitemap no inventa fechas recientes para páginas estáticas.

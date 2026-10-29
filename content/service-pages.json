@@ -133,7 +133,7 @@
     "slug": "inscripcion-de-software",
     "title": "Inscripción de Software en Chile",
     "status": "published",
-    "noindex": true,
+    "noindex": false,
     "seo_title": "Inscripción de Software en Chile | Bosich Legal",
     "meta_description": "Preparación jurídica para la inscripción de programas computacionales ante el Departamento de Derechos Intelectuales mediante CRIN, en Chile.",
     "focus_keyword": "inscripción de software Chile",

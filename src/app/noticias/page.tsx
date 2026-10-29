@@ -4,11 +4,11 @@ import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
-import { pageSeo } from "@/lib/page-seo";
+import { staticPageSeo } from "@/lib/static-page-seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = pageSeo({ title: "Noticias y análisis jurídico en Chile", description: "Actualidad jurídica, comentarios y publicaciones de Bosich Legal para personas y empresas en Chile. Revisa las fuentes y la fecha de cada artículo.", path: "/noticias", image: "/assets/site/services-hero.png" });
+export async function generateMetadata(): Promise<Metadata> { return staticPageSeo({ title: "Noticias y análisis jurídico en Chile", description: "Actualidad jurídica, comentarios y publicaciones de Bosich Legal para personas y empresas en Chile. Revisa las fuentes y la fecha de cada artículo.", path: "/noticias", image: "/assets/site/services-hero.png" }); }
 
 function formatDate(value: string | null) {
   if (!value) return "Sin fecha";

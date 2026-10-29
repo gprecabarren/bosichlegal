@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { PropertyCatalog } from "@/components/PropertyCatalog";
 import { listPublicProperties } from "@/lib/properties";
-import { pageSeo } from "@/lib/page-seo";
+import { staticPageSeo } from "@/lib/static-page-seo";
 
 export const dynamic = "force-dynamic";
 
 type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const query = await searchParams;
-  return pageSeo({
+  return staticPageSeo({
     title: "Propiedades en venta",
     description: "Propiedades en venta con Bosich Legal. Revisa fotografías, características, precios y ubicaciones por ciudad y región en Chile.",
     path: "/propiedades", noindex: ["region", "city", "type", "status"].some(key => Boolean(query[key])),

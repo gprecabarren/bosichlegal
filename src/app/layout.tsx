@@ -42,10 +42,10 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: { canonical: "/" },
     icons: {
       icon: [
-        { url: "/favicon.svg", type: "image/svg+xml", sizes: "any" },
-        { url: "/favicon.ico", type: "image/x-icon", sizes: "32x32" },
+        { url: "/favicon.svg?v=chess-20261029", type: "image/svg+xml", sizes: "any" },
+        { url: "/favicon.ico?v=chess-20261029", type: "image/x-icon", sizes: "32x32" },
       ],
-      shortcut: ["/favicon.ico"],
+      shortcut: ["/favicon.ico?v=chess-20261029"],
       apple: [{ url: "/apple-icon.png", type: "image/png" }],
     },
     openGraph: {

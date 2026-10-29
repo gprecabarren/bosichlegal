@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/lib/content";
+import { getSiteContent, siteUrl } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
 import { listPublicProperties } from "@/lib/properties";
 import { locationPath } from "@/lib/property-fields";
@@ -36,5 +36,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
   const locationRoutes = [...locations].map(([path, lastModified]) => ({ url: `${baseUrl}${path}`, lastModified, changeFrequency: "weekly" as const, priority: 0.7 }));
   const serviceRoutes = indexableServicePages(await listServicePages()).map(page => ({ url: `${baseUrl}/servicios/${page.slug}`, lastModified: new Date(page.updated_at), changeFrequency: "monthly" as const, priority: 0.8 }));
-  return [...staticRoutes, ...newsRoutes, ...propertyRoutes, ...locationRoutes, ...serviceRoutes];
+  const blocked = new Set((await getSiteContent()).seo.noindexPaths || []);
+  return [...staticRoutes, ...newsRoutes, ...propertyRoutes, ...locationRoutes, ...serviceRoutes].filter(route => !blocked.has(new URL(route.url).pathname));
 }

@@ -6,6 +6,7 @@ import type { SiteContent } from "@/types/site";
 import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
 import { saveAdminContent } from "./actions";
 import { SubmitButton } from "./SubmitButton";
+import { indexingPages } from "@/lib/indexing-pages";
 
 function socialHandle(url: string, base: string) {
   return url
@@ -43,6 +44,14 @@ export function AdminForm({ content }: { content: SiteContent }) {
         </label>
       </section>
 
+      <section>
+        <h2>Indexación de páginas</h2>
+        <input type="hidden" name="indexingControlsPresent" value="1" />
+        <div className="service-related-options">{indexingPages.map(page => <label key={page.path} className="checkbox-label"><input type="checkbox" name="indexablePaths" value={page.path} defaultChecked={!content.seo.noindexPaths?.includes(page.path)} />{page.label}</label>)}</div>
+        <p className="admin-help">Marcada: permite indexación. Desmarcada: noindex y exclusión del sitemap. Los cambios en Google no son inmediatos y no convierten la página en privada.</p>
+        <Link className="back-link" href="/admin/servicios/paginas">Indexación de páginas de servicios</Link>
+        <Link className="back-link" href="/admin/crear-blog">Indexación individual de noticias</Link>
+      </section>
       <section>
         <h2>Configuración técnica</h2>
         <p className="admin-help">

@@ -4,9 +4,9 @@ import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
 import { ContactCaseForm } from "./ContactCaseForm";
-import { pageSeo } from "@/lib/page-seo";
+import { staticPageSeo } from "@/lib/static-page-seo";
 
-export const metadata: Metadata = pageSeo({ title: "Agenda una consulta jurídica presencial u online", description: "Cuéntanos tu caso y coordina una consulta con Bosich Legal. Atención en Concepción y Santiago, y modalidad remota. Contacto por formulario, teléfono y WhatsApp.", path: "/contacto", image: "/assets/site/contact-hero.png" });
+export async function generateMetadata(): Promise<Metadata> { return staticPageSeo({ title: "Agenda una consulta jurídica presencial u online", description: "Cuéntanos tu caso y coordina una consulta con Bosich Legal. Atención en Concepción y Santiago, y modalidad remota. Contacto por formulario, teléfono y WhatsApp.", path: "/contacto", image: "/assets/site/contact-hero.png" }); }
 
 export default async function ContactPage() {
   const content = await getSiteContent();

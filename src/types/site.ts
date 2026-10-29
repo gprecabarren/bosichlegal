@@ -24,6 +24,7 @@ export type SiteContent = {
     description: string;
     keywords: string[];
     googleSiteVerification?: string;
+    noindexPaths?: string[];
   };
   integrations?: {
     searchConsoleProperty?: string;

@@ -3,9 +3,9 @@ import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
 import { listMembers } from "@/lib/members";
-import { pageSeo } from "@/lib/page-seo";
+import { staticPageSeo } from "@/lib/static-page-seo";
 
-export const metadata: Metadata = pageSeo({ title: "Nuestro equipo de abogados", description: "Conoce al equipo de Bosich Legal y su trayectoria desde 2012. Asesoría y litigación en Concepción y Santiago, con atención remota para clientes en Chile.", path: "/sobre-nosotros", image: "/assets/site/about-hero.png" });
+export async function generateMetadata(): Promise<Metadata> { return staticPageSeo({ title: "Nuestro equipo de abogados", description: "Conoce al equipo de Bosich Legal y su trayectoria desde 2012. Asesoría y litigación en Concepción y Santiago, con atención remota para clientes en Chile.", path: "/sobre-nosotros", image: "/assets/site/about-hero.png" }); }
 
 export default async function AboutPage() {
   const content = await getSiteContent();

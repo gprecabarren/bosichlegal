@@ -7,10 +7,11 @@ import { isNewsPlaceholder } from "../src/lib/news-placeholder.ts";
 const pages = JSON.parse(await readFile(new URL("../content/service-pages.json", import.meta.url), "utf8"));
 const site = JSON.parse(await readFile(new URL("../content/site.json", import.meta.url), "utf8"));
 
-test("initial service pages are valid and software stays out of indexing", () => {
+test("service pages are valid and indexing can be disabled per page", () => {
   pages.forEach(page => validateServicePage(page));
-  assert.deepEqual(indexableServicePages(pages).map(p => p.slug), ["derechos-humanos", "derecho-digital", "proteccion-de-datos"]);
-  assert.equal(pages.find(p => p.slug === "inscripcion-de-software").noindex, true);
+  assert.equal(indexableServicePages(pages).length, 4);
+  const hidden = pages.map(p => p.slug === "inscripcion-de-software" ? { ...p, noindex: true } : p);
+  assert.deepEqual(indexableServicePages(hidden).map(p => p.slug), ["derechos-humanos", "derecho-digital", "proteccion-de-datos"]);
 });
 test("disabled cards never expose primary or topic links", () => {
   const item = { title: "Test", details: [], clickable: false, pageSlug: "derechos-humanos", topics: [{ label: "Datos", pageSlug: "proteccion-de-datos" }] };

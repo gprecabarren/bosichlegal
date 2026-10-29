@@ -6,6 +6,7 @@ import { clearSession, requireAdmin } from "@/lib/auth";
 import { getSiteContent, saveSiteContent } from "@/lib/content";
 import { normalizeLinkedInProfileUrl } from "@/lib/linkedin";
 import type { SiteContent } from "@/types/site";
+import { indexingPages } from "@/lib/indexing-pages";
 
 function lines(value: FormDataEntryValue | null) {
   return String(value || "")
@@ -53,6 +54,7 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
       description: String(formData.get("seoDescription") || current.seo.description),
       keywords: lines(formData.get("keywords")),
       googleSiteVerification: String(formData.get("googleSiteVerification") || "").trim(),
+      noindexPaths: formData.get("indexingControlsPresent") === "1" ? indexingPages.filter(page => !formData.getAll("indexablePaths").includes(page.path)).map(page => page.path) : current.seo.noindexPaths,
     },
     integrations: {
       ...current.integrations,
