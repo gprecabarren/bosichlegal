@@ -2140,6 +2140,8 @@ p {
 .checkbox-label input[type="checkbox"] { flex: 0 0 18px; width: 18px; height: 18px; padding: 0; margin: 0; accent-color: #8d693d; }
 .admin-actions { flex-wrap: wrap; row-gap: 16px; }
 .admin-actions p { margin: 0; line-height: 1.6; }
+.admin-page .button-secondary { color: var(--ink); border-color: #8a744f; }
+.admin-page .button-secondary:hover { background: #f3eee5; }
 .editor-section-heading > div { min-width: 0; }
 .editor-section-heading h2, .editor-section-heading h3, .editor-section-heading h4 { margin: 0; }
 .service-visibility { display: flex; flex-wrap: wrap; gap: 24px; padding: 18px 0; border-block: 1px solid var(--line); }
