@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  outputFileTracingIncludes: {
+    "/**": ["./content/site.json"],
+  },
   experimental: {
     serverActions: {
       bodySizeLimit: "4mb",
