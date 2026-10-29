@@ -6,6 +6,8 @@ import { locationPath } from "@/lib/property-fields";
 import { listServicePages } from "@/lib/service-pages";
 import { indexableServicePages } from "@/lib/service-fields";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteUrl();
 
