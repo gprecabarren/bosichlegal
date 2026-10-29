@@ -590,7 +590,7 @@ function SeoFields({ values }: { values: NewsFormValues }) {
     setValue("seo_title", seoTitle.slice(0, 60));
     setValue("meta_description", description);
     setValue("focus_keyword", keyword.slice(0, 80));
-    setValue("canonical_url", slug ? `https://bosichlegal.cl/noticias/${slug}` : "");
+    setValue("canonical_url", slug ? `https://www.bosichlegal.cl/noticias/${slug}` : "");
     setValue("og_title", seoTitle.slice(0, 60));
     setValue("og_description", description);
     setHint("Propuesta generada. Puedes editar cada campo antes de guardar.");

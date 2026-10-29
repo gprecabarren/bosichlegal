@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { getSiteContent, siteUrl } from "@/lib/content";
 import { organizationSchema } from "@/lib/seo";
+import { jsonLd } from "@/lib/page-seo";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { SiteHeader } from "@/components/SiteHeader";
@@ -37,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description: content.seo.description,
     keywords: content.seo.keywords,
-    verification: { google: "iyThj2ILNOuK9MDViiMRJ25PQif_SIVwxajZC7WYL-Y" },
+    verification: { google: content.seo.googleSiteVerification || "iyThj2ILNOuK9MDViiMRJ25PQif_SIVwxajZC7WYL-Y" },
     alternates: { canonical: "/" },
     icons: {
       icon: [
@@ -102,7 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema(content)),
+            __html: jsonLd(organizationSchema(content, siteUrl())),
           }}
         />
       </body>

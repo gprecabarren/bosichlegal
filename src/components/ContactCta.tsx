@@ -5,7 +5,7 @@ export function ContactCta({ content, featured = false }: { content: SiteContent
   return (
     <section className={featured ? "cta-band cta-band-featured" : "cta-band"}>
       {featured ? (
-        <img className="cta-image" src="/assets/site/lady-justice.png" alt="Estatua de la justicia con balanza" />
+        <img className="cta-image" src="/assets/site/lady-justice.png" alt="Estatua de la justicia con balanza" width={720} height={720} loading="lazy" decoding="async" />
       ) : null}
       <div>
         <p className="eyebrow">Atención legal</p>

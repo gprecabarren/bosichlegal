@@ -3,12 +3,9 @@ import { ExternalLink, MapPin } from "lucide-react";
 import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
+import { pageSeo } from "@/lib/page-seo";
 
-export const metadata: Metadata = {
-  title: "Ubicación",
-  description: "Oficinas de Bosich Legal en Concepción, Santiago y Valdivia. Atención jurídica para personas y empresas.",
-  alternates: { canonical: "/ubicacion" },
-};
+export const metadata: Metadata = pageSeo({ title: "Oficinas en Concepción y Santiago y atención online", description: "Encuentra las oficinas de Bosich Legal en Concepción, Santiago y Valdivia. Coordina una reunión presencial o una consulta jurídica por videollamada.", path: "/ubicacion", image: "/assets/site/location-hero.png" });
 
 export default async function LocationPage() {
   const content = await getSiteContent();
@@ -18,7 +15,7 @@ export default async function LocationPage() {
       <Hero
         eyebrow="Presencia en Chile"
         title="Ubicación"
-        text="Atención jurídica en Concepción, Santiago y Valdivia."
+        text="Oficinas en Concepción, Santiago y Valdivia. Consultas presenciales con coordinación previa y atención remota para clientes en Chile."
         image="/assets/site/location-hero.png"
         compact
       />

@@ -19,6 +19,9 @@ const subjects = [
   "Derecho de familia",
   "Derecho administrativo",
   "Derecho ambiental",
+  "Derechos humanos",
+  "Derecho digital y protección de datos",
+  "Inscripción de software",
   "Otra materia",
 ];
 

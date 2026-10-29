@@ -88,9 +88,8 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
   };
 
   await saveSiteContent(nextContent);
-  ["/", "/servicios", "/ubicacion", "/sobre-nosotros", "/contacto", "/admin"].forEach((path) => {
-    revalidatePath(path);
-  });
+  revalidatePath("/", "layout");
+  revalidatePath("/sitemap.xml");
 
   return { ok: true, message: "Contenido guardado correctamente." };
 }

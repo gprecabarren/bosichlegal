@@ -1,50 +1,21 @@
 import type { SiteContent } from "@/types/site";
-import { siteUrl } from "@/lib/content";
 
-export function organizationSchema(content: SiteContent) {
-  const baseUrl = siteUrl();
-
-  return {
-    "@context": "https://schema.org",
-    "@type": ["LegalService", "Attorney"],
-    name: content.brand.name,
-    url: baseUrl,
-    logo: `${baseUrl}/assets/brand/logo-mark.jpg`,
-    image: `${baseUrl}/assets/site/home-hero.png`,
-    description: content.seo.description,
-    telephone: content.contact.phone,
-    email: content.contact.email,
-    areaServed: ["Concepción", "Santiago", "Valdivia", "Chile"],
-    address: content.locations.items.map((item) => ({
-      "@type": "PostalAddress",
-      streetAddress: item.address,
-      addressCountry: "CL",
-    })),
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:00",
-        closes: "19:00",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
-        opens: "09:00",
-        closes: "14:00",
-      },
-    ],
-    sameAs: [
-      content.contact.social.instagram,
-      content.contact.social.linkedin,
-    ].filter(Boolean),
-    makesOffer: content.services.items.map((service) => ({
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: service.title,
-        serviceType: service.title,
-      },
-    })),
-  };
+export function organizationSchema(content: SiteContent, baseUrl = "https://www.bosichlegal.cl") {
+  const organizationId = `${baseUrl}/#estudio`;
+  const branches = content.locations.items.map((location, index) => ({
+    "@type": "LegalService", "@id": `${baseUrl}/ubicacion#oficina-${index + 1}`,
+    name: `${content.brand.name} - ${location.city}`, url: `${baseUrl}/ubicacion`,
+    parentOrganization: { "@id": organizationId }, image: `${baseUrl}/assets/site/location-hero.png`, telephone: content.contact.phone,
+    address: { "@type": "PostalAddress", streetAddress: location.address, addressLocality: location.city, addressCountry: "CL" },
+    hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.mapQuery)}`,
+  }));
+  return { "@context": "https://schema.org", "@graph": [
+    { "@type": "Organization", "@id": organizationId, name: content.brand.name, url: baseUrl,
+      logo: `${baseUrl}/assets/brand/logo-mark.jpg`, description: content.seo.description,
+      telephone: content.contact.phone, email: content.contact.email, areaServed: { "@type": "Country", name: "Chile" },
+      sameAs: [content.contact.social.instagram, content.contact.social.linkedin].filter(Boolean), department: branches.map(branch => ({ "@id": branch["@id"] })),
+    },
+    { "@type": "WebSite", "@id": `${baseUrl}/#website`, url: baseUrl, name: content.brand.name, inLanguage: "es-CL", publisher: { "@id": organizationId } },
+    ...branches,
+  ] };
 }

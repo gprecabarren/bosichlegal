@@ -4,14 +4,11 @@ import { ArrowRight } from "lucide-react";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
+import { pageSeo } from "@/lib/page-seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Noticias",
-  description: "Noticias, comentarios y actualizaciones jurídicas de Bosich Legal.",
-  alternates: { canonical: "/noticias" },
-};
+export const metadata: Metadata = pageSeo({ title: "Noticias y análisis jurídico en Chile", description: "Actualidad jurídica, comentarios y publicaciones de Bosich Legal para personas y empresas en Chile. Revisa las fuentes y la fecha de cada artículo.", path: "/noticias", image: "/assets/site/services-hero.png" });
 
 function formatDate(value: string | null) {
   if (!value) return "Sin fecha";
@@ -46,7 +43,7 @@ export default async function NewsPage() {
           <div className="news-grid">
             {posts.map((post) => (
               <article className="news-card" key={post.id}>
-                {post.cover_image_url ? <img src={post.cover_image_url} alt={post.title} /> : null}
+                {post.cover_image_url ? <img src={post.cover_image_url} alt={post.title} loading="lazy" decoding="async" /> : null}
                 <div>
                   <time dateTime={post.published_at || post.created_at}>{formatDate(post.published_at || post.created_at || null)}</time>
                   <h3>{post.title}</h3>

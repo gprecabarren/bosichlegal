@@ -168,22 +168,16 @@ p {
 
 .home-hero > img {
   width: 100%;
+  height: auto;
   min-height: 360px;
   object-fit: cover;
   object-position: center;
 }
 
-.home-hero-copy {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+.home-intro-title { font-size: 2.8rem; line-height: 1.12; margin: 16px 0 24px; }
+.home-intro-lead { font-size: 1.2rem; line-height: 1.65; }
+.intro-grid .home-intro-subtitle { font-size: 1.5rem; margin: 28px 0 14px; }
+@media (max-width: 700px) { .home-intro-title { font-size: 2rem; } }
 
 .home-hero-buttons {
   position: absolute;

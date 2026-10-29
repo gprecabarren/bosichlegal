@@ -4,12 +4,9 @@ import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
 import { ContactCaseForm } from "./ContactCaseForm";
+import { pageSeo } from "@/lib/page-seo";
 
-export const metadata: Metadata = {
-  title: "Contacto",
-  description: "Contacta a Bosich Legal para servicios jurídicos en Concepción, Santiago y Valdivia. Atención por WhatsApp, teléfono y correo.",
-  alternates: { canonical: "/contacto" },
-};
+export const metadata: Metadata = pageSeo({ title: "Agenda una consulta jurídica presencial u online", description: "Cuéntanos tu caso y coordina una consulta con Bosich Legal. Atención en Concepción y Santiago, y modalidad remota. Contacto por formulario, teléfono y WhatsApp.", path: "/contacto", image: "/assets/site/contact-hero.png" });
 
 export default async function ContactPage() {
   const content = await getSiteContent();
@@ -19,7 +16,7 @@ export default async function ContactPage() {
       <Hero
         eyebrow="Hablemos de tu caso"
         title="Contacto"
-        text="Cuéntanos qué necesitas y coordinaremos la mejor forma de ayudarte."
+        text="Cuéntanos la materia, tu ciudad y si existe un plazo urgente. Coordinaremos una consulta presencial en nuestras oficinas o una reunión remota, según tu situación."
         image="/assets/site/contact-hero.png"
         compact
       />

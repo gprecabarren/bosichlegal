@@ -6,6 +6,12 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { listServicePages } from "@/lib/service-pages";
 import { getSiteContent } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
+import { pageSeo } from "@/lib/page-seo";
+
+export async function generateMetadata() {
+  const content = await getSiteContent();
+  return pageSeo({ title: content.seo.title, description: content.seo.description, path: "/" });
+}
 
 export default async function HomePage() {
   const [content, latestNews, servicePages] = await Promise.all([getSiteContent(), listNewsPosts({ limit: 3 }), listServicePages()]);
@@ -18,7 +24,9 @@ export default async function HomePage() {
       <section className="section intro-grid">
         <div>
           <p className="eyebrow">Estudio jurídico</p>
-          <h2>{content.home.introTitle}</h2>
+          <h1 id="home-title" className="home-intro-title">{content.home.heroTitle}</h1>
+          <p className="home-intro-lead">{content.home.heroSubtitle}</p>
+          <h2 className="home-intro-subtitle">{content.home.introTitle}</h2>
           <p>{content.home.introText}</p>
         </div>
         <div className="metric-panel">
@@ -60,7 +68,7 @@ export default async function HomePage() {
           <div className="news-grid news-grid-compact">
             {latestNews.map((post) => (
               <article className="news-card" key={post.id}>
-                {post.cover_image_url ? <img src={post.cover_image_url} alt={post.title} /> : null}
+                {post.cover_image_url ? <img src={post.cover_image_url} alt={post.title} loading="lazy" decoding="async" /> : null}
                 <div>
                   <h3>{post.title}</h3>
                   <p>{post.excerpt}</p>

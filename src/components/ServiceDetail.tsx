@@ -12,7 +12,7 @@ export function ServiceDetail({ page, content, pages }: { page: ServicePage; con
   const sections = c.sections.map((section, index) => ({ ...section, anchor: `seccion-${index + 1}` }));
   const contents = <>{sections.map(s => <a href={`#${s.anchor}`} key={s.anchor}>{s.title}</a>)}{c.steps.length ? <a href="#etapas">Cómo trabajamos</a> : null}{c.faqs.length ? <a href="#preguntas">Preguntas frecuentes</a> : null}</>;
   const schemas = [
-    { "@context": "https://schema.org", "@type": "Service", "@id": `${url}#servicio`, name: page.title, description: page.meta_description || c.intro, url, areaServed: { "@type": "Country", name: "Chile" }, provider: { "@type": "LegalService", name: content.brand.name, url: siteUrl(), telephone: content.contact.phone }, image: c.heroImage.startsWith("/") ? `${siteUrl()}${c.heroImage}` : c.heroImage },
+    { "@context": "https://schema.org", "@type": "Service", "@id": `${url}#servicio`, name: page.title, description: page.meta_description || c.intro, url, areaServed: { "@type": "Country", name: "Chile" }, provider: { "@id": `${siteUrl()}/#estudio` }, image: c.heroImage.startsWith("/") ? `${siteUrl()}${c.heroImage}` : c.heroImage },
     { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Inicio", item: siteUrl() }, { "@type": "ListItem", position: 2, name: "Servicios", item: `${siteUrl()}/servicios` }, { "@type": "ListItem", position: 3, name: page.title, item: url }] },
     ...(c.faqs.length ? [{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: c.faqs.map(f => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })) }] : []),
   ];
@@ -29,6 +29,7 @@ export function ServiceDetail({ page, content, pages }: { page: ServicePage; con
       <aside className="service-detail-index"><p className="eyebrow">En esta página</p><nav aria-label="Contenido del servicio">{contents}</nav><Link className="back-link" href="/contacto">Consultar mi caso<ArrowRight size={16} /></Link></aside>
       <article className="service-detail-body">
         <p className="service-detail-intro">{c.intro}</p>
+        <p>Consultas presenciales en Concepción y Santiago, previa coordinación, y asesoría remota para clientes en Chile. Las actuaciones que requieran presencia se evalúan según el caso. <Link href="/ubicacion">Ver oficinas y modalidades de atención</Link>.</p>
         <details className="service-mobile-index"><summary>Contenido de esta página</summary><nav aria-label="Contenido del servicio">{contents}</nav></details>
         {c.notice ? <div className="service-legal-note"><p>{c.notice}</p></div> : null}
         {sections.map(s => <section id={s.anchor} className="service-content-section" key={s.anchor}><h2>{s.title}</h2>{s.text.split(/\n\s*\n/).filter(Boolean).map((p, i) => <p key={i}>{p}</p>)}{s.bullets.length ? <ul>{s.bullets.map((b, i) => <li key={i}>{b}</li>)}</ul> : null}</section>)}

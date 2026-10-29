@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PropertyCatalog } from "@/components/PropertyCatalog";
 import { listPublicProperties } from "@/lib/properties";
 import { locationPath, regionName, regions, slugify } from "@/lib/property-fields";
+import { pageSeo } from "@/lib/page-seo";
 
 export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ location: string[] }> };
@@ -21,7 +22,7 @@ async function locationData(params: Props["params"]) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { region, city } = await locationData(params);
   const place = city ? `${city}, ${regionName(region)}` : regionName(region);
-  return { title: `Propiedades en venta en ${place}`, description: `Propiedades en venta en ${place}. Consulta fotos, precios y características con Bosich Legal.`, alternates: { canonical: locationPath(region, city) } };
+  return pageSeo({ title: `Propiedades en venta en ${place}`, description: `Propiedades en venta en ${place}. Consulta fotos, precios y características con Bosich Legal.`, path: locationPath(region, city) });
 }
 
 export default async function PropertyLocationPage({ params }: Props) {

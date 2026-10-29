@@ -3,12 +3,9 @@ import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
 import { listMembers } from "@/lib/members";
+import { pageSeo } from "@/lib/page-seo";
 
-export const metadata: Metadata = {
-  title: "Sobre nosotros",
-  description: "Conoce a Bosich Legal, estudio jurídico con trayectoria desde 2012 y equipo multidisciplinario para servicios legales en Concepción, Santiago y Valdivia.",
-  alternates: { canonical: "/sobre-nosotros" },
-};
+export const metadata: Metadata = pageSeo({ title: "Nuestro equipo de abogados", description: "Conoce al equipo de Bosich Legal y su trayectoria desde 2012. Asesoría y litigación en Concepción y Santiago, con atención remota para clientes en Chile.", path: "/sobre-nosotros", image: "/assets/site/about-hero.png" });
 
 export default async function AboutPage() {
   const content = await getSiteContent();
@@ -24,7 +21,7 @@ export default async function AboutPage() {
         compact
       />
       <section className="section about-story">
-        <img src="/assets/site/about-statue.png" alt="Figura de la justicia" />
+        <img src="/assets/site/about-statue.png" alt="Figura de la justicia" loading="lazy" decoding="async" />
         <div className="content-flow">
           {content.about.paragraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
@@ -40,10 +37,9 @@ export default async function AboutPage() {
           {members.map((member) => (
             <article className="team-card" key={`${member.name}-${member.role}`}>
               {member.photo_url ? (
-                <img className="team-photo" src={member.photo_url} alt={member.name} />
-              ) : (
-                <h3>{member.name}</h3>
-              )}
+                <img className="team-photo" src={member.photo_url} alt={member.name} loading="lazy" decoding="async" />
+              ) : null}
+              <h3>{member.name}</h3>
               <p className="role">{member.role}</p>
               <p>{member.focus}</p>
             </article>

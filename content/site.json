@@ -25,8 +25,8 @@
     }
   },
   "seo": {
-    "title": "Bosich Legal | Abogados en Concepción, Santiago y Valdivia",
-    "description": "Estudio jurídico con servicios legales en Concepción, Santiago y Valdivia. Asesoría en derecho civil, penal, corporativo, ambiental, administrativo y litigios.",
+    "title": "Abogados en Concepción y Santiago | Bosich Legal",
+    "description": "Estudio jurídico en Concepción y Santiago. Asesoría y representación para personas y empresas, con consultas presenciales y atención online en Chile.",
     "keywords": [
       "abogados Concepción",
       "abogado penal Concepción",
@@ -43,11 +43,11 @@
     ]
   },
   "home": {
-    "heroTitle": "Servicios jurídicos estratégicos para personas y empresas",
-    "heroSubtitle": "Asesoría, representación judicial y defensa técnica en materias civiles, penales, corporativas, administrativas y ambientales.",
+    "heroTitle": "Abogados en Concepción y Santiago",
+    "heroSubtitle": "Asesoría jurídica y representación para personas y empresas. Consultas presenciales con coordinación previa y atención online para clientes en Chile.",
     "heroImage": "/assets/site/home-hero.png",
-    "introTitle": "Defensa, prevención y estrategia jurídica",
-    "introText": "Bosich Legal combina análisis técnico, litigación y acompañamiento cercano para entregar soluciones jurídicas claras, oportunas y sostenibles."
+    "introTitle": "Una estrategia jurídica para tu situación",
+    "introText": "En Bosich Legal revisamos tus antecedentes y definimos contigo los pasos, documentos y alcance de la asesoría. Trabajamos en asuntos civiles, penales, corporativos, administrativos y ambientales, además de derechos humanos y derecho digital. Podemos coordinar una primera reunión por videollamada; las gestiones presenciales se evalúan según la materia y el tribunal competente."
   },
   "about": {
     "title": "Sobre nosotros",

@@ -5,6 +5,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { getSupabaseServerKey } from "@/lib/supabase";
 import type { SiteContent } from "@/types/site";
+import { cache } from "react";
 
 const contentPath = path.join(process.cwd(), "content", "site.json");
 const table = process.env.SUPABASE_CONTENT_TABLE || "site_content";
@@ -20,7 +21,7 @@ function supabaseConfig() {
   return url && key ? { url, key } : null;
 }
 
-export async function getSiteContent(): Promise<SiteContent> {
+export const getSiteContent = cache(async (): Promise<SiteContent> => {
   const config = supabaseConfig();
 
   if (!config) {
@@ -42,7 +43,7 @@ export async function getSiteContent(): Promise<SiteContent> {
   }
 
   return data.content as SiteContent;
-}
+});
 
 export async function saveSiteContent(content: SiteContent) {
   const config = supabaseConfig();

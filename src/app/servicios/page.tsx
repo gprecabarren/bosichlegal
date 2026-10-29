@@ -4,14 +4,15 @@ import { Hero } from "@/components/Hero";
 import { ServiceCard } from "@/components/ServiceCard";
 import { listServicePages } from "@/lib/service-pages";
 import { getSiteContent } from "@/lib/content";
+import { pageSeo } from "@/lib/page-seo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { services } = await getSiteContent();
-  return {
-    title: services.title,
+  return pageSeo({
+    title: "Servicios jurídicos para personas y empresas",
     description: services.description || "Servicios jurídicos en derecho civil, penal, corporativo, administrativo, ambiental, concursal y propiedad para clientes en Concepción, Santiago y Valdivia.",
-    alternates: { canonical: "/servicios" },
-  };
+    path: "/servicios", image: services.heroImage,
+  });
 }
 
 export default async function ServicesPage() {
