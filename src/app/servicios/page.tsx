@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { ContactCta } from "@/components/ContactCta";
 import { Hero } from "@/components/Hero";
-import { ServiceIcon } from "@/components/ServiceIcon";
+import { ServiceCard } from "@/components/ServiceCard";
+import { listServicePages } from "@/lib/service-pages";
 import { getSiteContent } from "@/lib/content";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -14,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ServicesPage() {
-  const content = await getSiteContent();
+  const [content, pages] = await Promise.all([getSiteContent(), listServicePages()]);
 
   return (
     <>
@@ -32,16 +33,7 @@ export default async function ServicesPage() {
         </div>
         <div className="service-grid service-grid-wide">
           {content.services.items.map((service, index) => (
-            <article className="service-card" key={service.title}>
-              <div className="service-card-icon"><ServiceIcon title={service.title} icon={service.icon} index={index} /></div>
-              <h3>{service.title}</h3>
-              {service.description ? <p className="service-description">{service.description}</p> : null}
-              <ul>
-                {service.details.map((detail) => (
-                  <li key={detail}>{detail}</li>
-                ))}
-              </ul>
-            </article>
+            <ServiceCard key={service.title} service={service} pages={pages} index={index} />
           ))}
         </div>
       </section>

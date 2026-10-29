@@ -2,13 +2,14 @@ import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness, Building2, Scale } from "lucide-react";
 import { ContactCta } from "@/components/ContactCta";
 import { HomeHero } from "@/components/HomeHero";
-import { ServiceIcon } from "@/components/ServiceIcon";
+import { ServiceCard } from "@/components/ServiceCard";
+import { listServicePages } from "@/lib/service-pages";
 import { getSiteContent } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
 
 export default async function HomePage() {
-  const [content, latestNews] = await Promise.all([getSiteContent(), listNewsPosts({ limit: 3 })]);
-  const featured = content.services.items;
+  const [content, latestNews, servicePages] = await Promise.all([getSiteContent(), listNewsPosts({ limit: 3 }), listServicePages()]);
+  const featured = content.services.items.filter(service => service.showOnHome !== false);
 
   return (
     <>
@@ -35,16 +36,7 @@ export default async function HomePage() {
         </div>
         <div className="service-grid">
           {featured.map((service, index) => (
-            <article className="service-card" key={service.title}>
-              <div className="service-card-icon"><ServiceIcon title={service.title} icon={service.icon} index={index} /></div>
-              <h3>{service.title}</h3>
-              {service.description ? <p className="service-description">{service.description}</p> : null}
-              <ul>
-                {service.details.slice(0, 3).map((detail) => (
-                  <li key={detail}>{detail}</li>
-                ))}
-              </ul>
-            </article>
+            <ServiceCard key={service.title} service={service} pages={servicePages} index={index} compact />
           ))}
         </div>
       </section>

@@ -8,7 +8,10 @@
     "phone": "+56 9 7911 6808",
     "whatsapp": "56979116808",
     "email": "nicolas@bosichlegal.cl",
-    "hours": ["Lunes a viernes: 9:00 - 19:00 horas", "Sábado: 9:00 - 14:00 horas"],
+    "hours": [
+      "Lunes a viernes: 9:00 - 19:00 horas",
+      "Sábado: 9:00 - 14:00 horas"
+    ],
     "addresses": [
       "Badajoz 100, Oficina 1014, Las Condes, Santiago.",
       "Angol 436, Oficina 1004, Concepción.",
@@ -138,49 +141,144 @@
         "title": "Derecho Civil de Alta Complejidad",
         "icon": "civil",
         "description": "",
-        "details": ["Responsabilidad Civil", "Estatutos especiales de responsabilidad Civil", "Contratos de Alta Complejidad", "Acuerdos extrajudiciales", "Arbitrajes"]
+        "details": [
+          "Responsabilidad Civil",
+          "Estatutos especiales de responsabilidad Civil",
+          "Contratos de Alta Complejidad",
+          "Acuerdos extrajudiciales",
+          "Arbitrajes"
+        ],
+        "showOnHome": true,
+        "clickable": false,
+        "pageSlug": "",
+        "topics": []
       },
       {
         "title": "Derechos Humanos y Derechos Internacionales",
         "icon": "humanos",
         "description": "",
-        "details": ["Sistema internacional e intercambio de derechos humanos", "Acciones constitucionales", "Informes en derecho"]
+        "details": [
+          "Sistema internacional e intercambio de derechos humanos",
+          "Acciones constitucionales",
+          "Informes en derecho"
+        ],
+        "showOnHome": true,
+        "clickable": true,
+        "pageSlug": "derechos-humanos",
+        "topics": []
       },
       {
         "title": "Derecho Penal de Alta Complejidad",
         "icon": "penal",
         "description": "",
-        "details": ["Homicidios, hurtos, lesiones", "Delitos Económicos", "Delitos Informáticos", "Querellas y Defensas"]
+        "details": [
+          "Homicidios, hurtos, lesiones",
+          "Delitos Económicos",
+          "Querellas y Defensas"
+        ],
+        "showOnHome": true,
+        "clickable": false,
+        "pageSlug": "",
+        "topics": []
       },
       {
         "title": "Derecho Público: Administrativo Sancionador",
         "icon": "publico",
         "description": "",
-        "details": ["Defensa en Sumarios Administrativos", "Reclamos y recursos ante la C.G.R.", "Responsabilidad del Estado"]
+        "details": [
+          "Defensa en Sumarios Administrativos",
+          "Reclamos y recursos ante la C.G.R.",
+          "Responsabilidad del Estado"
+        ],
+        "showOnHome": true,
+        "clickable": false,
+        "pageSlug": "",
+        "topics": []
       },
       {
         "title": "Protección al Derecho de Propiedad",
         "icon": "propiedad",
         "description": "",
-        "details": ["Querellas Posesorias y Acciones del Dominio", "Estudio de Título de Alta Complejidad", "Asesoría en compras y ventas de propiedades", "Saneamiento de la Pequeña Propiedad Raíz"]
+        "details": [
+          "Querellas Posesorias y Acciones del Dominio",
+          "Estudio de Título de Alta Complejidad",
+          "Asesoría en compras y ventas de propiedades",
+          "Saneamiento de la Pequeña Propiedad Raíz"
+        ],
+        "showOnHome": true,
+        "clickable": false,
+        "pageSlug": "",
+        "topics": []
       },
       {
         "title": "Derecho Corporativo-Empresa",
         "icon": "corporativo",
         "description": "",
-        "details": ["Fusiones y Adquisiciones de Empresas", "Gobierno Corporativo", "Joint Venture", "Private Equity", "Mercado de Capitales"]
+        "details": [
+          "Fusiones y Adquisiciones de Empresas",
+          "Gobierno Corporativo",
+          "Joint Venture",
+          "Private Equity",
+          "Mercado de Capitales"
+        ],
+        "showOnHome": true,
+        "clickable": false,
+        "pageSlug": "",
+        "topics": []
       },
       {
         "title": "Derecho Concursal",
         "icon": "concursal",
         "description": "",
-        "details": ["Quiebra de personas y empresas", "Renegociación de personas", "Reorganización de empresas", "Impugnación de créditos"]
+        "details": [
+          "Quiebra de personas y empresas",
+          "Renegociación de personas",
+          "Reorganización de empresas",
+          "Impugnación de créditos"
+        ],
+        "showOnHome": true,
+        "clickable": false,
+        "pageSlug": "",
+        "topics": []
       },
       {
         "title": "Derecho Ambiental",
         "icon": "ambiental",
         "description": "",
-        "details": ["Evaluación de Impacto Ambiental", "Defensa ante la SMA", "Litigación ante Tribunales Ambientales"]
+        "details": [
+          "Evaluación de Impacto Ambiental",
+          "Defensa ante la SMA",
+          "Litigación ante Tribunales Ambientales"
+        ],
+        "showOnHome": true,
+        "clickable": false,
+        "pageSlug": "",
+        "topics": []
+      },
+      {
+        "title": "Derecho Digital y Protección de Datos",
+        "description": "Asesoría jurídica para empresas, proyectos de software y personas en entornos digitales.",
+        "icon": "digital",
+        "details": [
+          "Protección de datos en software y sitios web",
+          "Inscripción de software y titularidad",
+          "Contratos y licencias tecnológicas",
+          "Protección de la honra y vida privada en internet",
+          "Delitos informáticos y evidencia digital"
+        ],
+        "showOnHome": false,
+        "clickable": true,
+        "pageSlug": "derecho-digital",
+        "topics": [
+          {
+            "label": "Ley de Protección de Datos",
+            "pageSlug": "proteccion-de-datos"
+          },
+          {
+            "label": "Inscripción de Software",
+            "pageSlug": "inscripcion-de-software"
+          }
+        ]
       }
     ]
   },

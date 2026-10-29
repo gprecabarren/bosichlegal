@@ -1,0 +1,172 @@
+[
+  {
+    "slug": "derechos-humanos",
+    "title": "Abogado de Derechos Humanos en Chile",
+    "status": "published",
+    "noindex": false,
+    "seo_title": "Abogado de Derechos Humanos en Chile | Bosich Legal",
+    "meta_description": "Asesoría en derechos humanos en Chile: acciones constitucionales, evaluación de peticiones internacionales e informes en derecho. Consulta con Bosich Legal.",
+    "focus_keyword": "abogado derechos humanos en Chile",
+    "og_title": "Derechos Humanos y acciones constitucionales",
+    "og_description": "Una estrategia jurídica clara para proteger derechos fundamentales y evaluar las vías nacionales e internacionales de cada caso.",
+    "content": {
+      "eyebrow": "Derechos Humanos y Derechos Internacionales",
+      "intro": "La protección de tus derechos comienza con una evaluación cuidadosa de los hechos. En Bosich Legal analizamos vulneraciones de derechos fundamentales, las acciones disponibles en Chile y, cuando corresponde, las vías internacionales de protección.",
+      "heroImage": "/assets/services/pages/derechos-humanos.png",
+      "heroAlt": "Imagen referencial de arquitectura judicial y acceso a la justicia, con personas junto a la entrada de un edificio cívico",
+      "notice": "Cada caso exige revisar antecedentes, competencia y plazos. Esta información es general y no reemplaza una evaluación jurídica individual. Si existe una situación urgente, indícalo al solicitar la consulta.",
+      "reviewedAt": "2026-10-29",
+      "sections": [
+        { "title": "Protección de derechos fundamentales en Chile", "text": "Una decisión de una autoridad, una actuación arbitraria o una amenaza a la libertad pueden requerir respuestas jurídicas diferentes. Escuchamos tu situación, ordenamos los antecedentes y evaluamos qué derecho está comprometido y cuál es la vía adecuada para solicitar protección.\n\nLa asesoría considera a personas, organizaciones e instituciones que necesitan comprender el alcance de una actuación, prevenir una vulneración o definir una estrategia de defensa. Trabajamos con comunicación clara sobre alternativas, documentación y límites de cada procedimiento.", "bullets": ["Evaluación de posibles vulneraciones a derechos fundamentales.", "Análisis de actos u omisiones de autoridades y particulares.", "Revisión de antecedentes, resoluciones, comunicaciones y evidencia disponible."] },
+        { "title": "Acciones constitucionales: protección y amparo", "text": "El recurso de protección y el recurso de amparo no son intercambiables. Su procedencia depende de los derechos afectados y de los hechos concretos. El amparo protege la libertad personal y la seguridad individual frente a privaciones, perturbaciones o amenazas contrarias a la Constitución o la ley.\n\nEvaluamos los presupuestos de la acción, el tribunal competente, los antecedentes necesarios y la urgencia de las medidas que puedan solicitarse. Los plazos pueden ser breves: una consulta temprana permite analizar la situación sin postergar decisiones relevantes.", "bullets": ["Análisis de procedencia de recursos de protección y amparo.", "Preparación de una estrategia y de los antecedentes del caso.", "Evaluación de medidas urgentes y seguimiento del procedimiento, según el encargo."] },
+        { "title": "Sistema internacional e interamericano de derechos humanos", "text": "Cuando el caso lo justifica, estudiamos los mecanismos internacionales de protección y los requisitos de una eventual petición ante la Comisión Interamericana de Derechos Humanos (CIDH).\n\nAcudir al sistema interamericano no es una apelación automática de cualquier sentencia nacional. Se revisan la competencia, la posible vulneración de un derecho protegido, los recursos internos, los plazos y las excepciones aplicables. Tampoco se presenta una demanda individual directamente ante la Corte Interamericana como primera etapa.", "bullets": ["Evaluación de admisibilidad y de las vías previamente utilizadas en Chile.", "Organización de antecedentes para una eventual petición internacional.", "Informes sobre estándares internacionales y su relación con el caso concreto."] },
+        { "title": "Informes en derecho y asesoría preventiva", "text": "Elaboramos análisis jurídicos para comprender un problema antes de decidir cómo actuar. Un informe puede abordar garantías constitucionales, estándares internacionales, deberes de una institución o los riesgos de una medida que se pretende adoptar.\n\nEl alcance, la documentación, los entregables y los honorarios se definen después de conocer la consulta. No prometemos resultados judiciales: proponemos una estrategia fundada y explicamos sus posibilidades y dificultades.", "bullets": ["Informes en derecho para personas, organizaciones e instituciones.", "Revisión preventiva de decisiones y procedimientos.", "Identificación de alternativas y recomendaciones ajustadas a los antecedentes."] }
+      ],
+      "steps": [
+        { "title": "Escuchamos tu situación", "text": "Revisamos una descripción cronológica de los hechos, quiénes intervienen y qué actuaciones ya se han realizado." },
+        { "title": "Evaluamos las vías disponibles", "text": "Analizamos los derechos involucrados, los plazos y la pertinencia de una vía constitucional, judicial o internacional." },
+        { "title": "Definimos un encargo claro", "text": "Acordamos alcance, antecedentes, honorarios y próximos pasos antes de iniciar la representación o el informe." }
+      ],
+      "faqs": [
+        { "question": "¿Cuándo consultar a un abogado de derechos humanos en Chile?", "answer": "Cuando una actuación u omisión pueda afectar tus derechos fundamentales y necesites evaluar una respuesta jurídica. Es especialmente importante consultar pronto si hay una privación de libertad, una amenaza o una resolución reciente, porque algunas acciones están sujetas a plazos breves." },
+        { "question": "¿El recurso de protección sirve para cualquier problema?", "answer": "No. Debe revisarse el derecho afectado, el acto u omisión y los requisitos de la acción. Algunos conflictos requieren otras vías, como el amparo u otros procedimientos judiciales. La elección depende de los antecedentes del caso." },
+        { "question": "¿Se puede acudir directamente a la Corte Interamericana?", "answer": "Las personas presentan sus peticiones ante la CIDH y deben cumplir requisitos de admisibilidad. La Corte Interamericana no funciona como un tribunal de apelación de todas las decisiones chilenas. Primero es necesario evaluar los recursos internos y las reglas del sistema." },
+        { "question": "¿Qué antecedentes conviene reunir?", "answer": "Una cronología de los hechos, fechas, resoluciones o comunicaciones recibidas, procedimientos anteriores y documentos que permitan comprender lo ocurrido. No envíes información sensible de terceros por canales públicos; coordinaremos una forma adecuada de revisión." }
+      ],
+      "sources": [
+        { "label": "Constitución Política de Chile: garantías y acciones constitucionales", "url": "https://www.bcn.cl/leychile/navegar?idNorma=242302" },
+        { "label": "BCN: recurso de amparo", "url": "https://www.bcn.cl/api-leyfacil/servicio/ObtenerGuiaPublicadaHTML?uri=recurso-de-amparo" },
+        { "label": "CIDH: preguntas frecuentes y requisitos de las peticiones", "url": "https://www.oas.org/es/cidh/atencion/preguntas-frecuentes.asp" }
+      ],
+      "relatedSlugs": ["derecho-digital"]
+    }
+  },
+  {
+    "slug": "derecho-digital",
+    "title": "Derecho Digital y Protección de Datos en Chile",
+    "status": "published",
+    "noindex": false,
+    "seo_title": "Derecho Digital y Protección de Datos | Bosich Legal",
+    "meta_description": "Asesoría legal para proyectos digitales en Chile: protección de datos, software, contratos tecnológicos y defensa de derechos en internet. Bosich Legal.",
+    "focus_keyword": "abogado derecho digital Chile",
+    "og_title": "Derecho Digital para empresas y personas",
+    "og_description": "Asesoría jurídica conectada con el funcionamiento de tu software, sitio web y actividad digital.",
+    "content": {
+      "eyebrow": "Tecnología, privacidad y derechos",
+      "intro": "Los proyectos digitales necesitan decisiones jurídicas que funcionen en la práctica. Acompañamos a empresas, equipos de desarrollo y personas en protección de datos, propiedad intelectual del software y conflictos que surgen en internet.",
+      "heroImage": "/assets/site/contact-hero.png",
+      "heroAlt": "Trabajo profesional con computador y documentos jurídicos",
+      "notice": "El alcance jurídico y técnico se define para cada proyecto. La asesoría legal no reemplaza una auditoría de ciberseguridad ni garantiza la eliminación de contenido o un resultado judicial.",
+      "reviewedAt": "2026-10-29",
+      "sections": [
+        { "title": "Protección de datos para software y sitios web", "text": "Revisamos cómo se recopila, utiliza, comparte y conserva la información personal en aplicaciones, formularios, tiendas en línea y plataformas internas. A partir de ese diagnóstico proponemos una hoja de ruta legal que pueda convertirse en tareas concretas para tu equipo.\n\nEl servicio puede incluir políticas, avisos de privacidad, bases de licitud, contratos con proveedores, atención de derechos y revisión de configuraciones que afecten a los titulares de los datos.", "bullets": ["Diagnóstico de tratamientos y riesgos del proyecto.", "Preparación para la reforma introducida por la Ley N° 21.719.", "Coordinación jurídica con desarrollo, operaciones y responsables del negocio."] },
+        { "title": "Software, titularidad y contratos tecnológicos", "text": "Antes de comercializar una aplicación o encargar su desarrollo, conviene identificar quién es titular del código y qué derechos se han acordado. Revisamos antecedentes de autoría, contratos de desarrollo, licencias y componentes de terceros.\n\nTambién preparamos la documentación de una eventual inscripción del programa computacional ante el Departamento de Derechos Intelectuales, a través de CRIN, según los requisitos aplicables.", "bullets": ["Inscripción de software y revisión de antecedentes de titularidad.", "Contratos de desarrollo, soporte, licencias y confidencialidad.", "Revisión jurídica de condiciones de uso de plataformas digitales."] },
+        { "title": "Honra, vida privada y hostigamiento en entornos digitales", "text": "Analizamos situaciones de hostigamiento en línea, difusión de antecedentes personales o publicaciones que puedan afectar la honra y la vida privada. La denominación del conflicto no determina por sí sola una acción o un delito: los hechos y la evidencia deben examinarse individualmente.\n\nSegún el caso, evaluamos vías constitucionales, civiles o penales, y la forma de preservar comunicaciones, enlaces, fechas y otros antecedentes. No publicamos identidades ni detalles de clientes para promocionar este servicio.", "bullets": ["Evaluación de afectaciones a la honra, imagen y privacidad.", "Análisis de amenazas y hostigamiento en línea, según sus características.", "Orientación sobre conservación de evidencia y acciones procedentes."] },
+        { "title": "Delitos informáticos: una categoría jurídica específica", "text": "La Ley N° 21.459 regula conductas como el acceso ilícito, los ataques a la integridad de sistemas o datos y el fraude informático. No todo conflicto ocurrido por internet pertenece a esa categoría.\n\nRevisamos los antecedentes para identificar el encuadre jurídico, las vías de denuncia o representación y la eventual necesidad de apoyo técnico especializado, evitando confundir una evaluación legal con una pericia informática.", "bullets": [] }
+      ],
+      "steps": [
+        { "title": "Comprender el proyecto o conflicto", "text": "Identificamos la actividad, los sistemas involucrados, los participantes y los antecedentes disponibles." },
+        { "title": "Priorizar los riesgos", "text": "Distinguimos decisiones jurídicas, tareas técnicas y medidas urgentes para proponer un alcance realista." },
+        { "title": "Acompañar la ejecución", "text": "Desarrollamos los documentos y actuaciones acordados, en coordinación con tu equipo cuando corresponda." }
+      ],
+      "faqs": [
+        { "question": "¿La asesoría sirve para una empresa pequeña o un emprendimiento?", "answer": "Sí. El alcance se adapta al tipo de actividad, los datos utilizados, los proveedores y los riesgos del proyecto. Una primera revisión permite priorizar medidas sin tratar a todos los negocios como si fueran iguales." },
+        { "question": "¿Todo acoso por internet es un delito informático?", "answer": "No. Es necesario analizar la conducta concreta. Las amenazas, la afectación de la honra o la exposición de datos pueden requerir un análisis distinto de los delitos específicos de la Ley N° 21.459." },
+        { "question": "¿El estudio también programa el software?", "answer": "El servicio es jurídico. Podemos coordinar requerimientos con el equipo de desarrollo de tu empresa; cualquier implementación técnica o auditoría especializada debe acordarse expresamente." }
+      ],
+      "sources": [
+        { "label": "Ley N° 21.719: protección y tratamiento de datos personales", "url": "https://www.bcn.cl/leychile/navegar?idNorma=1209272" },
+        { "label": "Ley N° 21.459: delitos informáticos", "url": "https://www.bcn.cl/leychile/navegar?i=1177743" },
+        { "label": "Departamento de Derechos Intelectuales: inscripción de obras", "url": "https://www.propiedadintelectual.gob.cl/servicios/1-inscribe-obras" },
+        { "label": "Poder Judicial: protección del derecho a la honra en redes sociales", "url": "https://www.pjud.cl/prensa-y-comunicaciones/noticias-del-poder-judicial/147140" }
+      ],
+      "relatedSlugs": ["proteccion-de-datos", "inscripcion-de-software", "derechos-humanos"]
+    }
+  },
+  {
+    "slug": "proteccion-de-datos",
+    "title": "Ley de Protección de Datos: consultoría para empresas en Chile",
+    "status": "published",
+    "noindex": false,
+    "seo_title": "Ley de Protección de Datos para Empresas | Bosich Legal",
+    "meta_description": "Consultoría en protección de datos y Ley 21.719 en Chile. Diagnóstico, privacidad en software y sitios web, contratos y hoja de ruta de implementación.",
+    "focus_keyword": "consultoría ley protección de datos Chile",
+    "og_title": "Protección de datos aplicada a tu empresa",
+    "og_description": "Del diagnóstico a la implementación: una hoja de ruta jurídica para los datos personales de tu software y sitio web.",
+    "content": {
+      "eyebrow": "Privacidad y cumplimiento",
+      "intro": "Convertimos los requisitos de protección de datos en decisiones concretas para tu empresa. Revisamos tus procesos, software y sitio web para definir una hoja de ruta jurídica, documentación y medidas que tu equipo pueda implementar y mantener.",
+      "heroImage": "/assets/services/pages/proteccion-datos.png",
+      "heroAlt": "Imagen referencial de una revisión de flujos de datos entre profesionales jurídicos y tecnológicos",
+      "notice": "Estado normativo revisado el 29 de octubre de 2026: el texto publicado de la Ley N° 21.719 contempla su vigencia general desde el 1 de diciembre de 2026. Existe un proyecto para modificar ese calendario, aprobado en su primer trámite en el Senado el 28 de octubre. Un proyecto en trámite no debe confundirse con una modificación legal ya publicada. Verificamos el calendario aplicable al iniciar cada encargo.",
+      "reviewedAt": "2026-10-29",
+      "sections": [
+        { "title": "Qué implica la reforma para una empresa", "text": "La Ley N° 21.719 reforma el régimen chileno de protección de datos personales y crea la Agencia de Protección de Datos Personales. La preparación no consiste únicamente en añadir una política al pie de una web: exige comprender qué información se trata y cómo se toman las decisiones sobre su uso.\n\nUna empresa puede manejar datos de clientes, trabajadores, postulantes o proveedores a través de varios sistemas. Revisamos ese contexto para distinguir las obligaciones aplicables, las bases jurídicas del tratamiento y las medidas prioritarias, considerando también la normativa actualmente vigente.", "bullets": ["Inventario de procesos y categorías de datos personales.", "Identificación de responsables, encargados y proveedores.", "Diagnóstico de brechas y priorización por riesgo."] },
+        { "title": "Privacidad desde el diseño en software y sitios web", "text": "Trabajamos sobre el funcionamiento real del producto: formularios, cuentas de usuario, analítica, integraciones, almacenamiento y comunicaciones comerciales. Revisamos si cada dato es necesario para la finalidad declarada y cómo se informa al usuario.\n\nLa evaluación distingue el consentimiento de otras bases de licitud que puedan resultar aplicables. No proponemos una casilla genérica para justificar cualquier uso. También analizamos cookies y tecnologías similares según sus finalidades y las normas que correspondan al público del servicio, sin trasladar automáticamente reglas europeas a todo sitio chileno.", "bullets": ["Revisión jurídica de formularios, avisos y flujos de consentimiento.", "Criterios de minimización, conservación y eliminación de datos.", "Requerimientos para permisos de acceso, trazabilidad y atención de solicitudes.", "Revisión de servicios en la nube, analítica y otras integraciones."] },
+        { "title": "Documentos y gobierno de la información", "text": "Preparamos o revisamos documentos ajustados a la actividad de la empresa y a sus operaciones. La política pública debe ser coherente con lo que sucede dentro del sistema y con los contratos celebrados con terceros.\n\nEl registro de actividades de tratamiento puede ser una herramienta útil para organizar y demostrar esa gestión. Su adopción y alcance se definen según el contexto normativo y de riesgo: no lo presentamos como una obligación chilena general idéntica al artículo 30 del RGPD europeo.", "bullets": ["Política y avisos de privacidad vinculados a tratamientos reales.", "Inventario o registro interno de actividades, con responsables y revisión periódica.", "Cláusulas y acuerdos con encargados y proveedores tecnológicos.", "Criterios para transferencias internacionales y uso de subproveedores."] },
+        { "title": "Derechos de las personas y respuesta a incidentes", "text": "Revisamos cómo recibirá la empresa solicitudes sobre datos personales y cómo podrá localizar la información necesaria para responderlas. El diseño considera identificación del solicitante, responsables internos, trazabilidad y plazos aplicables.\n\nAsimismo, proponemos una coordinación jurídica para incidentes de seguridad: qué información levantar, quién decide y cómo evaluar las comunicaciones que correspondan. Las obligaciones concretas dependen del régimen aplicable y de las características del incidente.", "bullets": ["Procedimientos de acceso, rectificación, supresión, oposición y portabilidad, según corresponda.", "Coordinación de la respuesta jurídica y técnica ante incidentes.", "Evaluación de impacto cuando el tratamiento lo requiera.", "Formación interna y revisión de evidencias de cumplimiento."] },
+        { "title": "Entregables y alcance del acompañamiento", "text": "El diagnóstico culmina en una propuesta con prioridades, responsables sugeridos y entregables verificables. Podemos acompañar la revisión de documentos y requerimientos con los equipos de desarrollo, recursos humanos, marketing y operaciones.\n\nEl alcance depende de los sistemas, datos y riesgos de cada empresa. Una consultoría jurídica no es una certificación de la Agencia ni una garantía de ausencia de incidentes o sanciones. La auditoría técnica, el desarrollo y las herramientas de seguridad se cotizan o coordinan separadamente cuando sean necesarios.", "bullets": ["Informe de diagnóstico y hoja de ruta priorizada.", "Documentación jurídica acordada y requerimientos para implementación.", "Reuniones de revisión con responsables del negocio y del software.", "Plan de seguimiento y actualización del trabajo realizado."] }
+      ],
+      "steps": [
+        { "title": "Diagnóstico del negocio", "text": "Entrevistamos a responsables y revisamos procesos, documentos, sistemas y proveedores para conocer el tratamiento real de datos." },
+        { "title": "Mapa y prioridades", "text": "Organizamos finalidades, categorías, bases de licitud y riesgos; acordamos las brechas que deben abordarse primero." },
+        { "title": "Documentación e implementación", "text": "Preparamos los documentos convenidos y traducimos decisiones jurídicas en requerimientos para el equipo que opera el sistema." },
+        { "title": "Verificación y seguimiento", "text": "Revisamos evidencias, pendientes y cambios del proyecto, con un calendario de actualización ajustado al encargo." }
+      ],
+      "faqs": [
+        { "question": "¿Basta con publicar una política de privacidad?", "answer": "No. La documentación debe corresponder al uso real de los datos. También deben revisarse finalidades, bases de licitud, accesos, conservación, proveedores y la capacidad de atender solicitudes de las personas." },
+        { "question": "¿Necesito pedir consentimiento para todo?", "answer": "No necesariamente. El análisis debe identificar una base jurídica válida para cada tratamiento y los requisitos de la normativa aplicable. El consentimiento no es una autorización ilimitada ni reemplaza las demás obligaciones." },
+        { "question": "¿Revisan software que ya está funcionando?", "answer": "Sí. Podemos evaluar un sistema existente y proponer cambios priorizados para su equipo de desarrollo. También asesoramos proyectos antes de su lanzamiento para integrar la privacidad desde el diseño." },
+        { "question": "¿Cuándo entra en vigencia la Ley N° 21.719?", "answer": "Al revisar las fuentes el 29 de octubre de 2026, el texto publicado contempla el 1 de diciembre de 2026 como fecha general. Hay un proyecto de modificación del calendario en trámite legislativo. Antes de tomar decisiones de cumplimiento debe verificarse el texto legal y su eventual modificación publicada; una noticia sobre la aprobación de un proyecto no sustituye esa revisión." },
+        { "question": "¿Qué necesito para solicitar una propuesta?", "answer": "Una descripción del negocio, los sistemas utilizados, los tipos de datos, los proveedores principales y los documentos disponibles. Con esos antecedentes definimos el alcance y los honorarios. No es necesario enviar bases con datos reales de clientes para una primera consulta." }
+      ],
+      "sources": [
+        { "label": "BCN: texto de la Ley N° 21.719 y disposiciones transitorias", "url": "https://www.bcn.cl/leychile/navegar?idNorma=1209272" },
+        { "label": "Senado: proyecto que busca postergar la entrada en vigencia", "url": "https://www.senado.cl/comunicaciones/noticias/proteccion-de-datos-personales-avanza-proyecto-que-busca-postergar-entrada" },
+        { "label": "Senado: tramitación legislativa, boletín 18.623-07", "url": "https://tramitacion.senado.cl/appsenado/index.php?ac=ultimos_vistos&mo=tramitacion" },
+        { "label": "Ministerio de Economía: propuesta de modificación del calendario", "url": "https://www.economia.gob.cl/2026/09/01/gobierno-propone-ampliar-plazo-para-implementar-nueva-ley-de-proteccion-de-datos-y-institucionalidad.htm" }
+      ],
+      "relatedSlugs": ["derecho-digital", "inscripcion-de-software"]
+    }
+  },
+  {
+    "slug": "inscripcion-de-software",
+    "title": "Inscripción de Software en Chile",
+    "status": "published",
+    "noindex": true,
+    "seo_title": "Inscripción de Software en Chile | Bosich Legal",
+    "meta_description": "Preparación jurídica para la inscripción de programas computacionales ante el Departamento de Derechos Intelectuales mediante CRIN, en Chile.",
+    "focus_keyword": "inscripción de software Chile",
+    "og_title": "Inscripción y protección jurídica del software",
+    "og_description": "Autoría, titularidad y antecedentes para registrar un programa computacional en Chile.",
+    "content": {
+      "eyebrow": "Propiedad intelectual y tecnología",
+      "intro": "Antes de inscribir un programa computacional, conviene ordenar su autoría, titularidad y documentación. Bosich Legal prepara la revisión jurídica y los antecedentes para una eventual solicitud ante el Departamento de Derechos Intelectuales (DDI), a través de CRIN.",
+      "heroImage": "/assets/site/services-hero.png",
+      "heroAlt": "Preparación y revisión de documentos para una gestión jurídica",
+      "notice": "El servicio se define después de revisar los antecedentes y requisitos vigentes. La inscripción de derechos de autor no equivale a registrar una marca ni a obtener una patente sobre una idea.",
+      "reviewedAt": "2026-10-29",
+      "sections": [
+        { "title": "Qué se protege y qué se inscribe", "text": "La Ley N° 17.336 contempla la protección de los programas computacionales dentro del derecho de autor. La protección no se confunde con la propiedad sobre una idea abstracta, un nombre comercial o una funcionalidad considerada por sí sola.\n\nRevisamos qué obra se presentará, su versión, sus autores y los antecedentes que respaldan al titular. La inscripción es una gestión registral y no sustituye el análisis de derechos de terceros o de las licencias utilizadas.", "bullets": ["Identificación del programa y de la versión objeto del trámite.", "Revisión de antecedentes de autoría y titularidad.", "Diferenciación entre software, marca y otras formas de protección."] },
+        { "title": "Antecedentes para preparar la solicitud", "text": "El DDI informa los requisitos para inscribir obras y los antecedentes específicos de programas computacionales. La documentación puede comprender el programa fuente u objeto y antecedentes preparatorios, descripción técnica, manuales y licencias, según el caso.\n\nAntes de enviar código o archivos de una empresa, acordamos el alcance de la revisión y una forma adecuada de entrega. No se deben exponer claves, credenciales, datos personales de usuarios ni secretos que no sean necesarios para la gestión.", "bullets": ["Identificación del solicitante y antecedentes de representación.", "Contratos de desarrollo, cesiones u otros respaldos de titularidad disponibles.", "Descripción técnica y archivos exigidos por el trámite vigente.", "Revisión de componentes de terceros y sus licencias."] },
+        { "title": "Gestión a través de CRIN", "text": "El Centro de Registros Integrados Nacionales es la plataforma oficial del DDI para trámites de propiedad intelectual. La preparación de la solicitud considera la categoría de obra, sus datos, los documentos y el pago de los derechos que correspondan.\n\nLa aceptación, observaciones y tiempos de tramitación dependen del organismo competente. Los honorarios profesionales y los derechos de inscripción son conceptos distintos, que deben precisarse en la propuesta de servicio.", "bullets": ["Preparación de los antecedentes acordados.", "Revisión de la solicitud y de eventuales observaciones, según el encargo.", "Entrega y organización de los respaldos del trámite."] }
+      ],
+      "steps": [
+        { "title": "Revisión inicial", "text": "Identificamos el programa, su estado de desarrollo, los participantes y los documentos de titularidad." },
+        { "title": "Preparación de antecedentes", "text": "Determinamos los archivos, contratos y documentos pertinentes conforme a los requisitos vigentes del DDI." },
+        { "title": "Solicitud y seguimiento", "text": "Acordamos la gestión registral y el seguimiento de las observaciones incluidas en el encargo." }
+      ],
+      "faqs": [
+        { "question": "¿Registrar el software es lo mismo que registrar su marca?", "answer": "No. La inscripción de un programa computacional corresponde al derecho de autor ante el DDI. El nombre o signo distintivo del producto requiere un análisis de marca por una vía diferente." },
+        { "question": "¿Qué ocurre si el programa lo desarrolló un proveedor?", "answer": "Debe revisarse el contrato y los antecedentes de titularidad. Pagar por un desarrollo no permite prescindir del análisis de las condiciones pactadas y de las reglas aplicables al programa." },
+        { "question": "¿La inscripción garantiza que no existen derechos de terceros?", "answer": "No. Es necesario revisar los componentes incorporados, licencias, contratos y antecedentes disponibles. El trámite registral no reemplaza esa evaluación." }
+      ],
+      "sources": [
+        { "label": "Departamento de Derechos Intelectuales: inscripción de obras", "url": "https://www.propiedadintelectual.gob.cl/servicios/1-inscribe-obras" },
+        { "label": "CRIN: plataforma oficial de trámites", "url": "https://crin.propiedadintelectual.gob.cl/" },
+        { "label": "Ley N° 17.336 sobre propiedad intelectual", "url": "https://www.bcn.cl/leychile/navegar?idNorma=28933" }
+      ],
+      "relatedSlugs": ["derecho-digital", "proteccion-de-datos"]
+    }
+  }
+]

@@ -7,6 +7,7 @@ export const serviceIcons = [
   { id: "corporativo", label: "Empresas" },
   { id: "concursal", label: "Derecho concursal" },
   { id: "ambiental", label: "Derecho ambiental" },
+  { id: "digital", label: "Derecho digital y datos" },
 ] as const;
 
 export function resolveServiceIcon(title: string, index = 0) {

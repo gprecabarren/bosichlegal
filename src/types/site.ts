@@ -1,3 +1,5 @@
+import type { ServiceItem } from "./service";
+
 export type SiteContent = {
   brand: {
     name: string;
@@ -55,12 +57,7 @@ export type SiteContent = {
     homeTitle?: string;
     introTitle?: string;
     heroImage: string;
-    items: Array<{
-      title: string;
-      description?: string;
-      icon?: string;
-      details: string[];
-    }>;
+    items: ServiceItem[];
   };
   locations: {
     title: string;

@@ -1,13 +1,15 @@
 "use client";
 
 import { startTransition, useActionState, useState } from "react";
+import Link from "next/link";
 import { ArrowDown, ArrowUp, Plus, Save, Trash2 } from "lucide-react";
 import { ServiceIcon } from "@/components/ServiceIcon";
 import { resolveServiceIcon, serviceIcons } from "@/lib/service-icons";
 import type { SiteContent } from "@/types/site";
+import type { ServiceItem, ServicePageSummary } from "@/types/service";
 import { saveServicesAction } from "./service-actions";
 
-export function ServicesEditor({ services }: { services: SiteContent["services"] }) {
+export function ServicesEditor({ services, pages }: { services: SiteContent["services"]; pages: ServicePageSummary[] }) {
   const [state, action, pending] = useActionState(saveServicesAction, null);
   const [fields, setFields] = useState({
     title: services.title,
@@ -16,9 +18,9 @@ export function ServicesEditor({ services }: { services: SiteContent["services"]
     introTitle: services.introTitle || "Práctica integral para personas y empresas",
   });
   const [items, setItems] = useState(services.items.map((item, index) => ({
-    ...item, description: item.description || "", icon: item.icon || resolveServiceIcon(item.title, index), key: `service-${index}`,
+    ...item, description: item.description || "", icon: item.icon || resolveServiceIcon(item.title, index), showOnHome: item.showOnHome !== false, clickable: item.clickable === true, pageSlug: item.pageSlug || "", topics: item.topics || [], key: `service-${index}`,
   })));
-  function update(index: number, field: "title" | "description" | "icon" | "details", value: string | string[]) {
+  function update<K extends keyof ServiceItem>(index: number, field: K, value: ServiceItem[K]) {
     setItems((current) => current.map((item, position) => position === index ? { ...item, [field]: value } : item));
   }
   function move(index: number, direction: number) {
@@ -34,8 +36,8 @@ export function ServicesEditor({ services }: { services: SiteContent["services"]
       const data = new FormData(event.currentTarget);
       startTransition(() => action(data));
     }}>
-      <h2>Servicios jurídicos</h2>
-      <section>
+      <div className="editor-section-heading"><h2>Tarjetas de servicios</h2><Link href="/admin/servicios/paginas" className="button button-secondary">Páginas y SEO</Link></div>
+      <fieldset disabled={pending} className="service-fieldset"><section>
         <div className="form-grid">
           <label>Título de la página<input name="title" required maxLength={160} value={fields.title} onChange={(event) => setFields({ ...fields, title: event.target.value })} /></label>
           <label>Título en inicio<input name="homeTitle" maxLength={160} value={fields.homeTitle} onChange={(event) => setFields({ ...fields, homeTitle: event.target.value })} /></label>
@@ -54,11 +56,16 @@ export function ServicesEditor({ services }: { services: SiteContent["services"]
           <label>Título<input required maxLength={160} value={item.title} onChange={(event) => update(index, "title", event.target.value)} /></label>
           <label>Descripción<textarea rows={3} maxLength={3000} value={item.description} onChange={(event) => update(index, "description", event.target.value)} /></label>
           <label>Materias, una por línea<textarea rows={5} value={item.details.join("\n")} onChange={(event) => update(index, "details", event.target.value.split("\n"))} /></label>
-          <div className="service-icon-picker"><div><ServiceIcon title={item.title} icon={item.icon} /></div><label>Ícono oficial<select value={item.icon} onChange={(event) => update(index, "icon", event.target.value)}>{serviceIcons.map((icon) => <option key={icon.id} value={icon.id}>{icon.label}</option>)}</select></label></div>
+          <div className="service-icon-picker"><div><ServiceIcon title={item.title} icon={item.icon} /></div><label>Símbolo del servicio<select value={item.icon} onChange={(event) => update(index, "icon", event.target.value)}>{serviceIcons.map((icon) => <option key={icon.id} value={icon.id}>{icon.label}</option>)}</select></label></div>
+          <div className="service-visibility"><label className="checkbox-label"><input type="checkbox" checked={item.showOnHome} onChange={event => update(index, "showOnHome", event.target.checked)} />Mostrar en inicio</label><label className="checkbox-label"><input type="checkbox" checked={item.clickable} onChange={event => update(index, "clickable", event.target.checked)} />Activar tarjeta cliqueable</label></div>
+          {item.clickable ? <div className="service-link-settings"><label>Página principal<select required value={item.pageSlug} onChange={event => update(index, "pageSlug", event.target.value)}><option value="">Seleccionar página</option>{pages.filter(p => p.status === "published").map(p => <option value={p.slug} key={p.id}>{p.title}{p.noindex ? " (no indexada)" : ""}</option>)}</select></label>
+            {item.topics.map((topic, position) => <div className="service-topic-editor" key={position}><label>Tema<input required maxLength={100} value={topic.label} onChange={event => update(index, "topics", item.topics.map((t, j) => j === position ? { ...t, label: event.target.value } : t))} /></label><label>Página del tema<select required value={topic.pageSlug} onChange={event => update(index, "topics", item.topics.map((t, j) => j === position ? { ...t, pageSlug: event.target.value } : t))}><option value="">Seleccionar página</option>{pages.filter(p => p.status === "published").map(p => <option value={p.slug} key={p.id}>{p.title}</option>)}</select></label><button type="button" className="icon-button" title="Quitar enlace del tema" aria-label={`Quitar enlace de ${topic.label || "tema"}`} onClick={() => update(index, "topics", item.topics.filter((_, j) => j !== position))}><Trash2 size={18} /></button></div>)}
+            <button type="button" className="button button-secondary button-small" disabled={item.topics.length >= 6} onClick={() => update(index, "topics", [...item.topics, { label: "", pageSlug: "" }])}><Plus size={16} />Añadir enlace de un tema</button>
+          </div> : null}
         </section>
       ))}
-      <div className="admin-actions">
-        <button className="button button-secondary" type="button" disabled={pending || items.length >= 30} onClick={() => setItems([...items, { key: crypto.randomUUID(), title: "", description: "", icon: "civil", details: [] }])}><Plus size={18} />Agregar servicio</button>
+      </fieldset><div className="admin-actions">
+        <button className="button button-secondary" type="button" disabled={pending || items.length >= 30} onClick={() => setItems([...items, { key: crypto.randomUUID(), title: "", description: "", icon: "civil", details: [], showOnHome: false, clickable: false, pageSlug: "", topics: [] }])}><Plus size={18} />Agregar servicio</button>
         <button className="button" disabled={pending}><Save size={18} />{pending ? "Guardando..." : "Guardar servicios"}</button>
       </div>
       {state ? <p role="status" className={state.ok ? "admin-success" : "admin-error"}>{state.message}</p> : null}

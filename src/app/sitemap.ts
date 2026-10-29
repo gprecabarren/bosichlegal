@@ -3,6 +3,8 @@ import { siteUrl } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
 import { listPublicProperties } from "@/lib/properties";
 import { locationPath } from "@/lib/property-fields";
+import { listServicePages } from "@/lib/service-pages";
+import { indexableServicePages } from "@/lib/service-fields";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = siteUrl();
@@ -35,5 +37,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
   const locationRoutes = [...locations].map(([path, lastModified]) => ({ url: `${baseUrl}${path}`, lastModified, changeFrequency: "weekly" as const, priority: 0.7 }));
-  return [...staticRoutes, ...newsRoutes, ...propertyRoutes, ...locationRoutes];
+  const serviceRoutes = indexableServicePages(await listServicePages()).map(page => ({ url: `${baseUrl}/servicios/${page.slug}`, lastModified: new Date(page.updated_at), changeFrequency: "monthly" as const, priority: 0.8 }));
+  return [...staticRoutes, ...newsRoutes, ...propertyRoutes, ...locationRoutes, ...serviceRoutes];
 }

@@ -5,6 +5,7 @@ import { AlignCenter, AlignLeft, AlignRight, Bold, Crop, ImagePlus, ImageUp, Ita
 import type { NewsActionState, NewsFormValues, NewsPost } from "@/types/news";
 import { createNewsAction, deleteNewsAction, updateNewsAction } from "./news-actions";
 import { SubmitButton } from "./SubmitButton";
+import { isNewsPlaceholder } from "@/lib/news-placeholder";
 
 const editorPlaceholder = "Escribe el contenido de la noticia aquí.";
 
@@ -61,7 +62,7 @@ function htmlText(html: string) {
 
 function normalizeInitialHtml(value: string) {
   const trimmed = value.trim();
-  return htmlText(trimmed) === editorPlaceholder ? "" : trimmed;
+  return isNewsPlaceholder(trimmed) ? "" : trimmed;
 }
 
 function RichTextEditor({
@@ -348,6 +349,8 @@ function RichTextEditor({
     const editor = editorRef.current;
     if (!editor) return;
     editor.innerHTML = initialHtml;
+    const first = editor.firstChild;
+    if (first && isNewsPlaceholder(first.textContent || "") && !(first instanceof Element && first.querySelector("img"))) first.remove();
     sync();
   }, [initialHtml]);
 
@@ -468,6 +471,13 @@ function RichTextEditor({
         spellCheck
         suppressContentEditableWarning
         onInput={sync}
+        onFocus={() => {
+          const editor = editorRef.current;
+          if (editor && isNewsPlaceholder(editor.textContent || "") && !editor.querySelector("img")) {
+            editor.replaceChildren();
+          }
+          sync();
+        }}
         onBlur={() => {
           sync();
           updateBlockFormat();
@@ -475,7 +485,7 @@ function RichTextEditor({
         onKeyUp={updateBlockFormat}
         onClick={(event) => {
           const image = event.target instanceof HTMLImageElement ? event.target : null;
-          if (!image) return;
+          if (!image) { updateBlockFormat(); return; }
           selectImage(image);
         }}
       />
