@@ -716,6 +716,14 @@ export function AdminNews({ posts, supabaseReady, loadError = "" }: { posts: New
           <h2>Blog jurídico</h2>
         </div>
       </div>
+      <div className="admin-actions news-view-switcher" role="group" aria-label="Vista de noticias">
+        <button className={`button${view === "active" ? "" : " button-secondary"}`} type="button" aria-pressed={view === "active"} onClick={() => setView("active")}>
+          <FileText size={16} />Activas ({active.length})
+        </button>
+        <button className={`button${view === "trash" ? "" : " button-secondary"}`} type="button" aria-pressed={view === "trash"} onClick={() => setView("trash")}>
+          <Trash2 size={16} />Papelera ({trash.length})
+        </button>
+      </div>
       {!supabaseReady ? (
         <div className="admin-warning">
           Supabase todavía no está conectado. La sección Noticias se activa cuando exista la tabla news_posts y el bucket news-images.
@@ -725,14 +733,6 @@ export function AdminNews({ posts, supabaseReady, loadError = "" }: { posts: New
       )}
       {loadError ? <p className="admin-warning" role="alert">{loadError}</p> : null}
       {feedback ? <p className="admin-success" role="status">{feedback}</p> : null}
-      <div className="admin-actions news-view-switcher" role="group" aria-label="Vista de noticias">
-        <button className={`button${view === "active" ? "" : " button-secondary"}`} type="button" aria-pressed={view === "active"} onClick={() => setView("active")}>
-          <FileText size={16} />Activas ({active.length})
-        </button>
-        <button className={`button${view === "trash" ? "" : " button-secondary"}`} type="button" aria-pressed={view === "trash"} onClick={() => setView("trash")}>
-          <Trash2 size={16} />Papelera ({trash.length})
-        </button>
-      </div>
       <div hidden={view !== "active"}>
         <div className="news-admin-list">
           {!loadError && active.length === 0 ? <p className="admin-help">No hay noticias activas.</p> : null}
