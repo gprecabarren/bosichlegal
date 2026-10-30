@@ -2,18 +2,13 @@ import Link from "next/link";
 import { Instagram, Linkedin, LockKeyhole, Mail, MessageCircle } from "lucide-react";
 import type { SiteContent } from "@/types/site";
 import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
-
-const nav = [
-  { href: "/", label: "Inicio" },
-  { href: "/servicios", label: "Servicios" },
-  { href: "/propiedades", label: "Propiedades" },
-  { href: "/noticias", label: "Noticias" },
-  { href: "/ubicacion", label: "Ubicación" },
-  { href: "/sobre-nosotros", label: "Sobre nosotros" },
-  { href: "/contacto", label: "Contacto" },
-];
+import { layoutCopy } from "@/lib/layout-copy";
 
 export function SiteHeader({ content }: { content: SiteContent }) {
+  const copy = layoutCopy(content.layoutCopy);
+  const nav = [
+    { href: "/", label: copy.navHome }, { href: "/servicios", label: copy.navServices }, { href: "/propiedades", label: copy.navProperties }, { href: "/noticias", label: copy.navNews }, { href: "/ubicacion", label: copy.navLocation }, { href: "/sobre-nosotros", label: copy.navAbout }, { href: "/contacto", label: copy.navContact },
+  ];
   const social = content.contact.social;
   const linkedinUrl = resolveLinkedInProfileUrl(social.linkedin);
 
@@ -44,7 +39,7 @@ export function SiteHeader({ content }: { content: SiteContent }) {
         <a className="social-whatsapp" href={social.whatsapp} aria-label="WhatsApp" target="_blank" rel="noreferrer">
           <MessageCircle size={18} />
         </a>
-        <a className="social-admin" href="/admin/crear-blog" aria-label="Panel de administración">
+        <a className="social-admin" href="/admin" aria-label="Panel de administración">
           <LockKeyhole size={17} />
         </a>
       </div>

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { PropertyCatalog } from "@/components/PropertyCatalog";
 import { listPublicProperties } from "@/lib/properties";
 import { staticPageSeo } from "@/lib/static-page-seo";
+import { getSiteContent } from "@/lib/content";
+import { getPageContent } from "@/lib/page-content";
 
 export const dynamic = "force-dynamic";
 
@@ -16,9 +18,10 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 }
 
 export default async function PropertiesPage({ searchParams }: Props) {
-  const [properties, query] = await Promise.all([listPublicProperties(), searchParams]);
+  const [properties, query, content] = await Promise.all([listPublicProperties(), searchParams, getSiteContent()]);
+  const { text, values } = getPageContent(content, "/propiedades");
   const value = (key: string) => typeof query[key] === "string" ? query[key] as string : "";
-  return <><header className="property-index-heading"><p className="eyebrow">Bosich Legal</p><h1>Propiedades en venta</h1><p>Encuentra tu próxima propiedad.</p></header>
-    <PropertyCatalog properties={properties} selected={{ region: value("region"), city: value("city"), type: value("type"), status: value("status") }} />
+  return <><header className="property-index-heading"><p className="eyebrow">{text("eyebrow")}</p><h1>{text("title")}</h1><p>{text("description")}</p></header>
+    <PropertyCatalog properties={properties} copy={values} selected={{ region: value("region"), city: value("city"), type: value("type"), status: value("status") }} />
   </>;
 }

@@ -5,7 +5,7 @@ import { startTransition, useActionState, useRef, useState } from "react";
 import { ArrowDown, ArrowLeft, ArrowUp, ExternalLink, ImagePlus, RotateCcw, Save, Trash2, WandSparkles } from "lucide-react";
 import { emptyProperty, propertyStatuses, propertyTypes, regions, slugify } from "@/lib/property-fields";
 import type { Property, PropertyImage, PropertyInput } from "@/types/property";
-import { changePropertyVisibilityAction, savePropertyAction } from "./property-actions";
+import { changePropertyVisibilityAction, deletePropertyPermanentlyAction, savePropertyAction } from "./property-actions";
 
 export function PropertyEditor({ property }: { property?: Property }) {
   const [values, setValues] = useState<PropertyInput>(property || emptyProperty());
@@ -112,6 +112,7 @@ export function PropertyEditor({ property }: { property?: Property }) {
           })}><WandSparkles size={16} />Completar SEO</button></div>
           <label>Título SEO<input maxLength={180} value={values.seo_title} onChange={(event) => set("seo_title", event.target.value)} placeholder={values.title} /></label>
           <label>Descripción SEO<textarea maxLength={320} rows={3} value={values.meta_description} onChange={(event) => set("meta_description", event.target.value)} placeholder={values.description.slice(0, 160)} /></label>
+          <label className="checkbox-label"><input type="checkbox" checked={values.noindex === true} onChange={event => set("noindex", event.target.checked)} />No indexar esta propiedad en buscadores</label>
         </section>
       </fieldset>
       {uploading ? <p role="status">Cargando fotografías...</p> : null}
@@ -128,5 +129,18 @@ export function PropertyTrashButton({ id, restore = false }: { id: string; resto
     <input type="hidden" name="id" value={id} /><input type="hidden" name="restore" value={String(restore)} />
     <button className="danger-button" disabled={pending}>{restore ? <RotateCcw size={16} /> : <Trash2 size={16} />}{restore ? "Restaurar" : "Papelera"}</button>
     {state && !state.ok ? <p className="admin-error" role="alert">{state.message}</p> : null}
+  </form>;
+}
+
+export function PropertyDeleteButton({ id, title }: { id: string; title: string }) {
+  const [confirming, setConfirming] = useState(false);
+  const [state, action, pending] = useActionState(deletePropertyPermanentlyAction, null);
+  if (!confirming) return <button type="button" className="danger-button" onClick={() => setConfirming(true)}><Trash2 size={16} />Eliminar definitivamente</button>;
+  return <form action={action} className="admin-delete-confirmation">
+    <input type="hidden" name="id" value={id} />
+    <p>Se eliminará «{title}». Esta acción no se puede deshacer.</p>
+    <label>Escribe ELIMINAR<input name="confirmation" required pattern="ELIMINAR" autoComplete="off" /></label>
+    <div className="admin-actions"><button className="danger-button" disabled={pending}><Trash2 size={16} />{pending ? "Eliminando..." : "Eliminar definitivamente"}</button><button className="button button-secondary" type="button" disabled={pending} onClick={() => setConfirming(false)}>Cancelar</button></div>
+    {state ? <p role="status" className={state.ok ? "admin-success" : "admin-error"}>{state.message}</p> : null}
   </form>;
 }

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { Building2, FilePenLine, FolderCog, Inbox, LogOut, Scale, UsersRound } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Building2, FilePenLine, Files, FolderCog, Inbox, LayoutDashboard, LogOut, Scale, UsersRound } from "lucide-react";
 import { logoutAction } from "./actions";
 
 type AdminShellProps = {
@@ -7,7 +10,9 @@ type AdminShellProps = {
 };
 
 const sections = [
-  { href: "/admin/crear-blog", label: "Crear noticia", icon: FilePenLine },
+  { href: "/admin", label: "Resumen", icon: LayoutDashboard },
+  { href: "/admin/crear-blog", label: "Noticias", icon: FilePenLine },
+  { href: "/admin/paginas", label: "Páginas y SEO", icon: Files },
   { href: "/admin/propiedades", label: "Propiedades", icon: Building2 },
   { href: "/admin/servicios", label: "Servicios", icon: Scale },
   { href: "/admin/miembros", label: "Miembros", icon: UsersRound },
@@ -16,6 +21,7 @@ const sections = [
 ];
 
 export function AdminShell({ children }: AdminShellProps) {
+  const pathname = usePathname();
   return (
     <section className="admin-page">
       <div className="admin-heading">
@@ -33,7 +39,7 @@ export function AdminShell({ children }: AdminShellProps) {
       </div>
       <nav className="admin-section-nav" aria-label="Secciones de administración">
         {sections.map(({ href, label, icon: Icon }) => (
-          <Link key={href} href={href} className="admin-section-link">
+          <Link key={href} href={href} className="admin-section-link" aria-current={(href === "/admin" ? pathname === href : pathname.startsWith(href)) ? "page" : undefined}>
             <Icon size={17} />
             {label}
           </Link>

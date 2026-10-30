@@ -4,34 +4,37 @@ import { Hero } from "@/components/Hero";
 import { getSiteContent } from "@/lib/content";
 import { listMembers } from "@/lib/members";
 import { staticPageSeo } from "@/lib/static-page-seo";
+import { getPageContent } from "@/lib/page-content";
 
 export async function generateMetadata(): Promise<Metadata> { return staticPageSeo({ title: "Nuestro equipo de abogados", description: "Conoce al equipo de Bosich Legal y su trayectoria desde 2012. Asesoría y litigación en Concepción y Santiago, con atención remota para clientes en Chile.", path: "/sobre-nosotros", image: "/assets/site/about-hero.png" }); }
 
 export default async function AboutPage() {
   const content = await getSiteContent();
   const members = await listMembers(content);
+  const { text, lines } = getPageContent(content, "/sobre-nosotros");
 
   return (
     <>
       <Hero
-        eyebrow="Trayectoria desde 2012"
-        title={content.about.title}
-        text="Un equipo jurídico con enfoque técnico, preventivo y contencioso."
-        image="/assets/site/about-hero.png"
+        eyebrow={text("eyebrow")}
+        title={text("title")}
+        text={text("description")}
+        image={text("heroImage")}
+        imageAlt={text("heroAlt")}
         compact
       />
       <section className="section about-story">
-        <img src="/assets/site/about-statue.png" alt="Figura de la justicia" loading="lazy" decoding="async" />
+        <img src={text("storyImage")} alt={text("storyAlt")} loading="lazy" decoding="async" />
         <div className="content-flow">
-          {content.about.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
+          {lines("paragraphs").map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
           ))}
         </div>
       </section>
       <section className="section section-muted">
         <div className="section-heading">
-          <p className="eyebrow">Equipo</p>
-          <h2>Áreas y especialidades</h2>
+          <p className="eyebrow">{text("teamEyebrow")}</p>
+          <h2>{text("teamTitle")}</h2>
         </div>
         <div className="team-grid">
           {members.map((member) => (
@@ -46,7 +49,7 @@ export default async function AboutPage() {
           ))}
         </div>
       </section>
-      <ContactCta content={content} />
+      <ContactCta content={content} path="/sobre-nosotros" />
     </>
   );
 }

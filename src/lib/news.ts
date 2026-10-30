@@ -3,6 +3,15 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import type { NewsPost, NewsStatus } from "@/types/news";
 import { getSupabaseAdmin, newsImagesBucket, newsPostsTable } from "@/lib/supabase";
+import { requireAdmin } from "@/lib/auth";
+
+export class NewsError extends Error {}
+
+function validateNewsId(id: string) {
+  if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)) {
+    throw new NewsError("La noticia no es válida. Actualiza la página e inténtalo nuevamente.");
+  }
+}
 
 const allowedTags = new Set([
   "a",
@@ -170,7 +179,7 @@ export function slugify(input: string) {
 
 async function ensureUniqueSlug(baseSlug: string, currentId?: string) {
   const supabase = getSupabaseAdmin();
-  if (!supabase) throw new Error("Supabase no está configurado.");
+  if (!supabase) throw new NewsError("Supabase no está configurado.");
 
   const cleanBase = baseSlug || `noticia-${Date.now()}`;
   let candidate = cleanBase;
@@ -180,7 +189,7 @@ async function ensureUniqueSlug(baseSlug: string, currentId?: string) {
     let query = supabase.from(newsPostsTable).select("id").eq("slug", candidate).limit(1);
     if (currentId) query = query.neq("id", currentId);
     const { data, error } = await query;
-    if (error) throw new Error(error.message);
+    if (error) throw new NewsError("No se pudo comprobar el enlace de la noticia. Inténtalo nuevamente.");
     if (!data || data.length === 0) return candidate;
     candidate = `${cleanBase}-${suffix}`;
     suffix += 1;
@@ -194,6 +203,7 @@ export async function listNewsPosts(options: { includeDrafts?: boolean; limit?: 
   let query = supabase
     .from(newsPostsTable)
     .select("*")
+    .is("deleted_at", null)
     .order("published_at", { ascending: false, nullsFirst: false })
     .order("created_at", { ascending: false });
 
@@ -205,11 +215,27 @@ export async function listNewsPosts(options: { includeDrafts?: boolean; limit?: 
   return (data || []) as NewsPost[];
 }
 
+export async function listAdminNewsPosts() {
+  await requireAdmin();
+  const supabase = getSupabaseAdmin();
+  if (!supabase) throw new NewsError("Supabase no está configurado.");
+
+  const posts: NewsPost[] = [];
+  // Fetch every page so both counters remain accurate beyond the API row limit.
+  for (let from = 0; ; from += 1000) {
+    const { data, error } = await supabase.from(newsPostsTable).select("*")
+      .order("created_at", { ascending: false }).order("id").range(from, from + 999);
+    if (error) throw new NewsError("No se pudieron cargar las noticias. Revisa la conexión y la migración de noticias.");
+    posts.push(...((data || []) as NewsPost[]));
+    if (!data || data.length < 1000) return posts;
+  }
+}
+
 export async function getNewsPostBySlug(slug: string, includeDrafts = false) {
   const supabase = getSupabaseAdmin();
   if (!supabase) return null;
 
-  let query = supabase.from(newsPostsTable).select("*").eq("slug", slug).limit(1);
+  let query = supabase.from(newsPostsTable).select("*").eq("slug", slug).is("deleted_at", null).limit(1);
   if (!includeDrafts) query = query.eq("status", "published");
 
   const { data, error } = await query.single();
@@ -219,15 +245,15 @@ export async function getNewsPostBySlug(slug: string, includeDrafts = false) {
 
 export async function uploadNewsImage(file: File) {
   const supabase = getSupabaseAdmin();
-  if (!supabase) throw new Error("Supabase no está configurado.");
+  if (!supabase) throw new NewsError("Supabase no está configurado.");
   if (!file || file.size === 0) return null;
   const extensions: Record<string, string> = {
     "image/jpeg": "jpg",
     "image/png": "png",
     "image/webp": "webp",
   };
-  if (!extensions[file.type]) throw new Error("La imagen debe ser JPG, PNG o WebP.");
-  if (file.size > 4 * 1024 * 1024) throw new Error("La imagen no puede superar 4 MB.");
+  if (!extensions[file.type]) throw new NewsError("La imagen debe ser JPG, PNG o WebP.");
+  if (file.size > 4 * 1024 * 1024) throw new NewsError("La imagen no puede superar 4 MB.");
 
   const extension = extensions[file.type];
   const path = `${randomUUID()}.${extension}`;
@@ -236,7 +262,7 @@ export async function uploadNewsImage(file: File) {
     contentType: file.type,
     upsert: false,
   });
-  if (error) throw new Error(error.message);
+  if (error) throw new NewsError("No se pudo cargar la imagen. Selecciónala e inténtalo nuevamente.");
 
   const { data } = supabase.storage.from(newsImagesBucket).getPublicUrl(path);
   return data.publicUrl;
@@ -258,13 +284,13 @@ export async function createNewsPost(input: {
   noindex?: boolean;
 }) {
   const supabase = getSupabaseAdmin();
-  if (!supabase) throw new Error("Supabase no está configurado.");
+  if (!supabase) throw new NewsError("Supabase no está configurado.");
 
   const title = input.title.trim();
-  if (title.length < 4) throw new Error("El título debe tener al menos 4 caracteres.");
+  if (title.length < 4) throw new NewsError("El título debe tener al menos 4 caracteres.");
 
   const content_html = sanitizeNewsHtml(input.content_html);
-  if (textFromHtml(content_html).length < 40) throw new Error("La noticia necesita un contenido más completo.");
+  if (textFromHtml(content_html).length < 40) throw new NewsError("La noticia necesita un contenido más completo.");
 
   const slug = await ensureUniqueSlug(slugify(input.slug || title));
   const published_at = input.status === "published" ? new Date().toISOString() : null;
@@ -285,7 +311,7 @@ export async function createNewsPost(input: {
     noindex: Boolean(input.noindex),
   });
 
-  if (error) throw new Error(error.message);
+  if (error) throw new NewsError("No se pudo guardar la noticia. Los datos del formulario se conservaron.");
 }
 
 export async function updateNewsPost(id: string, input: {
@@ -303,17 +329,18 @@ export async function updateNewsPost(id: string, input: {
   og_description?: string;
   noindex?: boolean;
 }) {
+  validateNewsId(id);
   const supabase = getSupabaseAdmin();
-  if (!supabase) throw new Error("Supabase no está configurado.");
+  if (!supabase) throw new NewsError("Supabase no está configurado.");
 
-  const current = await supabase.from(newsPostsTable).select("published_at").eq("id", id).single();
-  if (current.error) throw new Error(current.error.message);
+  const current = await supabase.from(newsPostsTable).select("published_at").eq("id", id).is("deleted_at", null).single();
+  if (current.error || !current.data) throw new NewsError("No se pudo editar la noticia. Puede estar en la papelera o ya no existir.");
 
   const title = input.title.trim();
-  if (title.length < 4) throw new Error("El título debe tener al menos 4 caracteres.");
+  if (title.length < 4) throw new NewsError("El título debe tener al menos 4 caracteres.");
 
   const content_html = sanitizeNewsHtml(input.content_html);
-  if (textFromHtml(content_html).length < 40) throw new Error("La noticia necesita un contenido más completo.");
+  if (textFromHtml(content_html).length < 40) throw new NewsError("La noticia necesita un contenido más completo.");
 
   const slug = await ensureUniqueSlug(slugify(input.slug || title), id);
   const published_at =
@@ -321,7 +348,7 @@ export async function updateNewsPost(id: string, input: {
       ? current.data?.published_at || new Date().toISOString()
       : null;
 
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from(newsPostsTable)
     .update({
       title,
@@ -340,15 +367,41 @@ export async function updateNewsPost(id: string, input: {
       noindex: Boolean(input.noindex),
       updated_at: new Date().toISOString(),
     })
-    .eq("id", id);
+    .eq("id", id).is("deleted_at", null).select("id").single();
 
-  if (error) throw new Error(error.message);
+  if (error || !data) throw new NewsError("No se pudo actualizar la noticia. Conservamos tus datos; comprueba que no esté en la papelera.");
 }
 
 export async function deleteNewsPost(id: string) {
+  validateNewsId(id);
   const supabase = getSupabaseAdmin();
-  if (!supabase) throw new Error("Supabase no está configurado.");
+  if (!supabase) throw new NewsError("Supabase no está configurado.");
 
-  const { error } = await supabase.from(newsPostsTable).delete().eq("id", id);
-  if (error) throw new Error(error.message);
+  const now = new Date().toISOString();
+  const { data, error } = await supabase.from(newsPostsTable).update({
+    deleted_at: now, status: "draft", published_at: null, updated_at: now,
+  }).eq("id", id).is("deleted_at", null).select("id").single();
+  if (error || !data) throw new NewsError("No se pudo enviar la noticia a la papelera. Actualiza la página e inténtalo nuevamente.");
+}
+
+export async function restoreNewsPost(id: string) {
+  validateNewsId(id);
+  const supabase = getSupabaseAdmin();
+  if (!supabase) throw new NewsError("Supabase no está configurado.");
+
+  const { data, error } = await supabase.from(newsPostsTable).update({
+    deleted_at: null, status: "draft", published_at: null, updated_at: new Date().toISOString(),
+  }).eq("id", id).not("deleted_at", "is", null).select("id").single();
+  if (error || !data) throw new NewsError("No se pudo restaurar la noticia. Comprueba que siga en la papelera.");
+}
+
+export async function permanentlyDeleteNewsPost(id: string) {
+  validateNewsId(id);
+  const supabase = getSupabaseAdmin();
+  if (!supabase) throw new NewsError("Supabase no está configurado.");
+
+  // Images may also be used by other posts; remove only the trashed database row.
+  const { data, error } = await supabase.from(newsPostsTable).delete()
+    .eq("id", id).not("deleted_at", "is", null).select("id").single();
+  if (error || !data) throw new NewsError("No se pudo eliminar la noticia definitivamente. Solo puedes eliminar noticias que estén en la papelera.");
 }

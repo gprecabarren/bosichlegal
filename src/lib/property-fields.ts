@@ -46,7 +46,7 @@ export function emptyProperty(): PropertyInput {
     title: "", slug: "", description: "", region: "biobio", city: "", address: "",
     property_type: "Casa", price: null, currency: "CLP", bedrooms: null,
     bathrooms: null, area_m2: null, land_m2: null, images: [], status: "draft",
-    seo_title: "", meta_description: "",
+    seo_title: "", meta_description: "", noindex: false,
   };
 }
 
@@ -74,6 +74,7 @@ export function validateProperty(value: unknown): PropertyInput {
   if (!propertyTypes.includes(String(data.property_type))) throw new Error("Selecciona el tipo de propiedad.");
   if (data.currency !== "CLP" && data.currency !== "UF") throw new Error("Selecciona CLP o UF.");
   if (data.status !== "draft" && data.status !== "published" && data.status !== "sold") throw new Error("Selecciona un estado válido.");
+  if (data.noindex !== undefined && typeof data.noindex !== "boolean") throw new Error("Revisa la opción de indexación.");
   if (!Array.isArray(data.images) || data.images.length > 20) throw new Error("La galería admite hasta 20 imágenes.");
   const images = data.images.map((image) => {
     if (!image || typeof image.url !== "string" || typeof image.alt !== "string" || typeof image.caption !== "string"
@@ -86,6 +87,6 @@ export function validateProperty(value: unknown): PropertyInput {
     city: text("city", 100, true), address: text("address", 250), property_type: String(data.property_type),
     price: number("price"), currency: data.currency, bedrooms: number("bedrooms", true), bathrooms: number("bathrooms", true),
     area_m2: number("area_m2"), land_m2: number("land_m2"), images, status: data.status,
-    seo_title: text("seo_title", 180), meta_description: text("meta_description", 320),
+    seo_title: text("seo_title", 180), meta_description: text("meta_description", 320), noindex: data.noindex === true,
   };
 }

@@ -9,13 +9,31 @@ export type ServiceItem = {
   pageSlug?: string;
   topics?: ServiceTopic[];
 };
+export type ServicePageCopy = {
+  locationText: string;
+  locationLinkLabel: string;
+  indexTitle: string;
+  stepsEyebrow: string;
+  stepsTitle: string;
+  faqsTitle: string;
+  relatedTitle: string;
+  sourcesTitle: string;
+  heroCta: string;
+  whatsappCta: string;
+  sidebarCta: string;
+  contactEyebrow: string;
+  contactTitle: string;
+  contactText: string;
+  contactCta: string;
+};
 export type ServicePageContent = {
+  copy?: Partial<ServicePageCopy>;
   eyebrow: string;
   intro: string;
   heroImage: string;
   heroAlt: string;
   notice: string;
-  sections: { title: string; text: string; bullets: string[] }[];
+  sections: { title: string; text: string; html?: string; bullets: string[] }[];
   steps: { title: string; text: string }[];
   faqs: { question: string; answer: string }[];
   sources: { label: string; url: string }[];
@@ -34,5 +52,5 @@ export type ServicePageInput = {
   og_description: string;
   content: ServicePageContent;
 };
-export type ServicePage = ServicePageInput & { id: string; created_at: string; updated_at: string };
-export type ServicePageSummary = Pick<ServicePage, "id" | "slug" | "title" | "status" | "noindex" | "updated_at">;
+export type ServicePage = ServicePageInput & { id: string; created_at: string; updated_at: string; deleted_at: string | null };
+export type ServicePageSummary = Pick<ServicePage, "id" | "slug" | "title" | "status" | "noindex" | "updated_at" | "deleted_at">;

@@ -28,7 +28,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const properties = await listPublicProperties();
-  const propertyRoutes = properties.map((property) => ({ url: `${baseUrl}/propiedades/${property.slug}`, lastModified: new Date(property.updated_at), changeFrequency: "weekly" as const, priority: 0.75 }));
+  const propertyRoutes = properties.filter(property => !property.noindex).map((property) => ({ url: `${baseUrl}/propiedades/${property.slug}`, lastModified: new Date(property.updated_at), changeFrequency: "weekly" as const, priority: 0.75 }));
   const locations = new Map<string, Date>();
   for (const property of properties) {
     for (const path of [locationPath(property.region), locationPath(property.region, property.city)]) {

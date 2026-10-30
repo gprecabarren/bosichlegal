@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!property) return { title: "Propiedad no encontrada", robots: { index: false } };
   const title = property.seo_title || `${property.title} en ${property.city}`;
   const description = property.meta_description || property.description.replace(/\s+/g, " ").slice(0, 160);
-  return pageSeo({ title, description, path: `/propiedades/${property.slug}`, image: property.images[0]?.url, imageAlt: property.images[0]?.alt || property.title });
+  return pageSeo({ title, description, path: `/propiedades/${property.slug}`, image: property.images[0]?.url, imageAlt: property.images[0]?.alt || property.title, noindex: property.noindex });
 }
 
 export default async function PropertyDetailPage({ params }: Props) {

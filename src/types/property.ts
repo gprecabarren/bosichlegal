@@ -18,6 +18,7 @@ export type PropertyInput = {
   status: PropertyStatus;
   seo_title: string;
   meta_description: string;
+  noindex?: boolean;
 };
 export type Property = PropertyInput & {
   id: string;

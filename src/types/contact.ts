@@ -8,6 +8,7 @@ export type ContactSubmission = {
   subject: string;
   message: string;
   status: ContactStatus;
+  deleted_at: string | null;
   source_path: string | null;
   ip_hash: string | null;
   user_agent: string | null;

@@ -7,6 +7,7 @@ import { getSiteContent, saveSiteContent } from "@/lib/content";
 import { normalizeLinkedInProfileUrl } from "@/lib/linkedin";
 import type { SiteContent } from "@/types/site";
 import { indexingPages } from "@/lib/indexing-pages";
+import { layoutCopyDefaults } from "@/lib/layout-copy";
 
 function lines(value: FormDataEntryValue | null) {
   return String(value || "")
@@ -34,6 +35,7 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
 
   const nextContent: SiteContent = {
     ...current,
+    layoutCopy: Object.fromEntries(Object.keys(layoutCopyDefaults).map(key => [key, formData.has(`layout_${key}`) ? String(formData.get(`layout_${key}`) || "").trim().slice(0, 80) : current.layoutCopy?.[key as keyof typeof layoutCopyDefaults] || layoutCopyDefaults[key as keyof typeof layoutCopyDefaults]])),
     contact: {
       ...current.contact,
       phone: String(formData.get("phone") || current.contact.phone),

@@ -2,13 +2,25 @@
 
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
-import { getAdminProperty, saveProperty, setPropertyDeleted } from "@/lib/properties";
+import { getAdminProperty, permanentlyDeleteProperty, saveProperty, setPropertyDeleted } from "@/lib/properties";
 import { validateProperty } from "@/lib/property-fields";
 
 function refreshProperties() {
   revalidatePath("/propiedades", "layout");
   revalidatePath("/admin/propiedades", "layout");
   revalidatePath("/sitemap.xml");
+}
+
+export async function deletePropertyPermanentlyAction(_: unknown, formData: FormData) {
+  try {
+    await requireAdmin();
+    if (formData.get("confirmation") !== "ELIMINAR") throw new Error("Escribe ELIMINAR para confirmar.");
+    await permanentlyDeleteProperty(String(formData.get("id") || ""));
+    refreshProperties();
+    return { ok: true, message: "Propiedad eliminada definitivamente." };
+  } catch (error) {
+    return { ok: false, message: error instanceof Error ? error.message : "No se pudo eliminar la propiedad." };
+  }
 }
 
 export async function savePropertyAction(_: unknown, formData: FormData) {

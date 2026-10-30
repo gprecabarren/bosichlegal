@@ -1,10 +1,11 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import { AlignCenter, AlignLeft, AlignRight, Bold, Crop, ImagePlus, ImageUp, Italic, LinkIcon, List, ListOrdered, Quote, Trash2, Underline, X } from "lucide-react";
+import { AlignCenter, AlignLeft, AlignRight, Bold, Crop, FileText, ImagePlus, ImageUp, Italic, LinkIcon, List, ListOrdered, Quote, Trash2, Underline, X } from "lucide-react";
 import type { NewsActionState, NewsFormValues, NewsPost } from "@/types/news";
-import { createNewsAction, deleteNewsAction, updateNewsAction } from "./news-actions";
+import { createNewsAction, updateNewsAction } from "./news-actions";
 import { SubmitButton } from "./SubmitButton";
+import { NewsTrashButton } from "./NewsTrashButton";
 import { isNewsPlaceholder } from "@/lib/news-placeholder";
 
 const editorPlaceholder = "Escribe el contenido de la noticia aquí.";
@@ -65,15 +66,21 @@ function normalizeInitialHtml(value: string) {
   return isNewsPlaceholder(trimmed) ? "" : trimmed;
 }
 
-function RichTextEditor({
+export function RichTextEditor({
   name,
   defaultValue = "",
   placeholder = editorPlaceholder,
+  onChange,
+  ariaLabel = "Contenido de la noticia",
 }: {
   name: string;
   defaultValue?: string;
   placeholder?: string;
+  onChange?: (html: string) => void;
+  ariaLabel?: string;
 }) {
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
   const editorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -105,6 +112,7 @@ function RichTextEditor({
       inputRef.current.value = editorRef.current?.innerHTML || "";
     }
     refreshEmptyState();
+    onChangeRef.current?.(editorRef.current?.innerHTML || "");
   }
 
   function command(action: string, value?: string) {
@@ -348,6 +356,7 @@ function RichTextEditor({
   useEffect(() => {
     const editor = editorRef.current;
     if (!editor) return;
+    if (editor.innerHTML === initialHtml) return;
     editor.innerHTML = initialHtml;
     const first = editor.firstChild;
     if (first && isNewsPlaceholder(first.textContent || "") && !(first instanceof Element && first.querySelector("img"))) first.remove();
@@ -465,7 +474,7 @@ function RichTextEditor({
         contentEditable
         role="textbox"
         tabIndex={0}
-        aria-label="Contenido de la noticia"
+        aria-label={ariaLabel}
         data-empty={initialHtml ? "false" : "true"}
         data-placeholder={placeholder}
         spellCheck
@@ -685,13 +694,18 @@ function NewsForm({ post }: { post?: NewsPost }) {
       </div>
       <div className="admin-actions">
         <SubmitButton label={post ? "Actualizar noticia" : "Crear noticia"} />
-        {state?.message ? <p className={state.ok ? "admin-success" : "admin-error"}>{state.message}</p> : null}
+        {state?.message ? <p className={state.ok ? "admin-success" : "admin-error"} role={state.ok ? "status" : "alert"}>{state.message}</p> : null}
       </div>
     </form>
   );
 }
 
-export function AdminNews({ posts, supabaseReady }: { posts: NewsPost[]; supabaseReady: boolean }) {
+export function AdminNews({ posts, supabaseReady, loadError = "" }: { posts: NewsPost[]; supabaseReady: boolean; loadError?: string }) {
+  const [view, setView] = useState<"active" | "trash">("active");
+  const [feedback, setFeedback] = useState("");
+  const active = posts.filter((post) => !post.deleted_at);
+  const trash = posts.filter((post) => post.deleted_at);
+
   return (
     <section className="admin-news">
       <div className="section-heading compact">
@@ -705,30 +719,57 @@ export function AdminNews({ posts, supabaseReady }: { posts: NewsPost[]; supabas
           Supabase todavía no está conectado. La sección Noticias se activa cuando exista la tabla news_posts y el bucket news-images.
         </div>
       ) : (
-        <NewsForm />
+        <div hidden={view !== "active"}><NewsForm /></div>
       )}
-      <div className="news-admin-list">
-        {posts.length === 0 ? <p className="admin-help">Todavía no hay noticias creadas.</p> : null}
-        {posts.map((post) => (
-          <article className="news-admin-card" key={post.id}>
-            <div className="news-admin-card-heading">
-              <div>
-                <span className={`status-pill ${post.status === "published" ? "status-contacted" : ""}`}>
-                  {post.status === "published" ? "Publicado" : "Borrador"}
-                </span>
-                <h3>{post.title}</h3>
-                <p>{post.excerpt}</p>
+      {loadError ? <p className="admin-warning" role="alert">{loadError}</p> : null}
+      {feedback ? <p className="admin-success" role="status">{feedback}</p> : null}
+      <div className="admin-actions news-view-switcher" role="group" aria-label="Vista de noticias">
+        <button className={`button${view === "active" ? "" : " button-secondary"}`} type="button" aria-pressed={view === "active"} onClick={() => setView("active")}>
+          <FileText size={16} />Activas ({active.length})
+        </button>
+        <button className={`button${view === "trash" ? "" : " button-secondary"}`} type="button" aria-pressed={view === "trash"} onClick={() => setView("trash")}>
+          <Trash2 size={16} />Papelera ({trash.length})
+        </button>
+      </div>
+      <div hidden={view !== "active"}>
+        <div className="news-admin-list">
+          {!loadError && active.length === 0 ? <p className="admin-help">No hay noticias activas.</p> : null}
+          {active.map((post) => (
+            <article className="news-admin-card" key={post.id}>
+              <div className="news-admin-card-heading">
+                <div>
+                  <span className={`status-pill ${post.status === "published" ? "status-contacted" : ""}`}>
+                    {post.status === "published" ? "Publicado" : "Borrador"}
+                  </span>
+                  <h3>{post.title}</h3>
+                  <p>{post.excerpt}</p>
+                </div>
+                <NewsTrashButton post={post} operation="trash" onSuccess={setFeedback} />
               </div>
-              <form action={deleteNewsAction}>
-                <input type="hidden" name="id" value={post.id} />
-                <button className="danger-button" type="submit" aria-label={`Eliminar ${post.title}`}>
-                  <Trash2 size={16} />
-                </button>
-              </form>
-            </div>
-            <NewsForm post={post} />
-          </article>
-        ))}
+              <NewsForm post={post} />
+            </article>
+          ))}
+        </div>
+      </div>
+      <div hidden={view !== "trash"}>
+        <div className="news-admin-list">
+          {!loadError && trash.length === 0 ? <p className="admin-help">La papelera está vacía.</p> : null}
+          {trash.map((post) => (
+            <article className="news-admin-card" key={post.id}>
+              <div className="news-admin-card-heading">
+                <div>
+                  <span className="status-pill">En la papelera</span>
+                  <h3>{post.title}</h3>
+                  <p>{post.excerpt}</p>
+                </div>
+              </div>
+              <div className="admin-actions news-trash-actions">
+                <NewsTrashButton post={post} operation="restore" onSuccess={setFeedback} />
+                <NewsTrashButton post={post} operation="delete" onSuccess={setFeedback} />
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

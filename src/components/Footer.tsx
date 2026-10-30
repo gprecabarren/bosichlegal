@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Instagram, Linkedin, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import type { SiteContent } from "@/types/site";
 import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
+import { layoutCopy } from "@/lib/layout-copy";
 
 function phoneHref(phone: string) {
   const compact = phone.replace(/[^\d+]/g, "");
@@ -13,6 +14,7 @@ function mapsHref(query: string) {
 }
 
 export function Footer({ content }: { content: SiteContent }) {
+  const copy = layoutCopy(content.layoutCopy);
   const social = content.contact.social;
   const linkedinUrl = resolveLinkedInProfileUrl(social.linkedin);
 
@@ -40,13 +42,13 @@ export function Footer({ content }: { content: SiteContent }) {
           </div>
         </div>
         <div>
-          <h2>Contacto</h2>
+          <h2>{copy.footerContact}</h2>
           <a href={phoneHref(content.contact.phone)}><Phone size={16} /> {content.contact.phone}</a>
           <a href={`mailto:${content.contact.email}`}><Mail size={16} /> {content.contact.email}</a>
-          <a href={social.whatsapp} target="_blank" rel="noreferrer"><MessageCircle size={16} /> WhatsApp directo</a>
+          <a href={social.whatsapp} target="_blank" rel="noreferrer"><MessageCircle size={16} /> {copy.footerWhatsapp}</a>
         </div>
         <div>
-          <h2>Oficinas</h2>
+          <h2>{copy.footerOffices}</h2>
           {content.locations.items.map((location) => (
             <a key={location.address} href={mapsHref(location.mapQuery)} target="_blank" rel="noreferrer">
               <MapPin size={16} /> {location.address}
@@ -54,12 +56,12 @@ export function Footer({ content }: { content: SiteContent }) {
           ))}
         </div>
         <div>
-          <h2>Navegación</h2>
-          <Link href="/servicios">Servicios jurídicos</Link>
-          <Link href="/propiedades">Propiedades en venta</Link>
-          <Link href="/sobre-nosotros">Sobre nosotros</Link>
-          <Link href="/ubicacion">Ubicación</Link>
-          <Link href="/contacto">Contacto</Link>
+          <h2>{copy.footerNavigation}</h2>
+          <Link href="/servicios">{copy.footerServices}</Link>
+          <Link href="/propiedades">{copy.footerProperties}</Link>
+          <Link href="/sobre-nosotros">{copy.footerAbout}</Link>
+          <Link href="/ubicacion">{copy.footerLocation}</Link>
+          <Link href="/contacto">{copy.footerContactLink}</Link>
         </div>
       </div>
       <div className="footer-bottom">

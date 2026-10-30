@@ -16,6 +16,7 @@ export type NewsPost = {
   noindex: boolean;
   status: NewsStatus;
   published_at: string | null;
+  deleted_at: string | null;
   created_at?: string;
   updated_at?: string;
 };
@@ -43,3 +44,5 @@ export type NewsActionState = {
   values: NewsFormValues;
   resetKey: string;
 } | null;
+
+export type NewsMutationState = { ok: boolean; message: string } | null;

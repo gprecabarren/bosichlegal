@@ -7,6 +7,7 @@ import { listServicePages } from "@/lib/service-pages";
 import { getSiteContent } from "@/lib/content";
 import { listNewsPosts } from "@/lib/news";
 import { staticPageSeo } from "@/lib/static-page-seo";
+import { getPageContent } from "@/lib/page-content";
 
 export async function generateMetadata() {
   const content = await getSiteContent();
@@ -16,6 +17,7 @@ export async function generateMetadata() {
 export default async function HomePage() {
   const [content, latestNews, servicePages] = await Promise.all([getSiteContent(), listNewsPosts({ limit: 3 }), listServicePages()]);
   const featured = content.services.items.filter(service => service.showOnHome !== false);
+  const { text } = getPageContent(content, "/");
 
   return (
     <>
@@ -23,24 +25,24 @@ export default async function HomePage() {
 
       <section className="section intro-grid">
         <div>
-          <p className="eyebrow">Estudio jurídico</p>
-          <h1 id="home-title" className="home-intro-title">{content.home.heroTitle}</h1>
-          <p className="home-intro-lead">{content.home.heroSubtitle}</p>
-          <h2 className="home-intro-subtitle">{content.home.introTitle}</h2>
-          <p>{content.home.introText}</p>
+          <p className="eyebrow">{text("eyebrow")}</p>
+          <h1 id="home-title" className="home-intro-title">{text("title")}</h1>
+          <p className="home-intro-lead">{text("description")}</p>
+          <h2 className="home-intro-subtitle">{text("introTitle")}</h2>
+          <p>{text("introText")}</p>
         </div>
         <div className="metric-panel">
-          <div><Scale /> Litigios complejos</div>
-          <div><BriefcaseBusiness /> Empresas y personas</div>
-          <div><Building2 /> Presencia regional</div>
+          <div><Scale /> {text("metricLitigation")}</div>
+          <div><BriefcaseBusiness /> {text("metricClients")}</div>
+          <div><Building2 /> {text("metricPresence")}</div>
         </div>
       </section>
 
       <section className="section section-muted">
         <div className="section-heading">
-          <p className="eyebrow">Áreas de práctica</p>
-          <h2>{content.services.homeTitle || "Servicios jurídicos principales"}</h2>
-          <Link href="/servicios">Ver todas las áreas <ArrowRight size={16} /></Link>
+          <p className="eyebrow">{text("servicesEyebrow")}</p>
+          <h2>{text("servicesTitle")}</h2>
+          <Link href="/servicios">{text("allServicesButton")} <ArrowRight size={16} /></Link>
         </div>
         <div className="service-grid">
           {featured.map((service, index) => (
@@ -51,8 +53,8 @@ export default async function HomePage() {
 
       <section className="statement-band">
         <div>
-          <p className="eyebrow">Estrategia legal</p>
-          <h2>Rigor técnico, comunicación clara y defensa activa.</h2>
+          <p className="eyebrow">{text("statementEyebrow")}</p>
+          <h2>{text("statementTitle")}</h2>
         </div>
       </section>
 
@@ -60,10 +62,10 @@ export default async function HomePage() {
         <section className="section">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Noticias</p>
-              <h2>Actualidad jurídica</h2>
+              <p className="eyebrow">{text("newsEyebrow")}</p>
+              <h2>{text("newsTitle")}</h2>
             </div>
-            <Link href="/noticias">Ver noticias <ArrowRight size={16} /></Link>
+            <Link href="/noticias">{text("allNewsButton")} <ArrowRight size={16} /></Link>
           </div>
           <div className="news-grid news-grid-compact">
             {latestNews.map((post) => (
@@ -73,7 +75,7 @@ export default async function HomePage() {
                   <h3>{post.title}</h3>
                   <p>{post.excerpt}</p>
                   <Link href={`/noticias/${post.slug}`}>
-                    Leer noticia <ArrowRight size={16} />
+                    {text("readNewsButton")} <ArrowRight size={16} />
                   </Link>
                 </div>
               </article>
@@ -82,7 +84,7 @@ export default async function HomePage() {
         </section>
       ) : null}
 
-      <ContactCta content={content} featured />
+      <ContactCta content={content} path="/" featured />
     </>
   );
 }

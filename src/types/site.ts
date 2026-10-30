@@ -1,6 +1,25 @@
 import type { ServiceItem } from "./service";
 
+export type StaticPagePath = "/" | "/servicios" | "/sobre-nosotros" | "/ubicacion" | "/contacto" | "/noticias" | "/propiedades";
+export type PageFieldValue = string | string[];
+export type StaticPageSeo = {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  /** Compatibility input. New saves use seo.noindexPaths as the single source. */
+  noindex?: boolean;
+};
+export type StaticPageOverride = {
+  content?: Record<string, PageFieldValue>;
+  seo?: StaticPageSeo;
+};
+
 export type SiteContent = {
+  layoutCopy?: Partial<Record<keyof typeof import("../lib/layout-copy").layoutCopyDefaults, string>>;
+  pages?: Partial<Record<StaticPagePath, StaticPageOverride>>;
   brand: {
     name: string;
     tagline: string;

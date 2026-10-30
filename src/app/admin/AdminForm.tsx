@@ -7,6 +7,7 @@ import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
 import { saveAdminContent } from "./actions";
 import { SubmitButton } from "./SubmitButton";
 import { indexingPages } from "@/lib/indexing-pages";
+import { layoutCopy, layoutCopyLabels } from "@/lib/layout-copy";
 
 function socialHandle(url: string, base: string) {
   return url
@@ -17,9 +18,12 @@ function socialHandle(url: string, base: string) {
 
 export function AdminForm({ content }: { content: SiteContent }) {
   const [state, action] = useActionState(saveAdminContent, null);
+  const copy = layoutCopy(content.layoutCopy);
 
   return (
     <form className="admin-form" action={action}>
+      <section><h2>Editores de páginas</h2><Link className="back-link" href="/admin/paginas">Editar textos, imágenes y SEO de las páginas principales</Link><Link className="back-link" href="/admin/servicios/paginas">Crear y editar páginas individuales de servicios</Link><Link className="back-link" href="/admin/paginas/ubicacion">Editar oficinas y mapas</Link></section>
+      <section><h2>Menú y pie de página</h2><div className="form-grid">{(Object.keys(layoutCopyLabels) as Array<keyof typeof layoutCopyLabels>).map(key => <label key={key}>{layoutCopyLabels[key]}<input name={`layout_${key}`} maxLength={80} required defaultValue={copy[key]} /></label>)}</div></section>
       <section>
         <h2>SEO</h2>
         <label>

@@ -5,6 +5,7 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { listServicePages } from "@/lib/service-pages";
 import { getSiteContent } from "@/lib/content";
 import { staticPageSeo } from "@/lib/static-page-seo";
+import { getPageContent } from "@/lib/page-content";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { services } = await getSiteContent();
@@ -17,28 +18,30 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ServicesPage() {
   const [content, pages] = await Promise.all([getSiteContent(), listServicePages()]);
+  const { text } = getPageContent(content, "/servicios");
 
   return (
     <>
       <Hero
-        eyebrow="Áreas de práctica"
-        title={content.services.title}
-        text={content.services.description || "Asesoría preventiva, representación judicial y estrategia legal para personas, empresas e instituciones."}
-        image={content.services.heroImage}
+        eyebrow={text("eyebrow")}
+        title={text("title")}
+        text={text("description")}
+        image={text("heroImage")}
+        imageAlt={text("heroAlt")}
         compact
       />
       <section className="section">
         <div className="section-heading">
-          <p className="eyebrow">Bosich Legal</p>
-          <h2>{content.services.introTitle || "Práctica integral para personas y empresas"}</h2>
+          <p className="eyebrow">{text("introEyebrow")}</p>
+          <h2>{text("introTitle")}</h2>
         </div>
         <div className="service-grid service-grid-wide">
           {content.services.items.map((service, index) => (
-            <ServiceCard key={service.title} service={service} pages={pages} index={index} />
+            <ServiceCard key={service.title} service={service} pages={pages} index={index} buttonLabel={text("serviceButton")} />
           ))}
         </div>
       </section>
-      <ContactCta content={content} />
+      <ContactCta content={content} path="/servicios" />
     </>
   );
 }

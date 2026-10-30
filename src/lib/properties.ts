@@ -77,12 +77,21 @@ export async function saveProperty(id: string | null, input: PropertyInput) {
 
 export async function setPropertyDeleted(id: string, deleted: boolean) {
   await requireAdmin();
-  const { data, error } = await configuredClient().from(propertiesTable).update({
+  let query = configuredClient().from(propertiesTable).update({
     deleted_at: deleted ? new Date().toISOString() : null,
     status: "draft",
     updated_at: new Date().toISOString(),
-  }).eq("id", id).select("id").single();
+  }).eq("id", id);
+  query = deleted ? query.is("deleted_at", null) : query.not("deleted_at", "is", null);
+  const { data, error } = await query.select("id").single();
   if (error || !data) throw new Error("No se pudo cambiar el estado de la propiedad.");
+}
+
+export async function permanentlyDeleteProperty(id: string) {
+  await requireAdmin();
+  const { data, error } = await configuredClient().from(propertiesTable).delete()
+    .eq("id", id).not("deleted_at", "is", null).select("id").single();
+  if (error || !data) throw new Error("Solo se pueden eliminar definitivamente propiedades que están en la papelera.");
 }
 
 export async function uploadPropertyImage(file: File) {

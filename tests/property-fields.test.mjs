@@ -29,3 +29,9 @@ test("distinguishes unknown price, zero price and UF", () => {
   assert.equal(propertyPrice({ price: 0, currency: "CLP" }), "$ 0");
   assert.equal(propertyPrice({ price: 1000.5, currency: "UF" }), "UF 1.000,5");
 });
+
+test("property indexing is opt-out and rejects malformed values", () => {
+  assert.equal(validateProperty(draft()).noindex, false);
+  assert.equal(validateProperty({ ...draft(), noindex: true }).noindex, true);
+  assert.throws(() => validateProperty({ ...draft(), noindex: "false" }), /indexación/);
+});
