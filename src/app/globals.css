@@ -906,8 +906,8 @@ p {
 }
 
 .admin-section-nav {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
   margin-bottom: 28px;
   padding: 8px;
@@ -926,6 +926,8 @@ p {
   color: #30343a;
   font-weight: 700;
 }
+
+.admin-page input.sr-only { width: 1px; height: 1px; padding: 0; border: 0; margin: -1px; }
 
 .admin-section-link:hover {
   border-color: var(--gold);

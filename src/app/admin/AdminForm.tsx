@@ -1,11 +1,11 @@
 "use client";
 
-import { useActionState } from "react";
+import { startTransition, useActionState } from "react";
 import Link from "next/link";
+import { Save } from "lucide-react";
 import type { SiteContent } from "@/types/site";
 import { resolveLinkedInProfileUrl } from "@/lib/linkedin";
 import { saveAdminContent } from "./actions";
-import { SubmitButton } from "./SubmitButton";
 import { indexingPages } from "@/lib/indexing-pages";
 import { layoutCopy, layoutCopyLabels } from "@/lib/layout-copy";
 
@@ -17,11 +17,11 @@ function socialHandle(url: string, base: string) {
 }
 
 export function AdminForm({ content }: { content: SiteContent }) {
-  const [state, action] = useActionState(saveAdminContent, null);
+  const [state, action, pending] = useActionState(saveAdminContent, null);
   const copy = layoutCopy(content.layoutCopy);
 
   return (
-    <form className="admin-form" action={action}>
+    <form className="admin-form" aria-busy={pending} onSubmit={event => { event.preventDefault(); if (pending) return; const data = new FormData(event.currentTarget); startTransition(() => action(data)); }}>
       <section><h2>Editores de páginas</h2><Link className="back-link" href="/admin/paginas">Editar textos, imágenes y SEO de las páginas principales</Link><Link className="back-link" href="/admin/servicios/paginas">Crear y editar páginas individuales de servicios</Link><Link className="back-link" href="/admin/paginas/ubicacion">Editar oficinas y mapas</Link></section>
       <section><h2>Menú y pie de página</h2><div className="form-grid">{(Object.keys(layoutCopyLabels) as Array<keyof typeof layoutCopyLabels>).map(key => <label key={key}>{layoutCopyLabels[key]}<input name={`layout_${key}`} maxLength={80} required defaultValue={copy[key]} /></label>)}</div></section>
       <section>
@@ -211,7 +211,7 @@ export function AdminForm({ content }: { content: SiteContent }) {
       </section>
 
       <div className="admin-actions">
-        <SubmitButton />
+        <button className="button admin-submit" disabled={pending}><Save size={18} />{pending ? "Guardando..." : "Guardar cambios"}</button>
         {state?.message ? <p className={state.ok ? "admin-success" : "admin-error"}>{state.message}</p> : null}
       </div>
     </form>

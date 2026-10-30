@@ -1,13 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { startTransition, useActionState, useState } from "react";
+import { startTransition, useActionState, useState, type ComponentProps } from "react";
 import { ArrowDown, ArrowLeft, ArrowUp, ExternalLink, Plus, Save, Trash2, WandSparkles } from "lucide-react";
 import { emptyServicePage, servicePageCopy, serviceSlug } from "@/lib/service-fields";
 import type { ServicePage, ServicePageContent, ServicePageCopy, ServicePageInput, ServicePageSummary } from "@/types/service";
 import { saveServicePageAction } from "./service-page-actions";
 import { ServicePageImageField } from "./ServicePageImageField";
-import { RichTextEditor } from "./AdminNews";
+import { RichTextEditor as NewsRichTextEditor } from "./AdminNews";
+
+function RichTextEditor(props: ComponentProps<typeof NewsRichTextEditor>) {
+  return <NewsRichTextEditor {...props} allowH1={false} />;
+}
 
 function plainTextHtml(text: string) {
   return text.split(/\n\s*\n/).map(paragraph => `<p>${paragraph.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")}</p>`).join("");

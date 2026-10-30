@@ -22,6 +22,7 @@ function socialUrl(base: string, value: FormDataEntryValue | null) {
 }
 
 export async function saveAdminContent(_: unknown, formData: FormData) {
+  try {
   await requireAdmin();
 
   const current = await getSiteContent();
@@ -96,6 +97,9 @@ export async function saveAdminContent(_: unknown, formData: FormData) {
   revalidatePath("/sitemap.xml");
 
   return { ok: true, message: "Contenido guardado correctamente." };
+  } catch (error) {
+    return { ok: false, message: error instanceof Error && error.message === "No autorizado" ? "Tu sesión expiró. Vuelve a iniciar sesión; tus campos no se han borrado." : "No se pudo guardar la configuración. Tus campos se conservaron; inténtalo nuevamente." };
+  }
 }
 
 export async function logoutAction() {

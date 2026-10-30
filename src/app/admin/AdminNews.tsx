@@ -72,12 +72,14 @@ export function RichTextEditor({
   placeholder = editorPlaceholder,
   onChange,
   ariaLabel = "Contenido de la noticia",
+  allowH1 = true,
 }: {
   name: string;
   defaultValue?: string;
   placeholder?: string;
   onChange?: (html: string) => void;
   ariaLabel?: string;
+  allowH1?: boolean;
 }) {
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
@@ -383,7 +385,7 @@ export function RichTextEditor({
           onChange={(event) => changeBlockFormat(event.target.value as BlockFormat)}
         >
           <option value="p">Párrafo</option>
-          <option value="h1">H1</option>
+          {allowH1 ? <option value="h1">H1</option> : null}
           <option value="h2">H2</option>
           <option value="h3">H3</option>
         </select>
