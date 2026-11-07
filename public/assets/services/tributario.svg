@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 80" fill="none" stroke="#d8ac80" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Landmark and ReceiptText paths adapted from Lucide, ISC license. -->
+  <g transform="translate(0 7) scale(2.8)" stroke-width=".8">
+    <path d="M3 22h18M6 18v-7m4 7v-7m4 7v-7m4 7v-7"/>
+    <path d="m12 2 8 5H4Z"/>
+  </g>
+  <g transform="translate(49 22) scale(1.85)" fill="#191919" stroke-width="1.1">
+    <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
+    <path d="M14 8H8m8 4H8m5 4H8"/>
+  </g>
+</svg>

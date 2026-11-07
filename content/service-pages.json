@@ -168,5 +168,79 @@
       ],
       "relatedSlugs": ["derecho-digital", "proteccion-de-datos"]
     }
+  },
+  {
+    "slug": "derecho-tributario",
+    "title": "Abogados tributarios en Concepción y Santiago",
+    "status": "published",
+    "noindex": false,
+    "seo_title": "Abogado tributario en Concepción y Santiago | Bosich Legal",
+    "meta_description": "Defensa ante el SII y TTA, planificación tributaria, herencias y tax compliance. Abogados en Concepción y Santiago, con asesoría online en Chile.",
+    "focus_keyword": "abogado tributario Concepción Santiago",
+    "og_title": "Derecho Tributario: defensa, planificación y cumplimiento",
+    "og_description": "Una estrategia jurídica para enfrentar controversias tributarias, ordenar tu empresa y proteger tu patrimonio dentro del marco legal.",
+    "content": {
+      "eyebrow": "Derecho Tributario",
+      "intro": "Una fiscalización, una reorganización empresarial o una herencia requieren decisiones respaldadas por antecedentes y una estrategia jurídica clara. En Bosich Legal asesoramos a empresas y personas en defensa tributaria, planificación patrimonial y cumplimiento, con atención en Concepción y Santiago y consultas online para clientes en Chile.",
+      "heroImage": "/assets/site/services-hero.png",
+      "heroAlt": "Revisión de documentos y antecedentes para una asesoría jurídica tributaria",
+      "notice": "Si recibiste una notificación del SII o de un tribunal, conserva el documento y la fecha de notificación y consulta oportunamente. La vía procedente y los plazos dependen de cada actuación. Esta información es general y no reemplaza la evaluación de tu caso.",
+      "reviewedAt": "2026-11-06",
+      "copy": {
+        "locationText": "Atendemos consultas tributarias en Concepción y Santiago, con reuniones presenciales previa coordinación y asesoría online para clientes en Chile. La representación y las gestiones presenciales se definen según el procedimiento y el encargo.",
+        "heroCta": "Evaluar mi situación tributaria",
+        "contactTitle": "Conversemos sobre tu situación tributaria",
+        "contactText": "Indícanos si necesitas defensa ante el SII o un TTA, una reorganización empresarial, regularizar una herencia o revisar el cumplimiento de tu empresa. Si existe una notificación o un plazo, menciónalo al solicitar la consulta.",
+        "contactCta": "Solicitar asesoría tributaria"
+      },
+      "sections": [
+        {
+          "title": "Defensa y litigación tributaria ante el SII y los TTA",
+          "text": "Frente a una fiscalización o una diferencia de impuestos, revisamos los antecedentes, las notificaciones y los fundamentos de la actuación del Servicio de Impuestos Internos. Definimos una estrategia para responder requerimientos y evaluar las vías de impugnación que correspondan.\n\nSegún el caso, la defensa puede considerar actuaciones administrativas ante el SII o un reclamo ante los Tribunales Tributarios y Aduaneros (TTA). No todas las actuaciones se impugnan de la misma manera ni es obligatorio agotar siempre una vía administrativa antes de reclamar judicialmente. La decisión requiere revisar admisibilidad, prueba y plazos; no basta con presentar una solicitud genérica.",
+          "bullets": ["Revisión de citaciones, liquidaciones, giros y resoluciones del SII.", "Preparación de respuestas y organización de antecedentes para la defensa.", "Evaluación de reposición administrativa voluntaria, revisión de la actuación fiscalizadora y otros recursos pertinentes.", "Reclamaciones y litigación ante los TTA, según la materia y el encargo."]
+        },
+        {
+          "title": "Reorganización empresarial y planificación tributaria",
+          "text": "Antes de modificar la estructura de una empresa, conviene evaluar sus consecuencias societarias y tributarias de forma conjunta. Analizamos reorganizaciones, aportes, divisiones, fusiones y cambios en la participación de los socios, conforme a las necesidades reales del negocio.\n\nLa planificación se construye dentro del marco legal, con revisión de los requisitos aplicables, los costos tributarios y la documentación que respalda la operación. Cuando corresponda, estudiamos la legítima razón de negocios y las reglas de tasación, sin asumir que cualquier reorganización es neutral o está exenta de impuestos. Coordinamos la revisión jurídica con los profesionales contables que intervengan en el proyecto.",
+          "bullets": ["Diagnóstico de la estructura societaria y de las operaciones que se proyectan.", "Evaluación de alternativas de reorganización y sus efectos tributarios.", "Revisión de contratos, antecedentes y respaldos de la operación.", "Plan de implementación ajustado al negocio, sus obligaciones y riesgos."]
+        },
+        {
+          "title": "Planificación patrimonial y regularización sucesoria",
+          "text": "Asesoramos a personas y familias que necesitan ordenar su patrimonio, preparar su continuidad o regularizar bienes y obligaciones después de un fallecimiento. Revisamos títulos, sociedades, documentos sucesorios y las consecuencias tributarias de las alternativas disponibles.\n\nLa posesión efectiva y el impuesto a las herencias son materias relacionadas, pero no equivalentes. Identificamos los trámites y antecedentes que correspondan a una sucesión con o sin testamento, las declaraciones o certificados tributarios pertinentes y las gestiones necesarias para avanzar en la regularización. Cada propuesta considera a los herederos, los bienes y la documentación efectivamente disponible.",
+          "bullets": ["Revisión jurídica de la organización patrimonial y la continuidad familiar.", "Evaluación de los efectos tributarios de herencias y donaciones.", "Preparación de antecedentes para posesión efectiva y regularización sucesoria, según el caso.", "Revisión de declaraciones, certificados de pago o exención y documentación de los bienes."]
+        },
+        {
+          "title": "Tax compliance: auditoría preventiva y cumplimiento tributario",
+          "text": "El cumplimiento tributario no comienza cuando llega una fiscalización. Una revisión preventiva permite identificar diferencias entre la operación de la empresa, sus documentos y sus obligaciones, y priorizar medidas para reducir contingencias.\n\nNuestro enfoque es jurídico-tributario: revisamos riesgos, contratos, procesos y respaldos, y coordinamos los aspectos contables con quienes llevan esa función. El alcance de la auditoría preventiva, los períodos revisados y sus entregables se acuerdan previamente. No se trata de una certificación de ausencia de riesgos ni de una auditoría financiera independiente.",
+          "bullets": ["Diagnóstico de obligaciones y contingencias tributarias según la actividad.", "Revisión preventiva de documentación, procesos internos y consistencia de antecedentes.", "Identificación de riesgos y propuesta de medidas correctivas priorizadas.", "Organización de respaldos y coordinación con el equipo contable para futuras revisiones."]
+        },
+        {
+          "title": "Qué antecedentes reunir para una primera consulta",
+          "text": "Puedes comenzar con una descripción de la situación, la actividad de la empresa o los bienes involucrados y el objetivo de la asesoría. Si existe una controversia, incluye el tipo de actuación y la fecha de notificación para que podamos evaluar su urgencia.\n\nNo compartas tu Clave Tributaria, contraseñas ni bases con datos personales por el formulario público. Después de la primera evaluación coordinaremos un canal adecuado para revisar los documentos y, si corresponde, la representación o autorización necesaria.",
+          "bullets": ["Notificaciones, citaciones o resoluciones y sus fechas, si existen.", "Antecedentes societarios y descripción de la operación o problema.", "Documentos patrimoniales o sucesorios disponibles, cuando esa sea la consulta.", "Datos de contacto y modalidad de reunión preferida."]
+        }
+      ],
+      "steps": [
+        { "title": "Diagnóstico y revisión de plazos", "text": "Identificamos la materia, las actuaciones existentes, los antecedentes disponibles y los plazos que sea necesario verificar." },
+        { "title": "Estrategia y alcance del encargo", "text": "Explicamos las alternativas, riesgos y documentación requerida. Acordamos los honorarios y entregables antes de iniciar las gestiones." },
+        { "title": "Implementación y seguimiento", "text": "Desarrollamos la defensa o la asesoría acordada y coordinamos los próximos pasos con el cliente y los profesionales que corresponda." }
+      ],
+      "faqs": [
+        { "question": "¿Cuándo conviene consultar a un abogado tributario?", "answer": "Cuando recibes una actuación del SII que necesitas revisar, enfrentas una diferencia de impuestos, planeas reorganizar una empresa o necesitas evaluar las consecuencias tributarias de una herencia o de tu patrimonio. También es posible consultar preventivamente, antes de ejecutar una operación." },
+        { "question": "¿Pueden asesorarme ante el SII y los Tribunales Tributarios y Aduaneros?", "answer": "Evaluamos la defensa administrativa y la representación ante los TTA según la actuación, los antecedentes y el alcance del encargo. Antes de elegir una vía revisamos los requisitos, la prueba y los plazos del caso. No prometemos un resultado favorable ni la anulación automática de cobros." },
+        { "question": "¿Debo presentar primero un recurso ante el SII para reclamar en un TTA?", "answer": "No debe asumirse que toda reclamación judicial exige agotar antes una vía administrativa. La pertinencia de una reposición, una revisión administrativa o un reclamo judicial depende del acto y de las reglas aplicables. Conviene revisar la notificación antes de decidir, porque los mecanismos tienen requisitos y efectos distintos." },
+        { "question": "¿La planificación tributaria garantiza pagar menos impuestos?", "answer": "No. Se revisan alternativas lícitas y sus efectos jurídicos y tributarios conforme a la situación real del cliente. Una reorganización no queda automáticamente libre de impuestos y debe analizarse con sus requisitos, su propósito y sus respaldos. No ofrecemos mecanismos de evasión ni resultados garantizados." },
+        { "question": "¿La posesión efectiva y el impuesto a la herencia son el mismo trámite?", "answer": "No. La regularización sucesoria puede requerir gestiones ante el Registro Civil o un tribunal, además de las actuaciones tributarias que correspondan ante el SII. La vía depende, entre otros antecedentes, de la existencia de un testamento y de la situación de la sucesión." },
+        { "question": "¿En qué consiste una auditoría preventiva de tax compliance?", "answer": "Es una revisión de riesgos y cumplimiento con un alcance previamente definido: períodos, documentos, procesos y obligaciones que se examinarán. Se identifican contingencias y medidas de mejora. La revisión jurídico-tributaria no reemplaza por sí sola la contabilidad ni equivale a certificar que no existen riesgos." },
+        { "question": "¿Atienden consultas tributarias online en Chile?", "answer": "Sí. Podemos coordinar una primera reunión online y revisar la modalidad adecuada para continuar la asesoría. También atendemos presencialmente en Concepción y Santiago, previa coordinación. Las gestiones que exijan presencia o representación específica se evalúan según el procedimiento." }
+      ],
+      "sources": [
+        { "label": "SII: mecanismos de impugnación administrativa, Circular N° 35 de 2026", "url": "https://www.sii.cl/normativa_legislacion/circulares/2026/circu35.pdf" },
+        { "label": "TTA: procedimiento general de reclamaciones tributarias", "url": "https://www.tta.cl/procedimiento-general-de-reclamaciones-tributarias/" },
+        { "label": "SII: tasación y reorganizaciones empresariales, Circular N° 23 de 2025", "url": "https://www.sii.cl/normativa_legislacion/circulares/2025/circu23.pdf" },
+        { "label": "SII: posesión efectiva de herencia", "url": "https://www.sii.cl/preguntas_frecuentes/herencias/001_160_2714.htm" }
+      ],
+      "relatedSlugs": []
+    }
   }
 ]

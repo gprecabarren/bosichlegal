@@ -2128,6 +2128,17 @@ p {
 }
 
 .digital-service-icon { display: block; position: relative; color: #d8ac80; }
+.service-grid > .service-card-tributario { grid-column: 1 / -1; display: grid; grid-template-columns: 80px minmax(0, .9fr) minmax(0, 1fr); column-gap: 28px; row-gap: 16px; }
+.service-card-tributario > .service-card-icon { grid-column: 1; grid-row: 1 / 3; margin: 0; }
+.service-card-tributario > h3 { grid-column: 2; grid-row: 1; margin: 0; }
+.service-card-tributario > .service-description { grid-column: 2; grid-row: 2; margin: 0; }
+.service-card-tributario > ul { grid-column: 3; grid-row: 1 / 3; }
+.service-card-tributario > .service-card-links { grid-column: 2 / 4; }
+@media (max-width: 700px) {
+  .service-grid > .service-card-tributario { display: flex; flex-direction: column; }
+  .service-card-tributario > .service-card-icon { margin-bottom: 22px; }
+  .service-card-tributario > h3, .service-card-tributario > .service-description { margin-bottom: 16px; }
+}
 .digital-service-icon > svg:first-child { position: absolute; width: 62px; height: 62px; left: 0; top: 0; stroke-width: 1.4; }
 .digital-service-icon > svg:last-child { position: absolute; width: 43px; height: 43px; right: 0; bottom: 0; stroke-width: 1.5; fill: #191919; }
 .service-card-links { display: grid; gap: 12px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #454139; }

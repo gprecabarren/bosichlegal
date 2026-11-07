@@ -256,6 +256,21 @@
         "topics": []
       },
       {
+        "title": "Derecho Tributario",
+        "icon": "tributario",
+        "description": "Defensa tributaria y asesoría preventiva para empresas, personas y patrimonios familiares.",
+        "details": [
+          "Defensa y Litigación Tributaria (SII y TTA)",
+          "Reorganización Empresarial y Planificación Tributaria",
+          "Planificación Patrimonial y Regularización Sucesoria",
+          "Tax Compliance: Auditoría Preventiva y Cumplimiento Tributario"
+        ],
+        "showOnHome": true,
+        "clickable": true,
+        "pageSlug": "derecho-tributario",
+        "topics": []
+      },
+      {
         "title": "Derecho Digital y Protección de Datos",
         "description": "Asesoría jurídica para empresas, proyectos de software y personas en entornos digitales.",
         "icon": "digital",
